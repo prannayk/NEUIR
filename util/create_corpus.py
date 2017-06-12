@@ -4,11 +4,13 @@ import string
 import time
 import numpy as np
 import re
+import sys
 from nltk.tokenize import TweetTokenizer
 from nltk.stem.lancaster import LancasterStemmer
 from nltk.corpus import stopwords
 
-dataset = "nepal"
+args = sys.argv
+dataset = args[1]
 
 tknzr = TweetTokenizer(strip_handles=True, reduce_len=True, preserve_case=False)
 st = LancasterStemmer()
@@ -138,7 +140,7 @@ for i in range(len(corpus)):
 np.save('../data/%s/word_embedding.npy'%(dataset),word_list)
 np.save('../data/%s/char_embedding.npy'%(dataset),char_list)
 l = map(lambda x: str(x), corpus.keys())
-with open("./%s/tweet_ids.txt"%(dataset),mode="w") as fil:
+with open("../data/%s/tweet_ids.txt"%(dataset),mode="w") as fil:
 	fil.write('\n'.join(l))
 print_list = [str(word_max_len),str(char_max_len)]
 with open('../data/%s/data.npy'%(dataset),mode="w") as fil:
