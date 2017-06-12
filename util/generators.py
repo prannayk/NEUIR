@@ -1,5 +1,7 @@
-def generate_batch(batch_size, num_skips, skip_window):
-  global data_index
+import numpy as np
+import collections
+import random
+def generate_batch(data, data_index, batch_size, num_skips, skip_window):
   assert batch_size % num_skips == 0
   assert num_skips <= 2 * skip_window
   batch = np.ndarray(shape=(batch_size), dtype=np.int32)
@@ -22,10 +24,9 @@ def generate_batch(batch_size, num_skips, skip_window):
     data_index = (data_index + 1) % len(data)
   # Backtrack a little bit to avoid skipping words in the end of a batch
   data_index = (data_index + len(data) - span) % len(data)
-  return batch, labels
+  return data_index, batch, labels
 
-def generate_batch_char(batch_size, num_skips, skip_window):
-  global char_data_index
+def generate_batch_char(char_data, char_data_index, batch_size, num_skips, skip_window):
   assert batch_size % num_skips == 0
   assert num_skips <= 2 * skip_window
   batch = np.ndarray(shape=(batch_size), dtype=np.int32)
@@ -48,4 +49,4 @@ def generate_batch_char(batch_size, num_skips, skip_window):
     char_data_index = (char_data_index + 1) % len(char_data)
   # Backtrack a little bit to avoid skipping words in the end of a batch
   char_data_index = (char_data_index + len(char_data) - span) % len(char_data)
-  return batch, labels
+  return char_data_index, batch, labels

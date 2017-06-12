@@ -13,7 +13,7 @@ import sys
 from six.moves import urllib
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
-sys.path.append( '../util/')
+sys.path.insert(0, '~/neuir-repo/util')
 from generators import *
 from loader import *
 from print_tweets import *
@@ -26,15 +26,14 @@ dataset = args[1]
 query_type = int(args[2])
 # Read the data into a list of strings.
 # import data
-data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
+data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, batch_list, char_batch_list, word_batch_list = build_everything(dataset)
 # Step 3: Function to generate a training batch for the skip-gram model.
 
-
-data_index, batch, labels = generate_batch(data, data_index, batch_size=8, num_skips=2, skip_window=1,)
+batch, labels = generate_batch(batch_size=8, num_skips=2, skip_window=1)
 for i in range(8):
   print(batch[i], reverse_dictionary[batch[i]],
         '->', labels[i, 0], reverse_dictionary[labels[i, 0]])
-char_data_index, batch, labels = generate_batch_char(char_data, char_data_index, batch_size=8, num_skips=2, skip_window=1)
+batch, labels = generate_batch_char(batch_size=8, num_skips=2, skip_window=1)
 for i in range(8):
   print(batch[i], reverse_char_dictionary[batch[i]],
         '->', labels[i, 0], reverse_char_dictionary[labels[i, 0]])
@@ -58,18 +57,17 @@ valid_size.append(16)     # Random set of words to evaluate similarity on.
 valid_size.append(10)
 valid_window.append(100)  # Only pick dev samples in the head of the distribution.
 valid_window.append(20)
-valid_examples = []
 valid_examples.append(np.random.choice(valid_window[0], valid_size[0], replace=False))
 valid_examples.append(np.random.choice(valid_window[1], valid_size[1], replace=False))
 valid_examples[0][0] = dictionary['nee']
 valid_examples[0][1] = dictionary['avail']
 num_sampled = 64    # Number of negative examples to sample.
-char_batch_size = 128
+char_batch_size = 64
 if query_type == 1:
   query_tokens = map(lambda x: dictionary[x],['nee','requir'])
 elif query_type == 2:
   query_tokens = map(lambda x: dictionary[x],['send','distribut','avail'])
-tweet_batch_size = 128
+tweet_batch_size = 50
 lambda_1 = 0.7
 
 graph = tf.Graph()
@@ -82,8 +80,8 @@ with graph.as_default():
   train_input_chars = tf.placeholder(tf.int32, shape=[char_batch_size])
   train_labels = tf.placeholder(tf.int32, shape=[batch_size, 1])
   train_char_labels = tf.placeholder(tf.int32, shape=[char_batch_size, 1])
-  valid_dataset = tf.constant(valid_examples[0], dtype=tf.int32)
-  valid_char_dataset = tf.constant(valid_examples[1], dtype=tf.int32)
+  valid_dataset = tf.constant(valid_examples, dtype=tf.int32)
+  valid_char_dataset = tf.constant(valid_char_examples, dtype=tf.int32)
   query_ints = tf.constant(query_tokens, dtype=tf.int32)
   # Ops and variables pinned to the CPU because of missing GPU implementation
   tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len])
@@ -169,15 +167,13 @@ with tf.Session(graph=graph) as session:
   optimizers = [optimizer, optimizer_char]
   interval1 = 2000
   interval2 = 10000
-  datas = [data,char_data]
-  data_index = [data_index, char_data_index]
   reverse_dictionaries = [reverse_dictionary, reverse_char_dictionary]
   if query_type == 1:
     query_name = 'Need'
   elif query_type == 2:
     query_name == 'Avail'
 
-  train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index)
+  train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, reverse_dictionaries, batch_size, num_skips, skip_window)
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()

@@ -1,3 +1,5 @@
+import collections
+import numpy as  np
 def read_data(filename):
   """Extract the first file enclosed in a zip file as a list of words"""
   with open(filename,mode="r") as f:
@@ -8,7 +10,7 @@ def read_data(filename):
 # Step 2: Build the dictionary and replace rare words with UNK token.
 
 
-def build_dataset(words, vocabulary_size):
+def build_dataset(words, vocabulary_size,dataset):
   count = [['UNK', -1]]
   count.extend(collections.Counter(words).most_common(vocabulary_size - 1))
   dictionary = dict()
@@ -29,7 +31,7 @@ def build_dataset(words, vocabulary_size):
 
 def build_everything(dataset):
   vocabulary_size = 50000
-  with open("data.npy") as fil:
+  with open("../data/%s/data.npy"%(dataset)) as fil:
     t = fil.readlines()
   word_max_len, char_max_len = map(lambda x: int(x),t)
 
@@ -46,9 +48,8 @@ def build_everything(dataset):
   for char in character_data:
     char_data.append(char_dictionary[char])
 
-  data, count, dictionary, reverse_dictionary = build_dataset(words, vocabulary_size)
+  data, count, dictionary, reverse_dictionary = build_dataset(words, vocabulary_size, dataset)
   del words  # Hint to reduce memory.
-  del character_data
   print('Most common words (+UNK)', count[:5])
   print('Sample data', data[:10], [reverse_dictionary[i] for i in data[:10]])
 
@@ -61,4 +62,4 @@ def build_everything(dataset):
     tweet_list = map(lambda y: filter(lambda x: x != '\n',y), fil.readlines())
   batch_list = dict()
   
-  return data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, batch_list, char_batch_list, word_batch_list
+  return data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, batch_list, char_batch_list, word_batch_list, char_data

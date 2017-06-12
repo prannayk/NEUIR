@@ -19,6 +19,6 @@ def print_tweets(dataset, query_similarity, query_name, session, word_batch_list
     fw.write('\n'.join(map(lambda x: str(x),file_list)))
 
 def standard_print_fn(filename, step, average_loss, start, density, count):
-  print("Running %s at %d where the average_loss is : %f"5(filename, step, average_loss/density))
+  print("Running %s at %d where the average_loss is : %f"%(filename, step, average_loss/density))
   print("Time taken for said iteration was: ",(time.time()-start))
   return time.time(), count+1
