@@ -29,4 +29,4 @@ The data is available / was available under ``` FIRE2016 ```
 
 #### The code was written solely by Prannay Khosla during Workshop conducted by Microsoft Research India on Artificial Social Intelligence
 
-NOTE : For access to datasets please contact ```prannay[dot]khosla[at]gmail[dot]com
+NOTE : For access to datasets please contact ``` prannay[dot]khosla[at]gmail[dot]com ```
