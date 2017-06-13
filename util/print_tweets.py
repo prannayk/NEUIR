@@ -1,8 +1,9 @@
 import time
-
-tweet_list = []
+import numpy as np
+sorted_tweets = []
 tweet_count = 0
-def print_tweets(dataset, query_similarity, query_tokens, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename):
+tweet_list = []
+def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename):
   global sorted_tweets, tweet_count
   if tweet_list == []:
     load_tweet(dataset)
@@ -11,23 +12,23 @@ def print_tweets(dataset, query_similarity, query_tokens, query_name, session, w
   for t in range(len(word_batch_list) // tweet_batch_size):
     feed_dict = {
       tweet_word_holder : word_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
-      tweet_char_holder : char_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size]
-      query_tokens : query_tokens
+      tweet_char_holder : char_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
+      query_token_holder : np.array(query_tokens)
     }
     l = session.run(query_similarity, feed_dict = feed_dict)
-    if len(tweet_embedding_val) % 1000 == 0 :
+    if len(tweet_embedding_val) % 100 == 0 :
       print(len(tweet_embedding_val))
     tweet_embedding_val += list(l) 
   tweet_embedding_dict = dict(zip(tweet_list, tweet_embedding_val))
   sorted_tweets = [i for i in sorted(tweet_embedding_dict.items(), key=lambda x: -x[1])]
   count += 1
   file_list = []
+  print(len(sorted_tweets))
   for i in range(len(sorted_tweets)):
+    dataset_name = list(dataset)
+    dataset_name[0] = dataset[0].upper()
+    dataset_name[1:] = dataset[1:]
     file_list.append('%s-%s 0 %s %d %f running'%(dataset, query_name,sorted_tweets[i][0],i+1,sorted_tweets[i][1]))
-  top_tweets = map(lambda x: x[0], sorted_tweets[:tweet_count])
-  for _ in range(10):
-    print(top_tweets[i])
-  for t in range()
   with open("%stweet_list_%d.txt"%(folder_name,count),mode="w") as fw:
     fw.write('\n'.join(map(lambda x: str(x),file_list)))
   return count
@@ -49,8 +50,10 @@ def initialize(tweet_c):
 
 def top_tweets(top_k):
   global sorted_tweets
+  print(len(sorted_tweets))
   print("Returning top tweets' ids:")
   top_tweets = map(lambda x: x[0],sorted_tweets[:top_k])
-  for _ in range(10):
-    print(top_tweets[0])
+  if sorted_tweets != []:
+    for i in range(10):
+      print(top_tweets[0])
   return top_tweets

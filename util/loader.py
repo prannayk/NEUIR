@@ -60,6 +60,7 @@ def build_everything(dataset):
   char_batch_list = np.load("../data/%s/char_embedding.npy"%(dataset))
   with open("../data/%s/tweet_ids.txt"%(dataset)) as fil:
     tweet_list = map(lambda y: filter(lambda x: x != '\n',y), fil.readlines())
+  word_batch_dict = dict(zip(tweet_list, word_batch_list))
   batch_list = dict()
   buffer_index = 1
-  return data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data
+  return word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data

@@ -21,7 +21,7 @@ def run_iteration(generator, placeholders, loss, optimizer, session, filename, b
     return loss_val, data_index
 
 # main training model
-def train_model(session, dataset,query_similarity, query_tokens, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,loss, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionary, batch_size, num_skips, skip_window, filename,data, data_index, tweet_batch_size):
+def train_model(session, dataset,query_similarity, query_tokens, query_token_holder, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,loss, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionary, batch_size, num_skips, skip_window, filename,data, data_index, tweet_batch_size):
     average_loss = list()
     count_ = 0
     g_len = len(generators)
@@ -45,5 +45,5 @@ def train_model(session, dataset,query_similarity, query_tokens, query_name, wor
             for t in range(len(similarities)):
                 sim = similarities[t].eval()
                 rank_tokens(valid_examples[t],valid_size[t], reverse_dictionary[t], 8,sim)
-            count_ = print_tweets(dataset, query_similarity, query_tokens, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count_, tweet_batch_size, filename)
+            count_ = print_tweets(dataset, query_similarity, query_tokens, query_token_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count_, tweet_batch_size, filename)
 
