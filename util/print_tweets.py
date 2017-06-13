@@ -2,11 +2,11 @@ import time
 
 tweet_list = []
 
-def print_tweets(dataset, query_similarity, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size):
+def print_tweets(dataset, query_similarity, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename):
   global tweet_list
   if tweet_list == []:
     load_tweet(dataset)
-  folder_name = '../results/%s/%s/'%(dataset, query_name)
+  folder_name = '../results/%s/%s/%s/'%(dataset, query_name,filename)
   tweet_embedding_val = []
   for t in range(len(word_batch_list) // tweet_batch_size):
     feed_dict = {

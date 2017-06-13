@@ -52,7 +52,6 @@ def generate_batch_char(char_data, char_data_index, batch_size, num_skips, skip_
   return char_data_index, batch, labels
 
 def generate_batch_train(data, buffer_index, batch_size, num_skips, skip_window):
-  global buffer_index
   train_data_index = 0
   word_batch_list = data[0]
   char_batch_list = data[0]

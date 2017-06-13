@@ -83,6 +83,7 @@ with graph.as_default():
   train_input_chars = tf.placeholder(tf.int32, shape=[char_batch_size])
   train_labels = tf.placeholder(tf.int32, shape=[batch_size, 1])
   train_char_labels = tf.placeholder(tf.int32, shape=[char_batch_size, 1])
+  word_char_embeddings = tf.placeholder(tf.int32, shape=[batch_size, char_max_len])
   valid_dataset = tf.constant(valid_examples[0], dtype=tf.int32)
   valid_char_dataset = tf.constant(valid_examples[1], dtype=tf.int32)
   query_ints = tf.constant(query_tokens, dtype=tf.int32)
@@ -198,12 +199,12 @@ with tf.Session(graph=graph) as session:
   elif query_type == 2:
     query_name == 'Avail'
 
-  train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
+  train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
   placeholders += [[train_inputs, word_char_embeddings, train_labels]]
   losses += [loss_char_train]
   optimizers += [optimizer_train]
   datas += [[word_data, char_data]]
-  train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
+  train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()
