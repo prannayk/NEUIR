@@ -9,4 +9,4 @@ Neural network techniques for Information Retrieval
 
 ## Running types:
 * No query expansion
-* Query expansion
+* Query expansion : unimplemented
