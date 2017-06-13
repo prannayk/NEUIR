@@ -1,9 +1,9 @@
 import time
 
 tweet_list = []
-
-def print_tweets(dataset, query_similarity, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename):
-  global tweet_list
+tweet_count = 0
+def print_tweets(dataset, query_similarity, query_tokens, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename):
+  global sorted_tweets, tweet_count
   if tweet_list == []:
     load_tweet(dataset)
   folder_name = '../results/%s/%s/%s/'%(dataset, query_name,filename)
@@ -12,6 +12,7 @@ def print_tweets(dataset, query_similarity, query_name, session, word_batch_list
     feed_dict = {
       tweet_word_holder : word_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
       tweet_char_holder : char_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size]
+      query_tokens : query_tokens
     }
     l = session.run(query_similarity, feed_dict = feed_dict)
     if len(tweet_embedding_val) % 1000 == 0 :
@@ -23,13 +24,17 @@ def print_tweets(dataset, query_similarity, query_name, session, word_batch_list
   file_list = []
   for i in range(len(sorted_tweets)):
     file_list.append('%s-%s 0 %s %d %f running'%(dataset, query_name,sorted_tweets[i][0],i+1,sorted_tweets[i][1]))
+  top_tweets = map(lambda x: x[0], sorted_tweets[:tweet_count])
+  for _ in range(10):
+    print(top_tweets[i])
+  for t in range()
   with open("%stweet_list_%d.txt"%(folder_name,count),mode="w") as fw:
     fw.write('\n'.join(map(lambda x: str(x),file_list)))
   return count
 
 def standard_print_fn(filename, step, average_loss, start, density, count):
   print("Running %s at %d where the average_loss is : %f"%(filename, step, average_loss/density))
-  print("Time taken for said iteration was: ",(time.time()-start))
+  print("Time taken for said iteration was: %f.2"%(time.time()-start))
   return time.time(), count+1
 
 def load_tweet(dataset):
@@ -37,3 +42,15 @@ def load_tweet(dataset):
   with open("../data/%s/tweet_ids.txt"%(dataset)) as fil:
     tweet_list = fil.readlines()
     tweet_list = map(lambda y: filter(lambda x: x != '\n', y), tweet_list)
+
+def initialize(tweet_c):
+  global tweet_count
+  tweet_count = tweet_c
+
+def top_tweets(top_k):
+  global sorted_tweets
+  print("Returning top tweets' ids:")
+  top_tweets = map(lambda x: x[0],sorted_tweets[:top_k])
+  for _ in range(10):
+    print(top_tweets[0])
+  return top_tweets

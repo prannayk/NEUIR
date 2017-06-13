@@ -21,6 +21,7 @@ from print_tweets import *
 from similar_tokens import * 
 from training import *
 from similar_tokens import *
+from expand_query import *
 
 args = sys.argv
 dataset = args[1]
@@ -86,7 +87,8 @@ with graph.as_default():
   word_char_embeddings = tf.placeholder(tf.int32, shape=[batch_size, char_max_len])
   valid_dataset = tf.constant(valid_examples[0], dtype=tf.int32)
   valid_char_dataset = tf.constant(valid_examples[1], dtype=tf.int32)
-  query_ints = tf.constant(query_tokens, dtype=tf.int32)
+  query_ints = tf.placeholder(tf.int32, shape=len(query_tokens))
+  expanded_query_ints = tf.placeholder(tf.int32, shape=(len(query_tokens+3)))
   # Ops and variables pinned to the CPU because of missing GPU implementation
   tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len])
   tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len])
@@ -141,6 +143,12 @@ with graph.as_default():
       normalized_embeddings, valid_dataset)
   similarity = tf.matmul(
       valid_embeddings, normalized_embeddings, transpose_b=True)
+  query_embedding_token = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_ints),axis=0),shape=[1,embedding_size])
+  expanded_query_embedding_token = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,expanded_query_ints),axis=0),shape=[1,embedding_size])
+  similarity_query = tf.reshape(tf.matmul(
+      query_ints, normalized_embeddings, transpose_b=True),shape=[normalized_embeddings.shape[0]])
+  similarity_expanded_query = tf.reshape(tf.matmul(
+      expanded_query_ints, normalized_embeddings, transpose_b=True),shape=[normalized_embeddings.shape[0]])
 
   norm_char = tf.sqrt(tf.reduce_sum(tf.square(char_embeddings), 1, keep_dims=True))
   normalized_char_embeddings = char_embeddings / norm_char
@@ -166,14 +174,17 @@ with graph.as_default():
   tweet_word_embed = tf.nn.embedding_lookup(normalized_embeddings, tweet_word_holder)
   tweet_char_embed = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_char_holder),axis=2)
   tweet_embedding = tf.reduce_mean(lambda_1*tweet_word_embed + (1-lambda_1)*tweet_char_embed,axis=1)
-  query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_tokens),axis=0),shape=[1,embedding_size])
+  query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_ints),axis=0),shape=[1,embedding_size])
+  expanded_query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,expanded_query_ints),axis=0),shape=[1,embedding_size])
   query_similarity = tf.reshape(tf.matmul(tweet_embedding, query_embedding, transpose_b=True),shape=[tweet_batch_size])
+  expanded_query_similarity = tf.reshape(tf.matmul(tweet_embedding, expanded_query_embedding, transpose_b=True),shape=[tweet_batch_size])
   # Add variable initializer.
   init = tf.global_variables_initializer()
   saver = tf.train.Saver()
 
 # Step 5: Begin training.
-num_steps = 500001
+num_steps = 300001
+num_steps_roll = 200001
 num_train_steps = 500001
 # loading tweet list in integer marking form
 # load more data
@@ -199,12 +210,14 @@ with tf.Session(graph=graph) as session:
   elif query_type == 2:
     query_name == 'Avail'
 
-  train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
+  train_model(session, dataset,query_similarity, query_tokens, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
   placeholders += [[train_inputs, word_char_embeddings, train_labels]]
   losses += [loss_char_train]
   optimizers += [optimizer_train]
   datas += [[word_data, char_data]]
   train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
+  expanded_query_tokens = query_tokens + expand_query(dataset, similarity_query, word_batch_dict, 8)
+  train_model(session, dataset,expanded_query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()
