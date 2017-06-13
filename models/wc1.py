@@ -27,7 +27,7 @@ dataset = args[1]
 query_type = int(args[2])
 # Read the data into a list of strings.
 # import data
-data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, _ , batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
+data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
 # Step 3: Function to generate a training batch for the skip-gram model.
 
 
@@ -95,6 +95,7 @@ with graph.as_default():
     char_embeddings = tf.Variable(tf.random_uniform([char_vocabulary_size, embedding_size],-1.0,1.0))
     embed = tf.nn.embedding_lookup(embeddings, train_inputs)
     char_embed = tf.nn.embedding_lookup(char_embeddings,train_input_chars)
+    lambda_2 = tf.Variable(tf.random_normal([1],stddev=1.0))
 
     # Construct the variables for the NCE loss
     nce_weights = tf.Variable(
@@ -107,6 +108,10 @@ with graph.as_default():
                             stddev=1.0 / math.sqrt(embedding_size)))
     nce_char_biases = tf.Variable(tf.zeros([vocabulary_size]))
 
+    nce_train_weights = tf.Variable(
+        tf.truncated_normal([vocabulary_size, embedding_size],
+                            stddev=1.0 / math.sqrt(embedding_size)))
+    nce_train_biases = tf.Variable(tf.zeros([vocabulary_size]))
     
   loss = tf.reduce_mean(
       tf.nn.nce_loss(weights=nce_weights,
@@ -143,6 +148,20 @@ with graph.as_default():
   similarity_char = tf.matmul(
       valid_embeddings_char, normalized_char_embeddings, transpose_b=True)
 
+  character_word_embeddings = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, word_char_embeddings),axis=1)
+  word_embeddings = tf.nn.embedding_lookup(normalized_embeddings, train_inputs)
+  final_embedding = lambda_2*word_embeddings + (1-lambda_2)*character_word_embeddings
+
+  loss_char_train = tf.reduce_mean(
+      tf.nn.nce_loss(weights=nce_train_weights,
+                     biases=nce_train_biases,
+                     labels=train_labels,
+                     inputs=final_embedding,
+                     num_sampled=64,
+                     num_classes=vocabulary_size))
+
+  optimizer_train = tf.train.AdamOptimizer(learning_rate/5).minimize(loss_char_train)
+
   tweet_word_embed = tf.nn.embedding_lookup(normalized_embeddings, tweet_word_holder)
   tweet_char_embed = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_char_holder),axis=2)
   tweet_embedding = tf.reduce_mean(lambda_1*tweet_word_embed + (1-lambda_1)*tweet_char_embed,axis=1)
@@ -150,9 +169,10 @@ with graph.as_default():
   query_similarity = tf.reshape(tf.matmul(tweet_embedding, query_embedding, transpose_b=True),shape=[tweet_batch_size])
   # Add variable initializer.
   init = tf.global_variables_initializer()
+  saver = tf.train.Saver()
 
 # Step 5: Begin training.
-num_steps = 1000001
+num_steps = 500001
 
 # loading tweet list in integer marking form
 # load more data
@@ -165,13 +185,13 @@ with tf.Session(graph=graph) as session:
 
   generators = [generate_batch, generate_batch_char]
   similarities = [similarity, similarity_char]
-  placeholders = [[train_inputs,train_labels],[train_input_chars,train_char_labels]]
-  losses = [loss, loss_char]
-  optimizers = [optimizer, optimizer_char]
+  placeholders = [[train_inputs,train_labels],[train_input_chars,train_char_labels],[train_inputs, word_char_embeddings, train_labels]]
+  losses = [loss, loss_char, loss_char_train]
+  optimizers = [optimizer, optimizer_char, optimizer_train]
   interval1 = 2000
   interval2 = 10000
   datas = [data,char_data]
-  data_index = [data_index, char_data_index]
+  data_index = [data_index, char_data_index, buffer_index]
   reverse_dictionaries = [reverse_dictionary, reverse_char_dictionary]
   if query_type == 1:
     query_name = 'Need'

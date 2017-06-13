@@ -61,5 +61,5 @@ def build_everything(dataset):
   with open("../data/%s/tweet_ids.txt"%(dataset)) as fil:
     tweet_list = map(lambda y: filter(lambda x: x != '\n',y), fil.readlines())
   batch_list = dict()
-  
-  return data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, batch_list, char_batch_list, word_batch_list, char_data
+  buffer_index = 1
+  return data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data
