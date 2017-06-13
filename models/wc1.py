@@ -173,7 +173,7 @@ with graph.as_default():
 
 # Step 5: Begin training.
 num_steps = 500001
-
+num_train_steps = 500001
 # loading tweet list in integer marking form
 # load more data
 
@@ -185,9 +185,9 @@ with tf.Session(graph=graph) as session:
 
   generators = [generate_batch, generate_batch_char]
   similarities = [similarity, similarity_char]
-  placeholders = [[train_inputs,train_labels],[train_input_chars,train_char_labels],[train_inputs, word_char_embeddings, train_labels]]
-  losses = [loss, loss_char, loss_char_train]
-  optimizers = [optimizer, optimizer_char, optimizer_train]
+  placeholders = [[train_inputs,train_labels],[train_input_chars,train_char_labels]]
+  losses = [loss, loss_char]
+  optimizers = [optimizer, optimizer_char]
   interval1 = 2000
   interval2 = 10000
   datas = [data,char_data]
@@ -198,6 +198,11 @@ with tf.Session(graph=graph) as session:
   elif query_type == 2:
     query_name == 'Avail'
 
+  train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
+  placeholders += [[train_inputs, word_char_embeddings, train_labels]]
+  losses += [loss_char_train]
+  optimizers += [optimizer_train]
+  datas += [[word_data, char_data]]
   train_model(session, dataset,query_similarity, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()

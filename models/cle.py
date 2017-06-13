@@ -170,7 +170,7 @@ with tf.Session(graph=graph) as session:
   optimizers = [optimizer, optimizer_char]
   interval1 = 2000
   interval2 = 10000
-  datas = [data,char_data]
+  datas = [data,char_data,[word_batch_list, char_batch_list]]
   data_index = [data_index, char_data_index]
   reverse_dictionaries = [reverse_dictionary, reverse_char_dictionary]
   if query_type == 1:
