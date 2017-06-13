@@ -1,6 +1,8 @@
 # NEUIR
 Neural network techniques for Information Retrieval
 
+The retrieval is being done on 2 datasets : ``` Nepal earthquake ``` , ``` Italy earthquake ```
+
 ## Implemented Models:
 * Character Level embeddings
 * Word and Character Level embeddings in skipgram setting
@@ -26,3 +28,5 @@ The data is available / was available under ``` FIRE2016 ```
 #### These codes are part of a research project and will remain private till released publicly. When released they will be available under MIT license and therefore free for anyone to use till the time the work is cited by whoever who uses it. 
 
 #### The code was written solely by Prannay Khosla during Workshop conducted by Microsoft Research India on Artificial Social Intelligence
+
+NOTE : For access to datasets please contact ```prannay[dot]khosla[at]gmail[dot]com
