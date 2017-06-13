@@ -9,7 +9,9 @@ Neural network techniques for Information Retrieval
 
 ## Running types:
 * No query expansion
-* Query expansion : unimplemented
+* Query expansion
+
+Mode switiching is unimplemented and for now is being done by changes to source code
 
 ## Models:
 * CLE : Character Level embeddings that are trained using Character Level context
