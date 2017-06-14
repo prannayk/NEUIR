@@ -22,11 +22,10 @@ from similar_tokens import *
 from training import *
 from similar_tokens import *
 from expand_query import *
-args = list(sys.argv)
-dataset = args[1]
-query_type = int(args[2])
-if len(args) >= 4:
-    args[0] = args[3]
+from argument_loader import *
+
+dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag = import_arguments(sys.argv)
+
 # Read the data into a list of strings.
 # import data
 word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
@@ -44,7 +43,7 @@ for i in range(8):
 
 # Step 4: Build and train a skip-gram model.
 
-batch_size = 128
+batch_size = 256
 embedding_size = 128  # Dimension of the embedding vector.
 skip_window = 2       # How many words to consider left and right.
 num_skips = 2         # How many times to reuse an input to generate a label.
@@ -67,12 +66,12 @@ valid_examples.append(np.random.choice(valid_window[1], valid_size[1], replace=F
 valid_examples[0][0] = dictionary['nee']
 valid_examples[0][1] = dictionary['avail']
 num_sampled = 64    # Number of negative examples to sample.
-char_batch_size = 128
-if query_type == 1:
+char_batch_size = 256
+if query_type == 0 :
   query_tokens = map(lambda x: dictionary[x],['nee','requir'])
-elif query_type == 2:
+else :
   query_tokens = map(lambda x: dictionary[x],['send','distribut','avail'])
-tweet_batch_size = 128
+tweet_batch_size = 256
 lambda_1 = 0.7
 
 graph = tf.Graph()
@@ -163,9 +162,6 @@ with graph.as_default():
   # Add variable initializer.
   init = tf.global_variables_initializer()
 
-num_steps = 200001
-num_steps_roll = 200001
-num_steps_train = 600001
 # loading tweet list in integer marking form
 # load more data
 expand_count = 3
@@ -185,17 +181,20 @@ with tf.Session(graph=graph) as session:
   datas = [data,char_data]
   data_index = [data_index, char_data_index, buffer_index]
   reverse_dictionaries = [reverse_dictionary, reverse_char_dictionary]
-  if query_type == 1:
+  if query_type == 0:
     query_name = 'Need'
-  elif query_type == 2:
+  else :
     query_name == 'Avail'
   print(query_tokens)
-  train_model(session, dataset,query_similarity, query_tokens, query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
+  train_model(session, dataset,query_similarity, query_tokens, query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename , datas, data_index, tweet_batch_size)
   placeholders += [[train_inputs, word_char_embeddings, train_labels]]
-  train_model(session, dataset,query_similarity, query_tokens ,query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
-  expanded_query_tokens = query_tokens + expand_query(session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100)[2:2+expand_count]
+  train_model(session, dataset,query_similarity, query_tokens ,query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
+  
+  expanded_query_tokens, expanded_query_holder, final_query_similarity= expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity)
+  expanded_query_tokens = query_tokens + expanded_query_tokens[2:2+expand_count]
   print(expanded_query_tokens)
-  train_model(session, dataset,expanded_query_similarity, expanded_query_tokens, expanded_query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_train , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, args[0], datas, data_index, tweet_batch_size)
+  
+  train_model(session, dataset,final_query_similarity, expanded_query_tokens, expanded_query_holder, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_train , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename , datas, data_index, tweet_batch_size)
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()

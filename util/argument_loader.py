@@ -11,5 +11,5 @@ def import_arguments(args):
         steps_1 = int(args[4])
         steps_2 = int(args[5])
         steps_3 = int(args[6])
-        expand_flag = int(args[7]) - 1
+        expand_flag = int(args[7])
         return dataset, query_flag, savename, steps_1, steps_2, steps_3, expand_flag

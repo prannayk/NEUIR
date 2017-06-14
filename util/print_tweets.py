@@ -16,7 +16,7 @@ def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, qu
       query_token_holder : np.array(query_tokens)
     }
     l = session.run(query_similarity, feed_dict = feed_dict)
-    if len(tweet_embedding_val) % 100 == 0 :
+    if len(tweet_embedding_val) % 50 == 0 :
       print(len(tweet_embedding_val))
     tweet_embedding_val += list(l) 
   tweet_embedding_dict = dict(zip(tweet_list, tweet_embedding_val))

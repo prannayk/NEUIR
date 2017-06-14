@@ -21,3 +21,6 @@ alternate_models/nepa*
 word_char2vec*
 word_charatt*
 *.pyc
+*.ckpt
+*.meta
+*_model.*
