@@ -1,6 +1,8 @@
 from print_tweets import *
 
-def expand_query(session,holder,input_value,dataset, similarity, word_batch_dict, top_k):
+def expand_query(flag, session,holder,input_value,dataset, similarity, word_batch_dict, top_k):
+    if not flag:
+        return []
     tweet_list = top_tweets(top_k)
     print(tweet_list)
     word_batch_list = []
