@@ -224,5 +224,5 @@ with tf.Session(graph=graph) as session:
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()
-  np.save('%sword_embeddings.npy', final_embeddings)
-  np.save('%schar_embeddings.npy', final_char_embedding)
+  np.save('../results/%s/%s/%s_word_embeddings.npy'%(dataset, query_name, args[0]), final_embeddings)
+  np.save('../results/%s/%s/%s_char_embeddings.npy'%(dataset, query_name, args[0]), final_char_embedding)
