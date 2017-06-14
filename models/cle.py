@@ -198,5 +198,5 @@ with tf.Session(graph=graph) as session:
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()
-  np.save('%sword_embeddings.npy', final_embeddings)
-  np.save('%schar_embeddings.npy', final_char_embedding)
+  np.save('%sword_embeddings.npy'%(filename), final_embeddings)
+  np.save('%schar_embeddings.npy'%(filename), final_char_embedding)
