@@ -273,9 +273,10 @@ with tf.Session(graph=graph) as session:
   optimizers += [optimizer_train]
   datas += [[word_batch_list, char_batch_list]]
   train_model(session, dataset,query_similarity, query_tokens ,query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
-  expanded_query_tokens = query_tokens + expand_query(expan_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100)[2:2+expand_count]
+  expanded_query_tokens, expanded_query_holder = query_tokens + expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints)
+  expanded_query_tokens = expanded_query_tokens[2:2+expand_count]
   print(expanded_query_tokens)
-  train_model(session, dataset,expanded_query_similarity, expanded_query_tokens, expanded_query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_train , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
+  train_model(session, dataset,expanded_query_similarity, expanded_query_tokens, expanded_query_holder, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_train , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()
