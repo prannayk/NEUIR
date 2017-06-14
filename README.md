@@ -18,8 +18,8 @@ Mode switiching is unimplemented and for now is being done by changes to source 
 ## Models:
 * CLE : Character Level embeddings that are trained using Character Level context
 * WC1 : Word and Character Level embeddings that are both combined together and trained to predict the context of the token ``` skipgram ``` method
-* WC2 : Word and Character Level embeddings that are combined after applying attention to character sequence of the token, rest works similar to above
-* WC3 : Word embeddings and attention over Character level BiLSTM model for token embedding extraction
+* WC2 : Word and Character Level embeddings that are combined after applying ``` attention ``` to character sequence of the token while training is done in ``` skipgram ``` setting
+* WC3 : Word embeddings and attention over Character level ``` BiLSTM ``` model for token embedding extraction while training is done in ``` skipgram ``` setting
 
 The evaluation is run with ``` ./trec eval -q -m <measure standards> <standard> <output> ```
 
@@ -27,6 +27,11 @@ The data is available / was available under ``` FIRE2016 ```
 
 #### These codes are part of a research project and will remain private till released publicly. When released they will be available under MIT license and therefore free for anyone to use till the time the work is cited by whoever who uses it. 
 
+## Utility documentation
+
+Mostly all utility methods are present in different files which perfectly define the use of the function. The transfer of variables was benchmarked to observe the slowdown did not exist. 
+
 #### The code was written solely by Prannay Khosla during Workshop conducted by Microsoft Research India on Artificial Social Intelligence
 
 NOTE : For access to datasets please contact ``` prannay[dot]khosla[at]gmail[dot]com ```
+
