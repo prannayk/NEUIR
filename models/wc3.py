@@ -102,6 +102,14 @@ with graph.as_default():
     char_embed = tf.nn.embedding_lookup(char_embeddings,train_input_chars)
     lambda_2 = tf.Variable(tf.random_normal([1],stddev=1.0))
 
+    # weight variables
+    w1 = tf.Variable(tf.random_normal([embedding_size,embedding_size // 4],stddev=1.0/math.sqrt(embedding_size)))
+    w2 = tf.Variable(tf.random_normal([embedding_size // 4,1],stddev=1.0/math.sqrt(embedding_size)))
+    weights = tf.stack([w1]*batch_size)
+    vvector = tf.stack([w2]*batch_size)
+    weights_tweet = tf.stack([w1]*tweet_batch_size*word_max_len)
+    vvector_tweet = tf.stack([w2]*tweet_batch_size*word_max_len)
+
     # Construct the variables for the NCE loss
     nce_weights = tf.Variable(
         tf.truncated_normal([vocabulary_size, embedding_size],
