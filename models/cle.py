@@ -21,6 +21,7 @@ from print_tweets import *
 from similar_tokens import * 
 from training import *
 from similar_tokens import *
+from expand_query import *
 args = list(sys.argv)
 dataset = args[1]
 query_type = int(args[2])
