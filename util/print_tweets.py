@@ -3,19 +3,28 @@ import numpy as np
 sorted_tweets = []
 tweet_count = 0
 tweet_list = []
-def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename):
+def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename, flag=False):
   global sorted_tweets, tweet_count
   if tweet_list == []:
     load_tweet(dataset)
   folder_name = '../results/%s/%s/%s/'%(dataset, query_name,filename)
   tweet_embedding_val = []
   for t in range(len(word_batch_list) // tweet_batch_size):
-    feed_dict = {
-      tweet_word_holder : word_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
-      tweet_char_holder : char_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
-      query_token_holder : np.array(query_tokens)
-    }
-    l = session.run(query_similarity, feed_dict = feed_dict)
+    if not flag:
+      feed_dict = {
+        tweet_word_holder : word_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
+        tweet_char_holder : char_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
+        query_token_holder : np.array(query_tokens)
+      }
+      l = session.run(query_similarity, feed_dict = feed_dict)
+    else:
+      feed_dict = {
+        tweet_word_holder : word_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
+        tweet_char_holder : char_batch_list[t*tweet_batch_size:t*tweet_batch_size + tweet_batch_size],
+        query_token_holder[0] : np.array(query_tokens[0]),
+        query_token_holder[1] : np.array(query_tokens[1])
+      }
+      l = session.run(query_similarity, feed_dict = feed_dict)
     if len(tweet_embedding_val) % 50 == 0 :
       print(len(tweet_embedding_val))
     tweet_embedding_val += list(l) 
