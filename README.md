@@ -39,7 +39,9 @@ Mostly all utility methods are present in different files which perfectly define
 * There must be atleast a single ``` tweet_similarity ``` tensor along the model which computes the the required metric for tweet retrieval acording to which sorting shall happen
 * Library does not support multiple testing metrics, but will be implemented shortly
 
-#### The code was written solely by Prannay Khosla during Workshop conducted by Microsoft Research India on Artificial Social Intelligence
+#### The code was written solely by Prannay Khosla during Workshop conducted by Microsoft Research India on Artificial Social Intelligence. The work was done under Prof. Saptarshi Ghosh, Assistant Professor IIT Kanpur. 
+
+#### The workshop was conducted by Microsoft Research India, Bangalore, #9 Lavelle Road
 
 NOTE : For access to datasets please contact ``` prannay[dot]khosla[at]gmail[dot]com ```
 
