@@ -1,4 +1,5 @@
 import time
+import subprocess
 import numpy as np
 sorted_tweets = []
 tweet_count = 0
@@ -44,6 +45,10 @@ def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, qu
     dataset_name[0] = dataset[0].upper()
     dataset_name[1:] = dataset[1:]
     file_list.append('%s-%s 0 %s %d %f running'%(dataset, query_name,sorted_tweets[i][0],i+1,sorted_tweets[i][1]))
+  cmd = "mkdir %s"%(folder_name)
+  process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr = subprocess.PIPE)
+  output, error = process.communicate()
+
   with open("%stweet_list_%d.txt"%(folder_name,count),mode="w") as fw:
     fw.write('\n'.join(map(lambda x: str(x),file_list)))
   return count

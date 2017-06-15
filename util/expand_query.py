@@ -1,6 +1,6 @@
 from print_tweets import *
 
-def expand_query(flag, session,holder,input_value,dataset, similarity, word_batch_dict, top_k, placeholder_1, placeholder_2, similarity_1, similarity_2):
+def expand_query(flag, session,holder,input_value,dataset, similarity, word_batch_dict, top_k, placeholder_1, placeholder_2, similarity_1, similarity_2, expand_start, expand_count):
     if not flag:
         return [], placeholder_1, similarity_1
     tweet_list = top_tweets(top_k)
@@ -13,4 +13,4 @@ def expand_query(flag, session,holder,input_value,dataset, similarity, word_batc
     l = (-sim).argsort()
     nearest = filter(lambda x: x in word_batch_list and x != 0,l)
     print(nearest[:20])
-    return nearest, placeholder_2, similarity_2
+    return nearest[expand_start:expand_start+expand_count], placeholder_2, similarity_2

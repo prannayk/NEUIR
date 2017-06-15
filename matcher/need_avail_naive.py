@@ -23,8 +23,9 @@ from training import *
 from similar_tokens import *
 from expand_query import *
 from argument_loader import *
+from setup import *
 
-dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag = import_arguments(sys.argv)
+dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag,lr_, matchname = import_arguments(sys.argv)
 
 # Read the data into a list of strings.
 # import data
@@ -41,42 +42,9 @@ for i in range(8):
   print(batch[i], reverse_char_dictionary[batch[i]],
         '->', labels[i, 0], reverse_char_dictionary[labels[i, 0]])
 
-# Step 4: Build and train a skip-gram model.
+lambda_1, tweet_batch_size, expand_start_count, query_name, query_tokens, char_batch_size, num_sampled, valid_examples, valid_window, valid_size, skip_window, num_skips, embedding_size, char_vocabulary_size, batch_size, num_char_skips, skip_char_window = setup(char_dictionary, dictionary, query_type)
 
-batch_size = 128
-embedding_size = 128  # Dimension of the embedding vector.
-skip_window = 2       # How many words to consider left and right.
-num_skips = 2         # How many times to reuse an input to generate a label.
-skip_char_window = 2
-num_char_skips = 3
-char_vocabulary_size = len(char_dictionary)
-print(char_vocabulary_size)
-# We pick a random validation set to sample nearest neighbors. Here we limit the
-# validation samples to the words that have a low numeric ID, which by
-# construction are also the most frequent.
-valid_size = list()
-valid_window = list()
-valid_size.append(16)     # Random set of words to evaluate similarity on.
-valid_size.append(10)
-valid_window.append(100)  # Only pick dev samples in the head of the distribution.
-valid_window.append(20)
-valid_examples = []
-valid_examples.append(np.random.choice(valid_window[0], valid_size[0], replace=False))
-valid_examples.append(np.random.choice(valid_window[1], valid_size[1], replace=False))
-valid_examples[0][0] = dictionary['nee']
-valid_examples[0][1] = dictionary['avail']
-num_sampled = 64    # Number of negative examples to sample.
-char_batch_size = 128
-if query_type == 0 :
-  query_tokens = map(lambda x: dictionary[x],['nee','requir'])
-  query_name = "Need"
-else :
-  query_tokens = map(lambda x: dictionary[x],['send','distribut','avail'])
-  query_name = "Avail"
-tweet_batch_size = 128
-lambda_1 = 0.7
-
-learning_rate = 5e-1
+learning_rate = lr_
 
 expand_count = 3
 need_tweet_list , avail_tweet_list = na_loader(dataset, query_name)
@@ -95,6 +63,6 @@ with tf.Session(graph=graph) as session:
   tweet_word_holder = graph.get_tensor_by_name('tweet_word_holder:0')
   tweet_char_holder = graph.get_tensor_by_name('tweet_char_holder:0')
   for query_tweet in need_tweet_list:
-    count = print_tweets(dataset, tweet_similarity, query_tweet, query_tweet_holder, query_name, session, avail_tweet_list, char_batch_list, tweet_word_holder, tweet_char_holder, count ,tweet_batch_size, "%s_match_data"%(filename), True)
+    count = print_tweets(dataset, tweet_similarity, query_tweet, query_tweet_holder, query_name, session, avail_tweet_list, char_batch_list, tweet_word_holder, tweet_char_holder, count ,tweet_batch_size, "%s_%s"%(filename, matchname), True)
     if count % 100 == 0: print("Completed for %d need tweets, saved as avail list"%(count))
 
