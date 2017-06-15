@@ -90,10 +90,10 @@ with tf.Session(graph=graph) as session:
   print("inside session")
   count = 0
   saver.restore(session, '../results/%s/%s/%s_model.ckpt'%(dataset, query_name, filename))
-  query_tweet_holder = [graph.get_tensor_by_name('Placeholder_7:0'), graph.get_tensor_by_name('Placeholder_8:0')]
-  tweet_similarity = graph.get_tensor_by_name('Reshape_12:0')
-  tweet_word_holder = graph.get_tensor_by_name('Placeholder_10:0')
-  tweet_char_holder = graph.get_tensor_by_name('Placeholder_9:0')
+  query_tweet_holder = [graph.get_tensor_by_name('tweet_query_word_holder:0'), graph.get_tensor_by_name('tweet_query_char_holder:0')]
+  tweet_similarity = graph.get_tensor_by_name('tweet_query_similarity:0')
+  tweet_word_holder = graph.get_tensor_by_name('tweet_word_holder:0')
+  tweet_char_holder = graph.get_tensor_by_name('tweet_char_holder:0')
   for query_tweet in need_tweet_list:
     count = print_tweets(dataset, tweet_similarity, query_tweet, query_tweet_holder, query_name, session, avail_tweet_list, char_batch_list, tweet_word_holder, tweet_char_holder, count ,tweet_batch_size, "%s_match_data"%(filename), True)
     if count % 100 == 0: print("Completed for %d need tweets, saved as avail list"%(count))
