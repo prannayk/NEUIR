@@ -27,7 +27,7 @@ dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expan
 
 # Read the data into a list of strings.
 # import data
-word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
+char_batch_dict, word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
 # Step 3: Function to generate a training batch for the skip-gram model.
 
 
@@ -88,11 +88,12 @@ with graph.as_default():
   valid_char_dataset = tf.constant(valid_examples[1], dtype=tf.int32)
   query_ints = tf.placeholder(tf.int32, shape=len(query_tokens))
   expanded_query_ints = tf.placeholder(tf.int32, shape=(len(query_tokens)+3))
-  tweet_query_word_holder = tf.placeholder(tf.int32, shape=[word_max_len],name="tweet_query_word_holder")
-  tweet_query_char_holder = tf.placeholder(tf.int32, shape=[word_max_len, char_max_len],name="tweet_query_char_holder")
+  tweet_query_word_holder = tf.placeholder(tf.int32, shape=[word_max_len])
+  tweet_query_char_holder = tf.placeholder(tf.int32, shape=[word_max_len, char_max_len])
   # Ops and variables pinned to the CPU because of missing GPU implementation
-  tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len],name="tweet_char_holder")
-  tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len],name="tweet_word_holder")
+  tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len])
+  tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len])
+
   with tf.device('/cpu:0'):
     # Look up embeddings for inputs.
     embeddings = tf.Variable(tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
@@ -179,6 +180,14 @@ with graph.as_default():
   expanded_query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,expanded_query_ints),axis=0),shape=[1,embedding_size])
   query_similarity = tf.reshape(tf.matmul(tweet_embedding, query_embedding, transpose_b=True),shape=[tweet_batch_size])
   expanded_query_similarity = tf.reshape(tf.matmul(tweet_embedding, expanded_query_embedding, transpose_b=True),shape=[tweet_batch_size])
+  
+  tweet_query_char = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_query_char_holder),axis=1)
+  tweet_query_word = tf.nn.embedding_lookup(normalized_embeddings, tweet_query_word_holder)
+  tweet_query_embedding = tf.reshape(tf.reduce_mean(lambda_1*tweet_query_word + lambda_1*tweet_query_char,axis=0), shape=[1, embedding_size])
+  tweet_query_similarity = tf.reshape(tf.matmul(tweet_embedding, tweet_query_embedding, transpose_b=True), shape=[tweet_batch_size])
+  var_list = [tweet_query_word_holder, tweet_query_char_holder, tweet_word_holder, tweet_char_holder, tweet_query_similarity]
+  for i in var_list:
+    print(i.name)
   # Add variable initializer.
   init = tf.global_variables_initializer()
   saver = tf.train.Saver()

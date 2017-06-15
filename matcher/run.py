@@ -43,7 +43,7 @@ for i in range(8):
 
 # Step 4: Build and train a skip-gram model.
 
-batch_size = 256
+batch_size = 128
 embedding_size = 128  # Dimension of the embedding vector.
 skip_window = 2       # How many words to consider left and right.
 num_skips = 2         # How many times to reuse an input to generate a label.
@@ -66,28 +66,35 @@ valid_examples.append(np.random.choice(valid_window[1], valid_size[1], replace=F
 valid_examples[0][0] = dictionary['nee']
 valid_examples[0][1] = dictionary['avail']
 num_sampled = 64    # Number of negative examples to sample.
-char_batch_size = 256
+char_batch_size = 128
 if query_type == 0 :
   query_tokens = map(lambda x: dictionary[x],['nee','requir'])
+  query_name = "Need"
 else :
   query_tokens = map(lambda x: dictionary[x],['send','distribut','avail'])
-tweet_batch_size = 256
+  query_name = "Avail"
+tweet_batch_size = 128
 lambda_1 = 0.7
 
 learning_rate = 5e-1
 
 expand_count = 3
 need_tweet_list , avail_tweet_list = na_loader(dataset, query_name)
-saver = tf.train.import_meta_graph('../results/%s/%s/%s_model.meta')
+saver = tf.train.import_meta_graph('../results/%s/%s/%s_model.ckpt.meta'%(dataset, query_name, filename))
+print("Loaded graph")
 graph = tf.get_default_graph()
 
 expand_count = 3
 
 with tf.Session(graph=graph) as session:
+  print("inside session")
+  count = 0
   saver.restore(session, '../results/%s/%s/%s_model.ckpt'%(dataset, query_name, filename))
-  tweet_similarity = graph.get_tensor_by_name('tweet_similarity')
-  query_tweet_holder = [graph.get_tensor_by_name('tweet_query_word_holder'), graph.get_tensor_by_name('tweet_query_char_holder')]
-  tweet_word_holder = graph.get_tensor_by_name('tweet_word_holder')
-  tweet_char_holder = graph.get_tensor_by_name('tweet_char_holder')
+  query_tweet_holder = [graph.get_tensor_by_name('Placeholder_7:0'), graph.get_tensor_by_name('Placeholder_8:0')]
+  tweet_similarity = graph.get_tensor_by_name('Reshape_12:0')
+  tweet_word_holder = graph.get_tensor_by_name('Placeholder_10:0')
+  tweet_char_holder = graph.get_tensor_by_name('Placeholder_9:0')
   for query_tweet in need_tweet_list:
-    print_tweets(dataset, tweet_similarity, query_tweet, query_tweet_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, tweet_batch_size, "%s_match_data"%(filename), flag=True)
+    count = print_tweets(dataset, tweet_similarity, query_tweet, query_tweet_holder, query_name, session, avail_tweet_list, char_batch_list, tweet_word_holder, tweet_char_holder, count ,tweet_batch_size, "%s_match_data"%(filename), True)
+    if count % 100 == 0: print("Completed for %d need tweets, saved as avail list"%(count))
+

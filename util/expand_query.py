@@ -13,4 +13,4 @@ def expand_query(flag, session,holder,input_value,dataset, similarity, word_batc
     l = (-sim).argsort()
     nearest = filter(lambda x: x in word_batch_list and x != 0,l)
     print(nearest[:20])
-    return nearest, place_holder_2, similarity_2
+    return nearest, placeholder_2, similarity_2
