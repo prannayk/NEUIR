@@ -23,12 +23,13 @@ from training import *
 from similar_tokens import *
 from expand_query import *
 from argument_loader import *
-dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag = import_arguments(sys.argv)
+from setup import *
+
+dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag,lr_, matchname = import_arguments(sys.argv)
 
 # Read the data into a list of strings.
 # import data
-word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
-# Step 3: Function to generate a training batch for the skip-gram model.
+char_batch_dict, word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
 
 
 data_index, batch, labels = generate_batch(data, data_index, batch_size=8, num_skips=2, skip_window=1,)
@@ -40,41 +41,10 @@ for i in range(8):
   print(batch[i], reverse_char_dictionary[batch[i]],
         '->', labels[i, 0], reverse_char_dictionary[labels[i, 0]])
 
-# Step 4: Build and train a skip-gram model.
-
-batch_size = 128
-embedding_size = 128  # Dimension of the embedding vector.
-skip_window = 2       # How many words to consider left and right.
-num_skips = 2         # How many times to reuse an input to generate a label.
-skip_char_window = 2
-num_char_skips = 3
-char_vocabulary_size = len(char_dictionary)
-print(char_vocabulary_size)
-# We pick a random validation set to sample nearest neighbors. Here we limit the
-# validation samples to the words that have a low numeric ID, which by
-# construction are also the most frequent.
-valid_size = list()
-valid_window = list()
-valid_size.append(16)     # Random set of words to evaluate similarity on.
-valid_size.append(10)
-valid_window.append(100)  # Only pick dev samples in the head of the distribution.
-valid_window.append(20)
-valid_examples = []
-valid_examples.append(np.random.choice(valid_window[0], valid_size[0], replace=False))
-valid_examples.append(np.random.choice(valid_window[1], valid_size[1], replace=False))
-valid_examples[0][0] = dictionary['nee']
-valid_examples[0][1] = dictionary['avail']
-num_sampled = 64    # Number of negative examples to sample.
-char_batch_size = 128
-if query_type == 0:
-  query_tokens = map(lambda x: dictionary[x],['nee','requir'])
-else :
-  query_tokens = map(lambda x: dictionary[x],['send','distribut','avail'])
-tweet_batch_size = 128
-lambda_1 = 0.7
+lambda_1, tweet_batch_size, expand_start_count, query_name, query_tokens, char_batch_size, num_sampled, valid_examples, valid_window, valid_size, skip_window, num_skips, embedding_size, char_vocabulary_size, batch_size, num_char_skips, skip_char_window = setup(char_dictionary, dictionary, query_type)
 
 graph = tf.Graph()
-learning_rate = 5e-1
+learning_rate = lr_
 
 with graph.as_default():
 
@@ -88,11 +58,12 @@ with graph.as_default():
   valid_char_dataset = tf.constant(valid_examples[1], dtype=tf.int32)
   query_ints = tf.placeholder(tf.int32, shape=len(query_tokens))
   expanded_query_ints = tf.placeholder(tf.int32, shape=(len(query_tokens)+3))
-  tweet_query_word_holder = tf.placeholder(tf.int32, shape=[word_max_len],name="tweet_query_word_holder")
-  tweet_query_char_holder = tf.placeholder(tf.int32, shape=[word_max_len, char_max_len],name="tweet_query_char_holder")
+  tweet_query_word_holder = tf.placeholder(tf.int32, shape=[word_max_len], name="tweet_query_word_holder")
+  tweet_query_char_holder = tf.placeholder(tf.int32, shape=[word_max_len, char_max_len], name="tweet_query_char_holder")
   # Ops and variables pinned to the CPU because of missing GPU implementation
-  tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len],name="tweet_char_holder")
-  tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len],name="tweet_word_holder")
+  tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len], name="tweet_char_holder")
+  tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len], name="tweet_word_holder")
+
   with tf.device('/cpu:0'):
     # Look up embeddings for inputs.
     embeddings = tf.Variable(tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
@@ -179,6 +150,14 @@ with graph.as_default():
   expanded_query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,expanded_query_ints),axis=0),shape=[1,embedding_size])
   query_similarity = tf.reshape(tf.matmul(tweet_embedding, query_embedding, transpose_b=True),shape=[tweet_batch_size])
   expanded_query_similarity = tf.reshape(tf.matmul(tweet_embedding, expanded_query_embedding, transpose_b=True),shape=[tweet_batch_size])
+  
+  tweet_query_char = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_query_char_holder),axis=1)
+  tweet_query_word = tf.nn.embedding_lookup(normalized_embeddings, tweet_query_word_holder)
+  tweet_query_embedding = tf.reshape(tf.reduce_mean(lambda_1*tweet_query_word + lambda_1*tweet_query_char,axis=0), shape=[1, embedding_size])
+  tweet_query_similarity = tf.reshape(tf.matmul(tweet_embedding, tweet_query_embedding, transpose_b=True), shape=[tweet_batch_size],name ="tweet_query_similarity")
+  var_list = [tweet_query_word_holder, tweet_query_char_holder, tweet_word_holder, tweet_char_holder, tweet_query_similarity]
+  for i in var_list:
+    print(i.name)
   # Add variable initializer.
   init = tf.global_variables_initializer()
   saver = tf.train.Saver()
@@ -204,11 +183,6 @@ with tf.Session(graph=graph) as session:
   datas = [data,char_data]
   data_index = [data_index, char_data_index, buffer_index]
   reverse_dictionaries = [reverse_dictionary, reverse_char_dictionary]
-  if query_type == 0:
-    query_name = 'Need'
-  else :
-    query_name == 'Avail'
-  print(query_tokens)
   train_model(session, dataset,query_similarity, query_tokens, query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
   placeholders += [[train_inputs, word_char_embeddings, train_labels]]
   losses += [loss_char_train]
@@ -216,8 +190,8 @@ with tf.Session(graph=graph) as session:
   datas += [[word_batch_list, char_batch_list]]
   train_model(session, dataset,query_similarity, query_tokens ,query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
   
-  expanded_query_tokens, expanded_query_holder, final_query_similarity= expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity)
-  expanded_query_tokens = query_tokens + expanded_query_tokens[2:2+expand_count]
+  expanded_query_tokens, expanded_query_holder, final_query_similarity= expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity, expand_start, expand_count)
+  expanded_query_tokens = query_tokens + expanded_query_tokens
   print(expanded_query_tokens)
   
   train_model(session, dataset,final_query_similarity, expanded_query_tokens, expanded_query_holder , query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_train , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)

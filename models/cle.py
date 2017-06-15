@@ -163,12 +163,11 @@ with graph.as_default():
   expanded_query_similarity = tf.reshape(tf.matmul(tweet_embedding, expanded_query_embedding, transpose_b=True),shape=[tweet_batch_size])
   
   tweet_query_char = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_query_char_holder),axis=1)
-  tweet_query_char = tf.nn.embedding_lookup(normalized_embeddings, tweet_query_word_holders)
+  tweet_query_word = tf.nn.embedding_lookup(normalized_embeddings, tweet_query_word_holders)
   tweet_embedding = tf.reduce_mean(lambda_1*tweet_query_word + lambda_1*tweet_query_char,axis=0)
   tweet_query_similarity = tf.reshape(tf.matmul(tweet_embedding, tweet_embedding, transpose_b=True), shape=[tweet_batch_size],name="tweet_similarity")
   # Add variable initializer.
   init = tf.global_variables_initializer()
-
 # loading tweet list in integer marking form
 # load more data
 expand_count = 3
@@ -205,5 +204,5 @@ with tf.Session(graph=graph) as session:
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()
-  np.save('../results/%s/%s/%sword_embeddings.npy'%(dataset, query_name, filename), final_embeddings)
-  np.save('%schar_embeddings.npy'%(filename), final_char_embedding)
+  np.save('../results/%s/%s/%s_word_embeddings.npy'%(dataset, query_name, filename), final_embeddings)
+  np.save('../results/%s/%s/%s_char_embeddings.npy'%(dataset, query_name, filename), final_char_embedding)

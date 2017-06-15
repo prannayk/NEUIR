@@ -1,0 +1,2186 @@
+('Data size', 617776)
+('Most common words (+UNK)', [['UNK', 22272], ('earthquak', 49287), ('co', 33727), ('nep', 33653), ('rt', 17510)])
+('Sample data', [4, 14083, 2672, 974, 159, 30, 7, 55, 1, 162], ['rt', 'economynext', 'srilank', 'fly', 'emerg', 'med', 'help', 'food', 'earthquak', 'struck'])
+14083 economynext -> 2672 srilank
+14083 economynext -> 4 rt
+2672 srilank -> 974 fly
+2672 srilank -> 14083 economynext
+974 fly -> 159 emerg
+974 fly -> 2672 srilank
+159 emerg -> 30 med
+159 emerg -> 974 fly
+32 t -> 30 r
+32 t -> 1  
+1   -> 32 t
+1   -> 15 e
+15 e -> 13 c
+15 e -> 1  
+13 c -> 15 e
+13 c -> 25 o
+38
+Loaded graph
+inside session
+Placeholder
+Placeholder_1
+Placeholder_2
+Placeholder_3
+Placeholder_4
+Const
+Const_1
+Placeholder_5
+Placeholder_6
+Placeholder_7
+Placeholder_8
+Placeholder_9
+Placeholder_10
+random_uniform/shape
+random_uniform/min
+random_uniform/max
+random_uniform/RandomUniform
+random_uniform/sub
+random_uniform/mul
+random_uniform
+Variable
+Variable/Assign
+Variable/read
+random_uniform_1/shape
+random_uniform_1/min
+random_uniform_1/max
+random_uniform_1/RandomUniform
+random_uniform_1/sub
+random_uniform_1/mul
+random_uniform_1
+Variable_1
+Variable_1/Assign
+Variable_1/read
+embedding_lookup
+embedding_lookup_1
+random_normal/shape
+random_normal/mean
+random_normal/stddev
+random_normal/RandomStandardNormal
+random_normal/mul
+random_normal
+Variable_2
+Variable_2/Assign
+Variable_2/read
+truncated_normal/shape
+truncated_normal/mean
+truncated_normal/stddev
+truncated_normal/TruncatedNormal
+truncated_normal/mul
+truncated_normal
+Variable_3
+Variable_3/Assign
+Variable_3/read
+zeros
+Variable_4
+Variable_4/Assign
+Variable_4/read
+truncated_normal_1/shape
+truncated_normal_1/mean
+truncated_normal_1/stddev
+truncated_normal_1/TruncatedNormal
+truncated_normal_1/mul
+truncated_normal_1
+Variable_5
+Variable_5/Assign
+Variable_5/read
+zeros_1
+Variable_6
+Variable_6/Assign
+Variable_6/read
+truncated_normal_2/shape
+truncated_normal_2/mean
+truncated_normal_2/stddev
+truncated_normal_2/TruncatedNormal
+truncated_normal_2/mul
+truncated_normal_2
+Variable_7
+Variable_7/Assign
+Variable_7/read
+zeros_2
+Variable_8
+Variable_8/Assign
+Variable_8/read
+nce_loss/Cast
+nce_loss/Reshape/shape
+nce_loss/Reshape
+nce_loss/LogUniformCandidateSampler
+nce_loss/StopGradient
+nce_loss/StopGradient_1
+nce_loss/StopGradient_2
+nce_loss/concat/axis
+nce_loss/concat
+nce_loss/embedding_lookup
+nce_loss/embedding_lookup_1
+nce_loss/Shape
+nce_loss/strided_slice/stack
+nce_loss/strided_slice/stack_1
+nce_loss/strided_slice/stack_2
+nce_loss/strided_slice
+nce_loss/stack/1
+nce_loss/stack
+nce_loss/Slice/begin
+nce_loss/Slice
+nce_loss/Shape_1
+nce_loss/Slice_1/begin
+nce_loss/Slice_1
+nce_loss/Shape_2
+nce_loss/strided_slice_1/stack
+nce_loss/strided_slice_1/stack_1
+nce_loss/strided_slice_1/stack_2
+nce_loss/strided_slice_1
+nce_loss/concat_1/values_0
+nce_loss/concat_1/axis
+nce_loss/concat_1
+nce_loss/ExpandDims/dim
+nce_loss/ExpandDims
+nce_loss/Reshape_1
+nce_loss/Mul
+nce_loss/concat_2/values_0
+nce_loss/concat_2/axis
+nce_loss/concat_2
+nce_loss/Reshape_2
+nce_loss/Shape_3
+nce_loss/strided_slice_2/stack
+nce_loss/strided_slice_2/stack_1
+nce_loss/strided_slice_2/stack_2
+nce_loss/strided_slice_2
+nce_loss/stack_1/1
+nce_loss/stack_1
+nce_loss/ones/Const
+nce_loss/ones
+nce_loss/MatMul
+nce_loss/Reshape_3/shape
+nce_loss/Reshape_3
+nce_loss/Reshape_4/shape
+nce_loss/Reshape_4
+nce_loss/Reshape_5/shape
+nce_loss/Reshape_5
+nce_loss/add
+nce_loss/Shape_4
+nce_loss/strided_slice_3/stack
+nce_loss/strided_slice_3/stack_1
+nce_loss/strided_slice_3/stack_2
+nce_loss/strided_slice_3
+nce_loss/stack_2/1
+nce_loss/stack_2
+nce_loss/Slice_2/size
+nce_loss/Slice_2
+nce_loss/Shape_5
+nce_loss/Slice_3/size
+nce_loss/Slice_3
+nce_loss/MatMul_1
+nce_loss/add_1
+nce_loss/Log
+nce_loss/sub
+nce_loss/Log_1
+nce_loss/sub_1
+nce_loss/concat_3/axis
+nce_loss/concat_3
+nce_loss/ones_like/Shape
+nce_loss/ones_like/Const
+nce_loss/ones_like
+nce_loss/truediv/y
+nce_loss/truediv
+nce_loss/zeros_like
+nce_loss/concat_4/axis
+nce_loss/concat_4
+sampled_losses/zeros_like
+sampled_losses/GreaterEqual
+sampled_losses/Select
+sampled_losses/Neg
+sampled_losses/Select_1
+sampled_losses/mul
+sampled_losses/sub
+sampled_losses/Exp
+sampled_losses/Log1p
+sampled_losses
+Shape
+strided_slice/stack
+strided_slice/stack_1
+strided_slice/stack_2
+strided_slice
+stack/1
+stack
+ones/Const
+ones
+MatMul
+Reshape/shape
+Reshape
+Const_2
+Mean
+nce_loss_1/Cast
+nce_loss_1/Reshape/shape
+nce_loss_1/Reshape
+nce_loss_1/LogUniformCandidateSampler
+nce_loss_1/StopGradient
+nce_loss_1/StopGradient_1
+nce_loss_1/StopGradient_2
+nce_loss_1/concat/axis
+nce_loss_1/concat
+nce_loss_1/embedding_lookup
+nce_loss_1/embedding_lookup_1
+nce_loss_1/Shape
+nce_loss_1/strided_slice/stack
+nce_loss_1/strided_slice/stack_1
+nce_loss_1/strided_slice/stack_2
+nce_loss_1/strided_slice
+nce_loss_1/stack/1
+nce_loss_1/stack
+nce_loss_1/Slice/begin
+nce_loss_1/Slice
+nce_loss_1/Shape_1
+nce_loss_1/Slice_1/begin
+nce_loss_1/Slice_1
+nce_loss_1/Shape_2
+nce_loss_1/strided_slice_1/stack
+nce_loss_1/strided_slice_1/stack_1
+nce_loss_1/strided_slice_1/stack_2
+nce_loss_1/strided_slice_1
+nce_loss_1/concat_1/values_0
+nce_loss_1/concat_1/axis
+nce_loss_1/concat_1
+nce_loss_1/ExpandDims/dim
+nce_loss_1/ExpandDims
+nce_loss_1/Reshape_1
+nce_loss_1/Mul
+nce_loss_1/concat_2/values_0
+nce_loss_1/concat_2/axis
+nce_loss_1/concat_2
+nce_loss_1/Reshape_2
+nce_loss_1/Shape_3
+nce_loss_1/strided_slice_2/stack
+nce_loss_1/strided_slice_2/stack_1
+nce_loss_1/strided_slice_2/stack_2
+nce_loss_1/strided_slice_2
+nce_loss_1/stack_1/1
+nce_loss_1/stack_1
+nce_loss_1/ones/Const
+nce_loss_1/ones
+nce_loss_1/MatMul
+nce_loss_1/Reshape_3/shape
+nce_loss_1/Reshape_3
+nce_loss_1/Reshape_4/shape
+nce_loss_1/Reshape_4
+nce_loss_1/Reshape_5/shape
+nce_loss_1/Reshape_5
+nce_loss_1/add
+nce_loss_1/Shape_4
+nce_loss_1/strided_slice_3/stack
+nce_loss_1/strided_slice_3/stack_1
+nce_loss_1/strided_slice_3/stack_2
+nce_loss_1/strided_slice_3
+nce_loss_1/stack_2/1
+nce_loss_1/stack_2
+nce_loss_1/Slice_2/size
+nce_loss_1/Slice_2
+nce_loss_1/Shape_5
+nce_loss_1/Slice_3/size
+nce_loss_1/Slice_3
+nce_loss_1/MatMul_1
+nce_loss_1/add_1
+nce_loss_1/Log
+nce_loss_1/sub
+nce_loss_1/Log_1
+nce_loss_1/sub_1
+nce_loss_1/concat_3/axis
+nce_loss_1/concat_3
+nce_loss_1/ones_like/Shape
+nce_loss_1/ones_like/Const
+nce_loss_1/ones_like
+nce_loss_1/truediv/y
+nce_loss_1/truediv
+nce_loss_1/zeros_like
+nce_loss_1/concat_4/axis
+nce_loss_1/concat_4
+sampled_losses_1/zeros_like
+sampled_losses_1/GreaterEqual
+sampled_losses_1/Select
+sampled_losses_1/Neg
+sampled_losses_1/Select_1
+sampled_losses_1/mul
+sampled_losses_1/sub
+sampled_losses_1/Exp
+sampled_losses_1/Log1p
+sampled_losses_1
+Shape_1
+strided_slice_1/stack
+strided_slice_1/stack_1
+strided_slice_1/stack_2
+strided_slice_1
+stack_1/1
+stack_1
+ones_1/Const
+ones_1
+MatMul_1
+Reshape_1/shape
+Reshape_1
+Const_3
+Mean_1
+gradients/Shape
+gradients/Const
+gradients/Fill
+gradients/Mean_grad/Reshape/shape
+gradients/Mean_grad/Reshape
+gradients/Mean_grad/Tile/multiples
+gradients/Mean_grad/Tile
+gradients/Mean_grad/Shape
+gradients/Mean_grad/Shape_1
+gradients/Mean_grad/Const
+gradients/Mean_grad/Prod
+gradients/Mean_grad/Const_1
+gradients/Mean_grad/Prod_1
+gradients/Mean_grad/Maximum/y
+gradients/Mean_grad/Maximum
+gradients/Mean_grad/floordiv
+gradients/Mean_grad/Cast
+gradients/Mean_grad/truediv
+gradients/Reshape_grad/Shape
+gradients/Reshape_grad/Reshape
+gradients/MatMul_grad/MatMul
+gradients/MatMul_grad/MatMul_1
+gradients/MatMul_grad/tuple/group_deps
+gradients/MatMul_grad/tuple/control_dependency
+gradients/MatMul_grad/tuple/control_dependency_1
+gradients/sampled_losses_grad/Shape
+gradients/sampled_losses_grad/Shape_1
+gradients/sampled_losses_grad/BroadcastGradientArgs
+gradients/sampled_losses_grad/Sum
+gradients/sampled_losses_grad/Reshape
+gradients/sampled_losses_grad/Sum_1
+gradients/sampled_losses_grad/Reshape_1
+gradients/sampled_losses_grad/tuple/group_deps
+gradients/sampled_losses_grad/tuple/control_dependency
+gradients/sampled_losses_grad/tuple/control_dependency_1
+gradients/sampled_losses/sub_grad/Shape
+gradients/sampled_losses/sub_grad/Shape_1
+gradients/sampled_losses/sub_grad/BroadcastGradientArgs
+gradients/sampled_losses/sub_grad/Sum
+gradients/sampled_losses/sub_grad/Reshape
+gradients/sampled_losses/sub_grad/Sum_1
+gradients/sampled_losses/sub_grad/Neg
+gradients/sampled_losses/sub_grad/Reshape_1
+gradients/sampled_losses/sub_grad/tuple/group_deps
+gradients/sampled_losses/sub_grad/tuple/control_dependency
+gradients/sampled_losses/sub_grad/tuple/control_dependency_1
+gradients/sampled_losses/Log1p_grad/add/x
+gradients/sampled_losses/Log1p_grad/add
+gradients/sampled_losses/Log1p_grad/Reciprocal
+gradients/sampled_losses/Log1p_grad/mul
+gradients/sampled_losses/Select_grad/zeros_like
+gradients/sampled_losses/Select_grad/Select
+gradients/sampled_losses/Select_grad/Select_1
+gradients/sampled_losses/Select_grad/tuple/group_deps
+gradients/sampled_losses/Select_grad/tuple/control_dependency
+gradients/sampled_losses/Select_grad/tuple/control_dependency_1
+gradients/sampled_losses/mul_grad/Shape
+gradients/sampled_losses/mul_grad/Shape_1
+gradients/sampled_losses/mul_grad/BroadcastGradientArgs
+gradients/sampled_losses/mul_grad/mul
+gradients/sampled_losses/mul_grad/Sum
+gradients/sampled_losses/mul_grad/Reshape
+gradients/sampled_losses/mul_grad/mul_1
+gradients/sampled_losses/mul_grad/Sum_1
+gradients/sampled_losses/mul_grad/Reshape_1
+gradients/sampled_losses/mul_grad/tuple/group_deps
+gradients/sampled_losses/mul_grad/tuple/control_dependency
+gradients/sampled_losses/mul_grad/tuple/control_dependency_1
+gradients/sampled_losses/Exp_grad/mul
+gradients/nce_loss/concat_4_grad/Rank
+gradients/nce_loss/concat_4_grad/mod
+gradients/nce_loss/concat_4_grad/Shape
+gradients/nce_loss/concat_4_grad/Shape_1
+gradients/nce_loss/concat_4_grad/ConcatOffset
+gradients/nce_loss/concat_4_grad/Slice
+gradients/nce_loss/concat_4_grad/Slice_1
+gradients/nce_loss/concat_4_grad/tuple/group_deps
+gradients/nce_loss/concat_4_grad/tuple/control_dependency
+gradients/nce_loss/concat_4_grad/tuple/control_dependency_1
+gradients/sampled_losses/Select_1_grad/zeros_like
+gradients/sampled_losses/Select_1_grad/Select
+gradients/sampled_losses/Select_1_grad/Select_1
+gradients/sampled_losses/Select_1_grad/tuple/group_deps
+gradients/sampled_losses/Select_1_grad/tuple/control_dependency
+gradients/sampled_losses/Select_1_grad/tuple/control_dependency_1
+gradients/sampled_losses/Neg_grad/Neg
+gradients/AddN
+gradients/nce_loss/concat_3_grad/Rank
+gradients/nce_loss/concat_3_grad/mod
+gradients/nce_loss/concat_3_grad/Shape
+gradients/nce_loss/concat_3_grad/Shape_1
+gradients/nce_loss/concat_3_grad/ConcatOffset
+gradients/nce_loss/concat_3_grad/Slice
+gradients/nce_loss/concat_3_grad/Slice_1
+gradients/nce_loss/concat_3_grad/tuple/group_deps
+gradients/nce_loss/concat_3_grad/tuple/control_dependency
+gradients/nce_loss/concat_3_grad/tuple/control_dependency_1
+gradients/nce_loss/sub_grad/Shape
+gradients/nce_loss/sub_grad/Shape_1
+gradients/nce_loss/sub_grad/BroadcastGradientArgs
+gradients/nce_loss/sub_grad/Sum
+gradients/nce_loss/sub_grad/Reshape
+gradients/nce_loss/sub_grad/Sum_1
+gradients/nce_loss/sub_grad/Neg
+gradients/nce_loss/sub_grad/Reshape_1
+gradients/nce_loss/sub_grad/tuple/group_deps
+gradients/nce_loss/sub_grad/tuple/control_dependency
+gradients/nce_loss/sub_grad/tuple/control_dependency_1
+gradients/nce_loss/sub_1_grad/Shape
+gradients/nce_loss/sub_1_grad/Shape_1
+gradients/nce_loss/sub_1_grad/BroadcastGradientArgs
+gradients/nce_loss/sub_1_grad/Sum
+gradients/nce_loss/sub_1_grad/Reshape
+gradients/nce_loss/sub_1_grad/Sum_1
+gradients/nce_loss/sub_1_grad/Neg
+gradients/nce_loss/sub_1_grad/Reshape_1
+gradients/nce_loss/sub_1_grad/tuple/group_deps
+gradients/nce_loss/sub_1_grad/tuple/control_dependency
+gradients/nce_loss/sub_1_grad/tuple/control_dependency_1
+gradients/nce_loss/add_grad/Shape
+gradients/nce_loss/add_grad/Shape_1
+gradients/nce_loss/add_grad/BroadcastGradientArgs
+gradients/nce_loss/add_grad/Sum
+gradients/nce_loss/add_grad/Reshape
+gradients/nce_loss/add_grad/Sum_1
+gradients/nce_loss/add_grad/Reshape_1
+gradients/nce_loss/add_grad/tuple/group_deps
+gradients/nce_loss/add_grad/tuple/control_dependency
+gradients/nce_loss/add_grad/tuple/control_dependency_1
+gradients/nce_loss/add_1_grad/Shape
+gradients/nce_loss/add_1_grad/Shape_1
+gradients/nce_loss/add_1_grad/BroadcastGradientArgs
+gradients/nce_loss/add_1_grad/Sum
+gradients/nce_loss/add_1_grad/Reshape
+gradients/nce_loss/add_1_grad/Sum_1
+gradients/nce_loss/add_1_grad/Reshape_1
+gradients/nce_loss/add_1_grad/tuple/group_deps
+gradients/nce_loss/add_1_grad/tuple/control_dependency
+gradients/nce_loss/add_1_grad/tuple/control_dependency_1
+gradients/nce_loss/Reshape_4_grad/Shape
+gradients/nce_loss/Reshape_4_grad/Reshape
+gradients/nce_loss/Reshape_5_grad/Shape
+gradients/nce_loss/Reshape_5_grad/Reshape
+gradients/nce_loss/MatMul_1_grad/MatMul
+gradients/nce_loss/MatMul_1_grad/MatMul_1
+gradients/nce_loss/MatMul_1_grad/tuple/group_deps
+gradients/nce_loss/MatMul_1_grad/tuple/control_dependency
+gradients/nce_loss/MatMul_1_grad/tuple/control_dependency_1
+gradients/nce_loss/Slice_3_grad/Rank
+gradients/nce_loss/Slice_3_grad/Shape
+gradients/nce_loss/Slice_3_grad/stack/1
+gradients/nce_loss/Slice_3_grad/stack
+gradients/nce_loss/Slice_3_grad/Reshape
+gradients/nce_loss/Slice_3_grad/Shape_1
+gradients/nce_loss/Slice_3_grad/sub
+gradients/nce_loss/Slice_3_grad/sub_1
+gradients/nce_loss/Slice_3_grad/Reshape_1
+gradients/nce_loss/Slice_3_grad/concat/axis
+gradients/nce_loss/Slice_3_grad/concat
+gradients/nce_loss/Slice_3_grad/Pad
+gradients/nce_loss/Reshape_3_grad/Shape
+gradients/nce_loss/Reshape_3_grad/Reshape
+gradients/nce_loss/Slice_1_grad/Rank
+gradients/nce_loss/Slice_1_grad/Shape
+gradients/nce_loss/Slice_1_grad/stack/1
+gradients/nce_loss/Slice_1_grad/stack
+gradients/nce_loss/Slice_1_grad/Reshape
+gradients/nce_loss/Slice_1_grad/Shape_1
+gradients/nce_loss/Slice_1_grad/sub
+gradients/nce_loss/Slice_1_grad/sub_1
+gradients/nce_loss/Slice_1_grad/Reshape_1
+gradients/nce_loss/Slice_1_grad/concat/axis
+gradients/nce_loss/Slice_1_grad/concat
+gradients/nce_loss/Slice_1_grad/Pad
+gradients/nce_loss/Slice_2_grad/Rank
+gradients/nce_loss/Slice_2_grad/Shape
+gradients/nce_loss/Slice_2_grad/stack/1
+gradients/nce_loss/Slice_2_grad/stack
+gradients/nce_loss/Slice_2_grad/Reshape
+gradients/nce_loss/Slice_2_grad/Shape_1
+gradients/nce_loss/Slice_2_grad/sub
+gradients/nce_loss/Slice_2_grad/sub_1
+gradients/nce_loss/Slice_2_grad/Reshape_1
+gradients/nce_loss/Slice_2_grad/concat/axis
+gradients/nce_loss/Slice_2_grad/concat
+gradients/nce_loss/Slice_2_grad/Pad
+gradients/nce_loss/MatMul_grad/MatMul
+gradients/nce_loss/MatMul_grad/MatMul_1
+gradients/nce_loss/MatMul_grad/tuple/group_deps
+gradients/nce_loss/MatMul_grad/tuple/control_dependency
+gradients/nce_loss/MatMul_grad/tuple/control_dependency_1
+gradients/AddN_1
+gradients/nce_loss/embedding_lookup_1_grad/Shape
+gradients/nce_loss/embedding_lookup_1_grad/Size
+gradients/nce_loss/embedding_lookup_1_grad/ExpandDims/dim
+gradients/nce_loss/embedding_lookup_1_grad/ExpandDims
+gradients/nce_loss/embedding_lookup_1_grad/strided_slice/stack
+gradients/nce_loss/embedding_lookup_1_grad/strided_slice/stack_1
+gradients/nce_loss/embedding_lookup_1_grad/strided_slice/stack_2
+gradients/nce_loss/embedding_lookup_1_grad/strided_slice
+gradients/nce_loss/embedding_lookup_1_grad/concat/axis
+gradients/nce_loss/embedding_lookup_1_grad/concat
+gradients/nce_loss/embedding_lookup_1_grad/Reshape
+gradients/nce_loss/embedding_lookup_1_grad/Reshape_1
+gradients/nce_loss/ones_grad/Const
+gradients/nce_loss/ones_grad/Sum
+gradients/nce_loss/Reshape_2_grad/Shape
+gradients/nce_loss/Reshape_2_grad/Reshape
+gradients/nce_loss/Mul_grad/Shape
+gradients/nce_loss/Mul_grad/Shape_1
+gradients/nce_loss/Mul_grad/BroadcastGradientArgs
+gradients/nce_loss/Mul_grad/mul
+gradients/nce_loss/Mul_grad/Sum
+gradients/nce_loss/Mul_grad/Reshape
+gradients/nce_loss/Mul_grad/mul_1
+gradients/nce_loss/Mul_grad/Sum_1
+gradients/nce_loss/Mul_grad/Reshape_1
+gradients/nce_loss/Mul_grad/tuple/group_deps
+gradients/nce_loss/Mul_grad/tuple/control_dependency
+gradients/nce_loss/Mul_grad/tuple/control_dependency_1
+gradients/nce_loss/ExpandDims_grad/Shape
+gradients/nce_loss/ExpandDims_grad/Reshape
+gradients/nce_loss/Reshape_1_grad/Shape
+gradients/nce_loss/Reshape_1_grad/Reshape
+gradients/AddN_2
+gradients/embedding_lookup_grad/Shape
+gradients/embedding_lookup_grad/Size
+gradients/embedding_lookup_grad/ExpandDims/dim
+gradients/embedding_lookup_grad/ExpandDims
+gradients/embedding_lookup_grad/strided_slice/stack
+gradients/embedding_lookup_grad/strided_slice/stack_1
+gradients/embedding_lookup_grad/strided_slice/stack_2
+gradients/embedding_lookup_grad/strided_slice
+gradients/embedding_lookup_grad/concat/axis
+gradients/embedding_lookup_grad/concat
+gradients/embedding_lookup_grad/Reshape
+gradients/embedding_lookup_grad/Reshape_1
+gradients/nce_loss/Slice_grad/Rank
+gradients/nce_loss/Slice_grad/Shape
+gradients/nce_loss/Slice_grad/stack/1
+gradients/nce_loss/Slice_grad/stack
+gradients/nce_loss/Slice_grad/Reshape
+gradients/nce_loss/Slice_grad/Shape_1
+gradients/nce_loss/Slice_grad/sub
+gradients/nce_loss/Slice_grad/sub_1
+gradients/nce_loss/Slice_grad/Reshape_1
+gradients/nce_loss/Slice_grad/concat/axis
+gradients/nce_loss/Slice_grad/concat
+gradients/nce_loss/Slice_grad/Pad
+gradients/AddN_3
+gradients/nce_loss/embedding_lookup_grad/Shape
+gradients/nce_loss/embedding_lookup_grad/Size
+gradients/nce_loss/embedding_lookup_grad/ExpandDims/dim
+gradients/nce_loss/embedding_lookup_grad/ExpandDims
+gradients/nce_loss/embedding_lookup_grad/strided_slice/stack
+gradients/nce_loss/embedding_lookup_grad/strided_slice/stack_1
+gradients/nce_loss/embedding_lookup_grad/strided_slice/stack_2
+gradients/nce_loss/embedding_lookup_grad/strided_slice
+gradients/nce_loss/embedding_lookup_grad/concat/axis
+gradients/nce_loss/embedding_lookup_grad/concat
+gradients/nce_loss/embedding_lookup_grad/Reshape
+gradients/nce_loss/embedding_lookup_grad/Reshape_1
+GradientDescent/learning_rate
+GradientDescent/update_Variable/mul
+GradientDescent/update_Variable/ScatterSub
+GradientDescent/update_Variable_3/mul
+GradientDescent/update_Variable_3/ScatterSub
+GradientDescent/update_Variable_4/mul
+GradientDescent/update_Variable_4/ScatterSub
+GradientDescent
+gradients_1/Shape
+gradients_1/Const
+gradients_1/Fill
+gradients_1/Mean_1_grad/Reshape/shape
+gradients_1/Mean_1_grad/Reshape
+gradients_1/Mean_1_grad/Tile/multiples
+gradients_1/Mean_1_grad/Tile
+gradients_1/Mean_1_grad/Shape
+gradients_1/Mean_1_grad/Shape_1
+gradients_1/Mean_1_grad/Const
+gradients_1/Mean_1_grad/Prod
+gradients_1/Mean_1_grad/Const_1
+gradients_1/Mean_1_grad/Prod_1
+gradients_1/Mean_1_grad/Maximum/y
+gradients_1/Mean_1_grad/Maximum
+gradients_1/Mean_1_grad/floordiv
+gradients_1/Mean_1_grad/Cast
+gradients_1/Mean_1_grad/truediv
+gradients_1/Reshape_1_grad/Shape
+gradients_1/Reshape_1_grad/Reshape
+gradients_1/MatMul_1_grad/MatMul
+gradients_1/MatMul_1_grad/MatMul_1
+gradients_1/MatMul_1_grad/tuple/group_deps
+gradients_1/MatMul_1_grad/tuple/control_dependency
+gradients_1/MatMul_1_grad/tuple/control_dependency_1
+gradients_1/sampled_losses_1_grad/Shape
+gradients_1/sampled_losses_1_grad/Shape_1
+gradients_1/sampled_losses_1_grad/BroadcastGradientArgs
+gradients_1/sampled_losses_1_grad/Sum
+gradients_1/sampled_losses_1_grad/Reshape
+gradients_1/sampled_losses_1_grad/Sum_1
+gradients_1/sampled_losses_1_grad/Reshape_1
+gradients_1/sampled_losses_1_grad/tuple/group_deps
+gradients_1/sampled_losses_1_grad/tuple/control_dependency
+gradients_1/sampled_losses_1_grad/tuple/control_dependency_1
+gradients_1/sampled_losses_1/sub_grad/Shape
+gradients_1/sampled_losses_1/sub_grad/Shape_1
+gradients_1/sampled_losses_1/sub_grad/BroadcastGradientArgs
+gradients_1/sampled_losses_1/sub_grad/Sum
+gradients_1/sampled_losses_1/sub_grad/Reshape
+gradients_1/sampled_losses_1/sub_grad/Sum_1
+gradients_1/sampled_losses_1/sub_grad/Neg
+gradients_1/sampled_losses_1/sub_grad/Reshape_1
+gradients_1/sampled_losses_1/sub_grad/tuple/group_deps
+gradients_1/sampled_losses_1/sub_grad/tuple/control_dependency
+gradients_1/sampled_losses_1/sub_grad/tuple/control_dependency_1
+gradients_1/sampled_losses_1/Log1p_grad/add/x
+gradients_1/sampled_losses_1/Log1p_grad/add
+gradients_1/sampled_losses_1/Log1p_grad/Reciprocal
+gradients_1/sampled_losses_1/Log1p_grad/mul
+gradients_1/sampled_losses_1/Select_grad/zeros_like
+gradients_1/sampled_losses_1/Select_grad/Select
+gradients_1/sampled_losses_1/Select_grad/Select_1
+gradients_1/sampled_losses_1/Select_grad/tuple/group_deps
+gradients_1/sampled_losses_1/Select_grad/tuple/control_dependency
+gradients_1/sampled_losses_1/Select_grad/tuple/control_dependency_1
+gradients_1/sampled_losses_1/mul_grad/Shape
+gradients_1/sampled_losses_1/mul_grad/Shape_1
+gradients_1/sampled_losses_1/mul_grad/BroadcastGradientArgs
+gradients_1/sampled_losses_1/mul_grad/mul
+gradients_1/sampled_losses_1/mul_grad/Sum
+gradients_1/sampled_losses_1/mul_grad/Reshape
+gradients_1/sampled_losses_1/mul_grad/mul_1
+gradients_1/sampled_losses_1/mul_grad/Sum_1
+gradients_1/sampled_losses_1/mul_grad/Reshape_1
+gradients_1/sampled_losses_1/mul_grad/tuple/group_deps
+gradients_1/sampled_losses_1/mul_grad/tuple/control_dependency
+gradients_1/sampled_losses_1/mul_grad/tuple/control_dependency_1
+gradients_1/sampled_losses_1/Exp_grad/mul
+gradients_1/nce_loss_1/concat_4_grad/Rank
+gradients_1/nce_loss_1/concat_4_grad/mod
+gradients_1/nce_loss_1/concat_4_grad/Shape
+gradients_1/nce_loss_1/concat_4_grad/Shape_1
+gradients_1/nce_loss_1/concat_4_grad/ConcatOffset
+gradients_1/nce_loss_1/concat_4_grad/Slice
+gradients_1/nce_loss_1/concat_4_grad/Slice_1
+gradients_1/nce_loss_1/concat_4_grad/tuple/group_deps
+gradients_1/nce_loss_1/concat_4_grad/tuple/control_dependency
+gradients_1/nce_loss_1/concat_4_grad/tuple/control_dependency_1
+gradients_1/sampled_losses_1/Select_1_grad/zeros_like
+gradients_1/sampled_losses_1/Select_1_grad/Select
+gradients_1/sampled_losses_1/Select_1_grad/Select_1
+gradients_1/sampled_losses_1/Select_1_grad/tuple/group_deps
+gradients_1/sampled_losses_1/Select_1_grad/tuple/control_dependency
+gradients_1/sampled_losses_1/Select_1_grad/tuple/control_dependency_1
+gradients_1/sampled_losses_1/Neg_grad/Neg
+gradients_1/AddN
+gradients_1/nce_loss_1/concat_3_grad/Rank
+gradients_1/nce_loss_1/concat_3_grad/mod
+gradients_1/nce_loss_1/concat_3_grad/Shape
+gradients_1/nce_loss_1/concat_3_grad/Shape_1
+gradients_1/nce_loss_1/concat_3_grad/ConcatOffset
+gradients_1/nce_loss_1/concat_3_grad/Slice
+gradients_1/nce_loss_1/concat_3_grad/Slice_1
+gradients_1/nce_loss_1/concat_3_grad/tuple/group_deps
+gradients_1/nce_loss_1/concat_3_grad/tuple/control_dependency
+gradients_1/nce_loss_1/concat_3_grad/tuple/control_dependency_1
+gradients_1/nce_loss_1/sub_grad/Shape
+gradients_1/nce_loss_1/sub_grad/Shape_1
+gradients_1/nce_loss_1/sub_grad/BroadcastGradientArgs
+gradients_1/nce_loss_1/sub_grad/Sum
+gradients_1/nce_loss_1/sub_grad/Reshape
+gradients_1/nce_loss_1/sub_grad/Sum_1
+gradients_1/nce_loss_1/sub_grad/Neg
+gradients_1/nce_loss_1/sub_grad/Reshape_1
+gradients_1/nce_loss_1/sub_grad/tuple/group_deps
+gradients_1/nce_loss_1/sub_grad/tuple/control_dependency
+gradients_1/nce_loss_1/sub_grad/tuple/control_dependency_1
+gradients_1/nce_loss_1/sub_1_grad/Shape
+gradients_1/nce_loss_1/sub_1_grad/Shape_1
+gradients_1/nce_loss_1/sub_1_grad/BroadcastGradientArgs
+gradients_1/nce_loss_1/sub_1_grad/Sum
+gradients_1/nce_loss_1/sub_1_grad/Reshape
+gradients_1/nce_loss_1/sub_1_grad/Sum_1
+gradients_1/nce_loss_1/sub_1_grad/Neg
+gradients_1/nce_loss_1/sub_1_grad/Reshape_1
+gradients_1/nce_loss_1/sub_1_grad/tuple/group_deps
+gradients_1/nce_loss_1/sub_1_grad/tuple/control_dependency
+gradients_1/nce_loss_1/sub_1_grad/tuple/control_dependency_1
+gradients_1/nce_loss_1/add_grad/Shape
+gradients_1/nce_loss_1/add_grad/Shape_1
+gradients_1/nce_loss_1/add_grad/BroadcastGradientArgs
+gradients_1/nce_loss_1/add_grad/Sum
+gradients_1/nce_loss_1/add_grad/Reshape
+gradients_1/nce_loss_1/add_grad/Sum_1
+gradients_1/nce_loss_1/add_grad/Reshape_1
+gradients_1/nce_loss_1/add_grad/tuple/group_deps
+gradients_1/nce_loss_1/add_grad/tuple/control_dependency
+gradients_1/nce_loss_1/add_grad/tuple/control_dependency_1
+gradients_1/nce_loss_1/add_1_grad/Shape
+gradients_1/nce_loss_1/add_1_grad/Shape_1
+gradients_1/nce_loss_1/add_1_grad/BroadcastGradientArgs
+gradients_1/nce_loss_1/add_1_grad/Sum
+gradients_1/nce_loss_1/add_1_grad/Reshape
+gradients_1/nce_loss_1/add_1_grad/Sum_1
+gradients_1/nce_loss_1/add_1_grad/Reshape_1
+gradients_1/nce_loss_1/add_1_grad/tuple/group_deps
+gradients_1/nce_loss_1/add_1_grad/tuple/control_dependency
+gradients_1/nce_loss_1/add_1_grad/tuple/control_dependency_1
+gradients_1/nce_loss_1/Reshape_4_grad/Shape
+gradients_1/nce_loss_1/Reshape_4_grad/Reshape
+gradients_1/nce_loss_1/Reshape_5_grad/Shape
+gradients_1/nce_loss_1/Reshape_5_grad/Reshape
+gradients_1/nce_loss_1/MatMul_1_grad/MatMul
+gradients_1/nce_loss_1/MatMul_1_grad/MatMul_1
+gradients_1/nce_loss_1/MatMul_1_grad/tuple/group_deps
+gradients_1/nce_loss_1/MatMul_1_grad/tuple/control_dependency
+gradients_1/nce_loss_1/MatMul_1_grad/tuple/control_dependency_1
+gradients_1/nce_loss_1/Slice_3_grad/Rank
+gradients_1/nce_loss_1/Slice_3_grad/Shape
+gradients_1/nce_loss_1/Slice_3_grad/stack/1
+gradients_1/nce_loss_1/Slice_3_grad/stack
+gradients_1/nce_loss_1/Slice_3_grad/Reshape
+gradients_1/nce_loss_1/Slice_3_grad/Shape_1
+gradients_1/nce_loss_1/Slice_3_grad/sub
+gradients_1/nce_loss_1/Slice_3_grad/sub_1
+gradients_1/nce_loss_1/Slice_3_grad/Reshape_1
+gradients_1/nce_loss_1/Slice_3_grad/concat/axis
+gradients_1/nce_loss_1/Slice_3_grad/concat
+gradients_1/nce_loss_1/Slice_3_grad/Pad
+gradients_1/nce_loss_1/Reshape_3_grad/Shape
+gradients_1/nce_loss_1/Reshape_3_grad/Reshape
+gradients_1/nce_loss_1/Slice_1_grad/Rank
+gradients_1/nce_loss_1/Slice_1_grad/Shape
+gradients_1/nce_loss_1/Slice_1_grad/stack/1
+gradients_1/nce_loss_1/Slice_1_grad/stack
+gradients_1/nce_loss_1/Slice_1_grad/Reshape
+gradients_1/nce_loss_1/Slice_1_grad/Shape_1
+gradients_1/nce_loss_1/Slice_1_grad/sub
+gradients_1/nce_loss_1/Slice_1_grad/sub_1
+gradients_1/nce_loss_1/Slice_1_grad/Reshape_1
+gradients_1/nce_loss_1/Slice_1_grad/concat/axis
+gradients_1/nce_loss_1/Slice_1_grad/concat
+gradients_1/nce_loss_1/Slice_1_grad/Pad
+gradients_1/nce_loss_1/Slice_2_grad/Rank
+gradients_1/nce_loss_1/Slice_2_grad/Shape
+gradients_1/nce_loss_1/Slice_2_grad/stack/1
+gradients_1/nce_loss_1/Slice_2_grad/stack
+gradients_1/nce_loss_1/Slice_2_grad/Reshape
+gradients_1/nce_loss_1/Slice_2_grad/Shape_1
+gradients_1/nce_loss_1/Slice_2_grad/sub
+gradients_1/nce_loss_1/Slice_2_grad/sub_1
+gradients_1/nce_loss_1/Slice_2_grad/Reshape_1
+gradients_1/nce_loss_1/Slice_2_grad/concat/axis
+gradients_1/nce_loss_1/Slice_2_grad/concat
+gradients_1/nce_loss_1/Slice_2_grad/Pad
+gradients_1/nce_loss_1/MatMul_grad/MatMul
+gradients_1/nce_loss_1/MatMul_grad/MatMul_1
+gradients_1/nce_loss_1/MatMul_grad/tuple/group_deps
+gradients_1/nce_loss_1/MatMul_grad/tuple/control_dependency
+gradients_1/nce_loss_1/MatMul_grad/tuple/control_dependency_1
+gradients_1/AddN_1
+gradients_1/nce_loss_1/embedding_lookup_1_grad/Shape
+gradients_1/nce_loss_1/embedding_lookup_1_grad/Size
+gradients_1/nce_loss_1/embedding_lookup_1_grad/ExpandDims/dim
+gradients_1/nce_loss_1/embedding_lookup_1_grad/ExpandDims
+gradients_1/nce_loss_1/embedding_lookup_1_grad/strided_slice/stack
+gradients_1/nce_loss_1/embedding_lookup_1_grad/strided_slice/stack_1
+gradients_1/nce_loss_1/embedding_lookup_1_grad/strided_slice/stack_2
+gradients_1/nce_loss_1/embedding_lookup_1_grad/strided_slice
+gradients_1/nce_loss_1/embedding_lookup_1_grad/concat/axis
+gradients_1/nce_loss_1/embedding_lookup_1_grad/concat
+gradients_1/nce_loss_1/embedding_lookup_1_grad/Reshape
+gradients_1/nce_loss_1/embedding_lookup_1_grad/Reshape_1
+gradients_1/nce_loss_1/ones_grad/Const
+gradients_1/nce_loss_1/ones_grad/Sum
+gradients_1/nce_loss_1/Reshape_2_grad/Shape
+gradients_1/nce_loss_1/Reshape_2_grad/Reshape
+gradients_1/nce_loss_1/Mul_grad/Shape
+gradients_1/nce_loss_1/Mul_grad/Shape_1
+gradients_1/nce_loss_1/Mul_grad/BroadcastGradientArgs
+gradients_1/nce_loss_1/Mul_grad/mul
+gradients_1/nce_loss_1/Mul_grad/Sum
+gradients_1/nce_loss_1/Mul_grad/Reshape
+gradients_1/nce_loss_1/Mul_grad/mul_1
+gradients_1/nce_loss_1/Mul_grad/Sum_1
+gradients_1/nce_loss_1/Mul_grad/Reshape_1
+gradients_1/nce_loss_1/Mul_grad/tuple/group_deps
+gradients_1/nce_loss_1/Mul_grad/tuple/control_dependency
+gradients_1/nce_loss_1/Mul_grad/tuple/control_dependency_1
+gradients_1/nce_loss_1/ExpandDims_grad/Shape
+gradients_1/nce_loss_1/ExpandDims_grad/Reshape
+gradients_1/nce_loss_1/Reshape_1_grad/Shape
+gradients_1/nce_loss_1/Reshape_1_grad/Reshape
+gradients_1/AddN_2
+gradients_1/embedding_lookup_1_grad/Shape
+gradients_1/embedding_lookup_1_grad/Size
+gradients_1/embedding_lookup_1_grad/ExpandDims/dim
+gradients_1/embedding_lookup_1_grad/ExpandDims
+gradients_1/embedding_lookup_1_grad/strided_slice/stack
+gradients_1/embedding_lookup_1_grad/strided_slice/stack_1
+gradients_1/embedding_lookup_1_grad/strided_slice/stack_2
+gradients_1/embedding_lookup_1_grad/strided_slice
+gradients_1/embedding_lookup_1_grad/concat/axis
+gradients_1/embedding_lookup_1_grad/concat
+gradients_1/embedding_lookup_1_grad/Reshape
+gradients_1/embedding_lookup_1_grad/Reshape_1
+gradients_1/nce_loss_1/Slice_grad/Rank
+gradients_1/nce_loss_1/Slice_grad/Shape
+gradients_1/nce_loss_1/Slice_grad/stack/1
+gradients_1/nce_loss_1/Slice_grad/stack
+gradients_1/nce_loss_1/Slice_grad/Reshape
+gradients_1/nce_loss_1/Slice_grad/Shape_1
+gradients_1/nce_loss_1/Slice_grad/sub
+gradients_1/nce_loss_1/Slice_grad/sub_1
+gradients_1/nce_loss_1/Slice_grad/Reshape_1
+gradients_1/nce_loss_1/Slice_grad/concat/axis
+gradients_1/nce_loss_1/Slice_grad/concat
+gradients_1/nce_loss_1/Slice_grad/Pad
+gradients_1/AddN_3
+gradients_1/nce_loss_1/embedding_lookup_grad/Shape
+gradients_1/nce_loss_1/embedding_lookup_grad/Size
+gradients_1/nce_loss_1/embedding_lookup_grad/ExpandDims/dim
+gradients_1/nce_loss_1/embedding_lookup_grad/ExpandDims
+gradients_1/nce_loss_1/embedding_lookup_grad/strided_slice/stack
+gradients_1/nce_loss_1/embedding_lookup_grad/strided_slice/stack_1
+gradients_1/nce_loss_1/embedding_lookup_grad/strided_slice/stack_2
+gradients_1/nce_loss_1/embedding_lookup_grad/strided_slice
+gradients_1/nce_loss_1/embedding_lookup_grad/concat/axis
+gradients_1/nce_loss_1/embedding_lookup_grad/concat
+gradients_1/nce_loss_1/embedding_lookup_grad/Reshape
+gradients_1/nce_loss_1/embedding_lookup_grad/Reshape_1
+beta1_power/initial_value
+beta1_power
+beta1_power/Assign
+beta1_power/read
+beta2_power/initial_value
+beta2_power
+beta2_power/Assign
+beta2_power/read
+Variable_1/Adam/Initializer/Const
+Variable_1/Adam
+Variable_1/Adam/Assign
+Variable_1/Adam/read
+Variable_1/Adam_1/Initializer/Const
+Variable_1/Adam_1
+Variable_1/Adam_1/Assign
+Variable_1/Adam_1/read
+Variable_5/Adam/Initializer/Const
+Variable_5/Adam
+Variable_5/Adam/Assign
+Variable_5/Adam/read
+Variable_5/Adam_1/Initializer/Const
+Variable_5/Adam_1
+Variable_5/Adam_1/Assign
+Variable_5/Adam_1/read
+Variable_6/Adam/Initializer/Const
+Variable_6/Adam
+Variable_6/Adam/Assign
+Variable_6/Adam/read
+Variable_6/Adam_1/Initializer/Const
+Variable_6/Adam_1
+Variable_6/Adam_1/Assign
+Variable_6/Adam_1/read
+Adam/learning_rate
+Adam/beta1
+Adam/beta2
+Adam/epsilon
+Adam/update_Variable_1/Unique
+Adam/update_Variable_1/Shape
+Adam/update_Variable_1/strided_slice/stack
+Adam/update_Variable_1/strided_slice/stack_1
+Adam/update_Variable_1/strided_slice/stack_2
+Adam/update_Variable_1/strided_slice
+Adam/update_Variable_1/UnsortedSegmentSum
+Adam/update_Variable_1/sub/x
+Adam/update_Variable_1/sub
+Adam/update_Variable_1/Sqrt
+Adam/update_Variable_1/mul
+Adam/update_Variable_1/sub_1/x
+Adam/update_Variable_1/sub_1
+Adam/update_Variable_1/truediv
+Adam/update_Variable_1/sub_2/x
+Adam/update_Variable_1/sub_2
+Adam/update_Variable_1/mul_1
+Adam/update_Variable_1/mul_2
+Adam/update_Variable_1/Assign
+Adam/update_Variable_1/ScatterAdd
+Adam/update_Variable_1/mul_3
+Adam/update_Variable_1/sub_3/x
+Adam/update_Variable_1/sub_3
+Adam/update_Variable_1/mul_4
+Adam/update_Variable_1/mul_5
+Adam/update_Variable_1/Assign_1
+Adam/update_Variable_1/ScatterAdd_1
+Adam/update_Variable_1/Sqrt_1
+Adam/update_Variable_1/mul_6
+Adam/update_Variable_1/add
+Adam/update_Variable_1/truediv_1
+Adam/update_Variable_1/AssignSub
+Adam/update_Variable_1/group_deps
+Adam/update_Variable_5/Unique
+Adam/update_Variable_5/Shape
+Adam/update_Variable_5/strided_slice/stack
+Adam/update_Variable_5/strided_slice/stack_1
+Adam/update_Variable_5/strided_slice/stack_2
+Adam/update_Variable_5/strided_slice
+Adam/update_Variable_5/UnsortedSegmentSum
+Adam/update_Variable_5/sub/x
+Adam/update_Variable_5/sub
+Adam/update_Variable_5/Sqrt
+Adam/update_Variable_5/mul
+Adam/update_Variable_5/sub_1/x
+Adam/update_Variable_5/sub_1
+Adam/update_Variable_5/truediv
+Adam/update_Variable_5/sub_2/x
+Adam/update_Variable_5/sub_2
+Adam/update_Variable_5/mul_1
+Adam/update_Variable_5/mul_2
+Adam/update_Variable_5/Assign
+Adam/update_Variable_5/ScatterAdd
+Adam/update_Variable_5/mul_3
+Adam/update_Variable_5/sub_3/x
+Adam/update_Variable_5/sub_3
+Adam/update_Variable_5/mul_4
+Adam/update_Variable_5/mul_5
+Adam/update_Variable_5/Assign_1
+Adam/update_Variable_5/ScatterAdd_1
+Adam/update_Variable_5/Sqrt_1
+Adam/update_Variable_5/mul_6
+Adam/update_Variable_5/add
+Adam/update_Variable_5/truediv_1
+Adam/update_Variable_5/AssignSub
+Adam/update_Variable_5/group_deps
+Adam/update_Variable_6/Unique
+Adam/update_Variable_6/Shape
+Adam/update_Variable_6/strided_slice/stack
+Adam/update_Variable_6/strided_slice/stack_1
+Adam/update_Variable_6/strided_slice/stack_2
+Adam/update_Variable_6/strided_slice
+Adam/update_Variable_6/UnsortedSegmentSum
+Adam/update_Variable_6/sub/x
+Adam/update_Variable_6/sub
+Adam/update_Variable_6/Sqrt
+Adam/update_Variable_6/mul
+Adam/update_Variable_6/sub_1/x
+Adam/update_Variable_6/sub_1
+Adam/update_Variable_6/truediv
+Adam/update_Variable_6/sub_2/x
+Adam/update_Variable_6/sub_2
+Adam/update_Variable_6/mul_1
+Adam/update_Variable_6/mul_2
+Adam/update_Variable_6/Assign
+Adam/update_Variable_6/ScatterAdd
+Adam/update_Variable_6/mul_3
+Adam/update_Variable_6/sub_3/x
+Adam/update_Variable_6/sub_3
+Adam/update_Variable_6/mul_4
+Adam/update_Variable_6/mul_5
+Adam/update_Variable_6/Assign_1
+Adam/update_Variable_6/ScatterAdd_1
+Adam/update_Variable_6/Sqrt_1
+Adam/update_Variable_6/mul_6
+Adam/update_Variable_6/add
+Adam/update_Variable_6/truediv_1
+Adam/update_Variable_6/AssignSub
+Adam/update_Variable_6/group_deps
+Adam/mul
+Adam/Assign
+Adam/mul_1
+Adam/Assign_1
+Adam
+Square
+Sum/reduction_indices
+Sum
+Sqrt
+truediv
+embedding_lookup_2
+MatMul_2
+embedding_lookup_3
+Mean_2/reduction_indices
+Mean_2
+Reshape_2/shape
+Reshape_2
+embedding_lookup_4
+Mean_3/reduction_indices
+Mean_3
+Reshape_3/shape
+Reshape_3
+MatMul_3
+Reshape_4/shape
+Reshape_4
+MatMul_4
+Reshape_5/shape
+Reshape_5
+Square_1
+Sum_1/reduction_indices
+Sum_1
+Sqrt_1
+truediv_1
+embedding_lookup_5
+MatMul_5
+embedding_lookup_6
+Mean_4/reduction_indices
+Mean_4
+embedding_lookup_7
+mul
+sub/x
+sub
+mul_1
+add
+nce_loss_2/Cast
+nce_loss_2/Reshape/shape
+nce_loss_2/Reshape
+nce_loss_2/LogUniformCandidateSampler
+nce_loss_2/StopGradient
+nce_loss_2/StopGradient_1
+nce_loss_2/StopGradient_2
+nce_loss_2/concat/axis
+nce_loss_2/concat
+nce_loss_2/embedding_lookup
+nce_loss_2/embedding_lookup_1
+nce_loss_2/Shape
+nce_loss_2/strided_slice/stack
+nce_loss_2/strided_slice/stack_1
+nce_loss_2/strided_slice/stack_2
+nce_loss_2/strided_slice
+nce_loss_2/stack/1
+nce_loss_2/stack
+nce_loss_2/Slice/begin
+nce_loss_2/Slice
+nce_loss_2/Shape_1
+nce_loss_2/Slice_1/begin
+nce_loss_2/Slice_1
+nce_loss_2/Shape_2
+nce_loss_2/strided_slice_1/stack
+nce_loss_2/strided_slice_1/stack_1
+nce_loss_2/strided_slice_1/stack_2
+nce_loss_2/strided_slice_1
+nce_loss_2/concat_1/values_0
+nce_loss_2/concat_1/axis
+nce_loss_2/concat_1
+nce_loss_2/ExpandDims/dim
+nce_loss_2/ExpandDims
+nce_loss_2/Reshape_1
+nce_loss_2/Mul
+nce_loss_2/concat_2/values_0
+nce_loss_2/concat_2/axis
+nce_loss_2/concat_2
+nce_loss_2/Reshape_2
+nce_loss_2/Shape_3
+nce_loss_2/strided_slice_2/stack
+nce_loss_2/strided_slice_2/stack_1
+nce_loss_2/strided_slice_2/stack_2
+nce_loss_2/strided_slice_2
+nce_loss_2/stack_1/1
+nce_loss_2/stack_1
+nce_loss_2/ones/Const
+nce_loss_2/ones
+nce_loss_2/MatMul
+nce_loss_2/Reshape_3/shape
+nce_loss_2/Reshape_3
+nce_loss_2/Reshape_4/shape
+nce_loss_2/Reshape_4
+nce_loss_2/Reshape_5/shape
+nce_loss_2/Reshape_5
+nce_loss_2/add
+nce_loss_2/Shape_4
+nce_loss_2/strided_slice_3/stack
+nce_loss_2/strided_slice_3/stack_1
+nce_loss_2/strided_slice_3/stack_2
+nce_loss_2/strided_slice_3
+nce_loss_2/stack_2/1
+nce_loss_2/stack_2
+nce_loss_2/Slice_2/size
+nce_loss_2/Slice_2
+nce_loss_2/Shape_5
+nce_loss_2/Slice_3/size
+nce_loss_2/Slice_3
+nce_loss_2/MatMul_1
+nce_loss_2/add_1
+nce_loss_2/Log
+nce_loss_2/sub
+nce_loss_2/Log_1
+nce_loss_2/sub_1
+nce_loss_2/concat_3/axis
+nce_loss_2/concat_3
+nce_loss_2/ones_like/Shape
+nce_loss_2/ones_like/Const
+nce_loss_2/ones_like
+nce_loss_2/truediv/y
+nce_loss_2/truediv
+nce_loss_2/zeros_like
+nce_loss_2/concat_4/axis
+nce_loss_2/concat_4
+sampled_losses_2/zeros_like
+sampled_losses_2/GreaterEqual
+sampled_losses_2/Select
+sampled_losses_2/Neg
+sampled_losses_2/Select_1
+sampled_losses_2/mul
+sampled_losses_2/sub
+sampled_losses_2/Exp
+sampled_losses_2/Log1p
+sampled_losses_2
+Shape_2
+strided_slice_2/stack
+strided_slice_2/stack_1
+strided_slice_2/stack_2
+strided_slice_2
+stack_2/1
+stack_2
+ones_2/Const
+ones_2
+MatMul_6
+Reshape_6/shape
+Reshape_6
+Const_4
+Mean_5
+gradients_2/Shape
+gradients_2/Const
+gradients_2/Fill
+gradients_2/Mean_5_grad/Reshape/shape
+gradients_2/Mean_5_grad/Reshape
+gradients_2/Mean_5_grad/Tile/multiples
+gradients_2/Mean_5_grad/Tile
+gradients_2/Mean_5_grad/Shape
+gradients_2/Mean_5_grad/Shape_1
+gradients_2/Mean_5_grad/Const
+gradients_2/Mean_5_grad/Prod
+gradients_2/Mean_5_grad/Const_1
+gradients_2/Mean_5_grad/Prod_1
+gradients_2/Mean_5_grad/Maximum/y
+gradients_2/Mean_5_grad/Maximum
+gradients_2/Mean_5_grad/floordiv
+gradients_2/Mean_5_grad/Cast
+gradients_2/Mean_5_grad/truediv
+gradients_2/Reshape_6_grad/Shape
+gradients_2/Reshape_6_grad/Reshape
+gradients_2/MatMul_6_grad/MatMul
+gradients_2/MatMul_6_grad/MatMul_1
+gradients_2/MatMul_6_grad/tuple/group_deps
+gradients_2/MatMul_6_grad/tuple/control_dependency
+gradients_2/MatMul_6_grad/tuple/control_dependency_1
+gradients_2/sampled_losses_2_grad/Shape
+gradients_2/sampled_losses_2_grad/Shape_1
+gradients_2/sampled_losses_2_grad/BroadcastGradientArgs
+gradients_2/sampled_losses_2_grad/Sum
+gradients_2/sampled_losses_2_grad/Reshape
+gradients_2/sampled_losses_2_grad/Sum_1
+gradients_2/sampled_losses_2_grad/Reshape_1
+gradients_2/sampled_losses_2_grad/tuple/group_deps
+gradients_2/sampled_losses_2_grad/tuple/control_dependency
+gradients_2/sampled_losses_2_grad/tuple/control_dependency_1
+gradients_2/sampled_losses_2/sub_grad/Shape
+gradients_2/sampled_losses_2/sub_grad/Shape_1
+gradients_2/sampled_losses_2/sub_grad/BroadcastGradientArgs
+gradients_2/sampled_losses_2/sub_grad/Sum
+gradients_2/sampled_losses_2/sub_grad/Reshape
+gradients_2/sampled_losses_2/sub_grad/Sum_1
+gradients_2/sampled_losses_2/sub_grad/Neg
+gradients_2/sampled_losses_2/sub_grad/Reshape_1
+gradients_2/sampled_losses_2/sub_grad/tuple/group_deps
+gradients_2/sampled_losses_2/sub_grad/tuple/control_dependency
+gradients_2/sampled_losses_2/sub_grad/tuple/control_dependency_1
+gradients_2/sampled_losses_2/Log1p_grad/add/x
+gradients_2/sampled_losses_2/Log1p_grad/add
+gradients_2/sampled_losses_2/Log1p_grad/Reciprocal
+gradients_2/sampled_losses_2/Log1p_grad/mul
+gradients_2/sampled_losses_2/Select_grad/zeros_like
+gradients_2/sampled_losses_2/Select_grad/Select
+gradients_2/sampled_losses_2/Select_grad/Select_1
+gradients_2/sampled_losses_2/Select_grad/tuple/group_deps
+gradients_2/sampled_losses_2/Select_grad/tuple/control_dependency
+gradients_2/sampled_losses_2/Select_grad/tuple/control_dependency_1
+gradients_2/sampled_losses_2/mul_grad/Shape
+gradients_2/sampled_losses_2/mul_grad/Shape_1
+gradients_2/sampled_losses_2/mul_grad/BroadcastGradientArgs
+gradients_2/sampled_losses_2/mul_grad/mul
+gradients_2/sampled_losses_2/mul_grad/Sum
+gradients_2/sampled_losses_2/mul_grad/Reshape
+gradients_2/sampled_losses_2/mul_grad/mul_1
+gradients_2/sampled_losses_2/mul_grad/Sum_1
+gradients_2/sampled_losses_2/mul_grad/Reshape_1
+gradients_2/sampled_losses_2/mul_grad/tuple/group_deps
+gradients_2/sampled_losses_2/mul_grad/tuple/control_dependency
+gradients_2/sampled_losses_2/mul_grad/tuple/control_dependency_1
+gradients_2/sampled_losses_2/Exp_grad/mul
+gradients_2/nce_loss_2/concat_4_grad/Rank
+gradients_2/nce_loss_2/concat_4_grad/mod
+gradients_2/nce_loss_2/concat_4_grad/Shape
+gradients_2/nce_loss_2/concat_4_grad/Shape_1
+gradients_2/nce_loss_2/concat_4_grad/ConcatOffset
+gradients_2/nce_loss_2/concat_4_grad/Slice
+gradients_2/nce_loss_2/concat_4_grad/Slice_1
+gradients_2/nce_loss_2/concat_4_grad/tuple/group_deps
+gradients_2/nce_loss_2/concat_4_grad/tuple/control_dependency
+gradients_2/nce_loss_2/concat_4_grad/tuple/control_dependency_1
+gradients_2/sampled_losses_2/Select_1_grad/zeros_like
+gradients_2/sampled_losses_2/Select_1_grad/Select
+gradients_2/sampled_losses_2/Select_1_grad/Select_1
+gradients_2/sampled_losses_2/Select_1_grad/tuple/group_deps
+gradients_2/sampled_losses_2/Select_1_grad/tuple/control_dependency
+gradients_2/sampled_losses_2/Select_1_grad/tuple/control_dependency_1
+gradients_2/sampled_losses_2/Neg_grad/Neg
+gradients_2/AddN
+gradients_2/nce_loss_2/concat_3_grad/Rank
+gradients_2/nce_loss_2/concat_3_grad/mod
+gradients_2/nce_loss_2/concat_3_grad/Shape
+gradients_2/nce_loss_2/concat_3_grad/Shape_1
+gradients_2/nce_loss_2/concat_3_grad/ConcatOffset
+gradients_2/nce_loss_2/concat_3_grad/Slice
+gradients_2/nce_loss_2/concat_3_grad/Slice_1
+gradients_2/nce_loss_2/concat_3_grad/tuple/group_deps
+gradients_2/nce_loss_2/concat_3_grad/tuple/control_dependency
+gradients_2/nce_loss_2/concat_3_grad/tuple/control_dependency_1
+gradients_2/nce_loss_2/sub_grad/Shape
+gradients_2/nce_loss_2/sub_grad/Shape_1
+gradients_2/nce_loss_2/sub_grad/BroadcastGradientArgs
+gradients_2/nce_loss_2/sub_grad/Sum
+gradients_2/nce_loss_2/sub_grad/Reshape
+gradients_2/nce_loss_2/sub_grad/Sum_1
+gradients_2/nce_loss_2/sub_grad/Neg
+gradients_2/nce_loss_2/sub_grad/Reshape_1
+gradients_2/nce_loss_2/sub_grad/tuple/group_deps
+gradients_2/nce_loss_2/sub_grad/tuple/control_dependency
+gradients_2/nce_loss_2/sub_grad/tuple/control_dependency_1
+gradients_2/nce_loss_2/sub_1_grad/Shape
+gradients_2/nce_loss_2/sub_1_grad/Shape_1
+gradients_2/nce_loss_2/sub_1_grad/BroadcastGradientArgs
+gradients_2/nce_loss_2/sub_1_grad/Sum
+gradients_2/nce_loss_2/sub_1_grad/Reshape
+gradients_2/nce_loss_2/sub_1_grad/Sum_1
+gradients_2/nce_loss_2/sub_1_grad/Neg
+gradients_2/nce_loss_2/sub_1_grad/Reshape_1
+gradients_2/nce_loss_2/sub_1_grad/tuple/group_deps
+gradients_2/nce_loss_2/sub_1_grad/tuple/control_dependency
+gradients_2/nce_loss_2/sub_1_grad/tuple/control_dependency_1
+gradients_2/nce_loss_2/add_grad/Shape
+gradients_2/nce_loss_2/add_grad/Shape_1
+gradients_2/nce_loss_2/add_grad/BroadcastGradientArgs
+gradients_2/nce_loss_2/add_grad/Sum
+gradients_2/nce_loss_2/add_grad/Reshape
+gradients_2/nce_loss_2/add_grad/Sum_1
+gradients_2/nce_loss_2/add_grad/Reshape_1
+gradients_2/nce_loss_2/add_grad/tuple/group_deps
+gradients_2/nce_loss_2/add_grad/tuple/control_dependency
+gradients_2/nce_loss_2/add_grad/tuple/control_dependency_1
+gradients_2/nce_loss_2/add_1_grad/Shape
+gradients_2/nce_loss_2/add_1_grad/Shape_1
+gradients_2/nce_loss_2/add_1_grad/BroadcastGradientArgs
+gradients_2/nce_loss_2/add_1_grad/Sum
+gradients_2/nce_loss_2/add_1_grad/Reshape
+gradients_2/nce_loss_2/add_1_grad/Sum_1
+gradients_2/nce_loss_2/add_1_grad/Reshape_1
+gradients_2/nce_loss_2/add_1_grad/tuple/group_deps
+gradients_2/nce_loss_2/add_1_grad/tuple/control_dependency
+gradients_2/nce_loss_2/add_1_grad/tuple/control_dependency_1
+gradients_2/nce_loss_2/Reshape_4_grad/Shape
+gradients_2/nce_loss_2/Reshape_4_grad/Reshape
+gradients_2/nce_loss_2/Reshape_5_grad/Shape
+gradients_2/nce_loss_2/Reshape_5_grad/Reshape
+gradients_2/nce_loss_2/MatMul_1_grad/MatMul
+gradients_2/nce_loss_2/MatMul_1_grad/MatMul_1
+gradients_2/nce_loss_2/MatMul_1_grad/tuple/group_deps
+gradients_2/nce_loss_2/MatMul_1_grad/tuple/control_dependency
+gradients_2/nce_loss_2/MatMul_1_grad/tuple/control_dependency_1
+gradients_2/nce_loss_2/Slice_3_grad/Rank
+gradients_2/nce_loss_2/Slice_3_grad/Shape
+gradients_2/nce_loss_2/Slice_3_grad/stack/1
+gradients_2/nce_loss_2/Slice_3_grad/stack
+gradients_2/nce_loss_2/Slice_3_grad/Reshape
+gradients_2/nce_loss_2/Slice_3_grad/Shape_1
+gradients_2/nce_loss_2/Slice_3_grad/sub
+gradients_2/nce_loss_2/Slice_3_grad/sub_1
+gradients_2/nce_loss_2/Slice_3_grad/Reshape_1
+gradients_2/nce_loss_2/Slice_3_grad/concat/axis
+gradients_2/nce_loss_2/Slice_3_grad/concat
+gradients_2/nce_loss_2/Slice_3_grad/Pad
+gradients_2/nce_loss_2/Reshape_3_grad/Shape
+gradients_2/nce_loss_2/Reshape_3_grad/Reshape
+gradients_2/nce_loss_2/Slice_1_grad/Rank
+gradients_2/nce_loss_2/Slice_1_grad/Shape
+gradients_2/nce_loss_2/Slice_1_grad/stack/1
+gradients_2/nce_loss_2/Slice_1_grad/stack
+gradients_2/nce_loss_2/Slice_1_grad/Reshape
+gradients_2/nce_loss_2/Slice_1_grad/Shape_1
+gradients_2/nce_loss_2/Slice_1_grad/sub
+gradients_2/nce_loss_2/Slice_1_grad/sub_1
+gradients_2/nce_loss_2/Slice_1_grad/Reshape_1
+gradients_2/nce_loss_2/Slice_1_grad/concat/axis
+gradients_2/nce_loss_2/Slice_1_grad/concat
+gradients_2/nce_loss_2/Slice_1_grad/Pad
+gradients_2/nce_loss_2/Slice_2_grad/Rank
+gradients_2/nce_loss_2/Slice_2_grad/Shape
+gradients_2/nce_loss_2/Slice_2_grad/stack/1
+gradients_2/nce_loss_2/Slice_2_grad/stack
+gradients_2/nce_loss_2/Slice_2_grad/Reshape
+gradients_2/nce_loss_2/Slice_2_grad/Shape_1
+gradients_2/nce_loss_2/Slice_2_grad/sub
+gradients_2/nce_loss_2/Slice_2_grad/sub_1
+gradients_2/nce_loss_2/Slice_2_grad/Reshape_1
+gradients_2/nce_loss_2/Slice_2_grad/concat/axis
+gradients_2/nce_loss_2/Slice_2_grad/concat
+gradients_2/nce_loss_2/Slice_2_grad/Pad
+gradients_2/nce_loss_2/MatMul_grad/MatMul
+gradients_2/nce_loss_2/MatMul_grad/MatMul_1
+gradients_2/nce_loss_2/MatMul_grad/tuple/group_deps
+gradients_2/nce_loss_2/MatMul_grad/tuple/control_dependency
+gradients_2/nce_loss_2/MatMul_grad/tuple/control_dependency_1
+gradients_2/AddN_1
+gradients_2/nce_loss_2/embedding_lookup_1_grad/Shape
+gradients_2/nce_loss_2/embedding_lookup_1_grad/Size
+gradients_2/nce_loss_2/embedding_lookup_1_grad/ExpandDims/dim
+gradients_2/nce_loss_2/embedding_lookup_1_grad/ExpandDims
+gradients_2/nce_loss_2/embedding_lookup_1_grad/strided_slice/stack
+gradients_2/nce_loss_2/embedding_lookup_1_grad/strided_slice/stack_1
+gradients_2/nce_loss_2/embedding_lookup_1_grad/strided_slice/stack_2
+gradients_2/nce_loss_2/embedding_lookup_1_grad/strided_slice
+gradients_2/nce_loss_2/embedding_lookup_1_grad/concat/axis
+gradients_2/nce_loss_2/embedding_lookup_1_grad/concat
+gradients_2/nce_loss_2/embedding_lookup_1_grad/Reshape
+gradients_2/nce_loss_2/embedding_lookup_1_grad/Reshape_1
+gradients_2/nce_loss_2/ones_grad/Const
+gradients_2/nce_loss_2/ones_grad/Sum
+gradients_2/nce_loss_2/Reshape_2_grad/Shape
+gradients_2/nce_loss_2/Reshape_2_grad/Reshape
+gradients_2/nce_loss_2/Mul_grad/Shape
+gradients_2/nce_loss_2/Mul_grad/Shape_1
+gradients_2/nce_loss_2/Mul_grad/BroadcastGradientArgs
+gradients_2/nce_loss_2/Mul_grad/mul
+gradients_2/nce_loss_2/Mul_grad/Sum
+gradients_2/nce_loss_2/Mul_grad/Reshape
+gradients_2/nce_loss_2/Mul_grad/mul_1
+gradients_2/nce_loss_2/Mul_grad/Sum_1
+gradients_2/nce_loss_2/Mul_grad/Reshape_1
+gradients_2/nce_loss_2/Mul_grad/tuple/group_deps
+gradients_2/nce_loss_2/Mul_grad/tuple/control_dependency
+gradients_2/nce_loss_2/Mul_grad/tuple/control_dependency_1
+gradients_2/nce_loss_2/ExpandDims_grad/Shape
+gradients_2/nce_loss_2/ExpandDims_grad/Reshape
+gradients_2/nce_loss_2/Reshape_1_grad/Shape
+gradients_2/nce_loss_2/Reshape_1_grad/Reshape
+gradients_2/AddN_2
+gradients_2/add_grad/Shape
+gradients_2/add_grad/Shape_1
+gradients_2/add_grad/BroadcastGradientArgs
+gradients_2/add_grad/Sum
+gradients_2/add_grad/Reshape
+gradients_2/add_grad/Sum_1
+gradients_2/add_grad/Reshape_1
+gradients_2/add_grad/tuple/group_deps
+gradients_2/add_grad/tuple/control_dependency
+gradients_2/add_grad/tuple/control_dependency_1
+gradients_2/mul_grad/Shape
+gradients_2/mul_grad/Shape_1
+gradients_2/mul_grad/BroadcastGradientArgs
+gradients_2/mul_grad/mul
+gradients_2/mul_grad/Sum
+gradients_2/mul_grad/Reshape
+gradients_2/mul_grad/mul_1
+gradients_2/mul_grad/Sum_1
+gradients_2/mul_grad/Reshape_1
+gradients_2/mul_grad/tuple/group_deps
+gradients_2/mul_grad/tuple/control_dependency
+gradients_2/mul_grad/tuple/control_dependency_1
+gradients_2/mul_1_grad/Shape
+gradients_2/mul_1_grad/Shape_1
+gradients_2/mul_1_grad/BroadcastGradientArgs
+gradients_2/mul_1_grad/mul
+gradients_2/mul_1_grad/Sum
+gradients_2/mul_1_grad/Reshape
+gradients_2/mul_1_grad/mul_1
+gradients_2/mul_1_grad/Sum_1
+gradients_2/mul_1_grad/Reshape_1
+gradients_2/mul_1_grad/tuple/group_deps
+gradients_2/mul_1_grad/tuple/control_dependency
+gradients_2/mul_1_grad/tuple/control_dependency_1
+gradients_2/embedding_lookup_7_grad/Shape
+gradients_2/embedding_lookup_7_grad/Size
+gradients_2/embedding_lookup_7_grad/ExpandDims/dim
+gradients_2/embedding_lookup_7_grad/ExpandDims
+gradients_2/embedding_lookup_7_grad/strided_slice/stack
+gradients_2/embedding_lookup_7_grad/strided_slice/stack_1
+gradients_2/embedding_lookup_7_grad/strided_slice/stack_2
+gradients_2/embedding_lookup_7_grad/strided_slice
+gradients_2/embedding_lookup_7_grad/concat/axis
+gradients_2/embedding_lookup_7_grad/concat
+gradients_2/embedding_lookup_7_grad/Reshape
+gradients_2/embedding_lookup_7_grad/Reshape_1
+gradients_2/sub_grad/Shape
+gradients_2/sub_grad/Shape_1
+gradients_2/sub_grad/BroadcastGradientArgs
+gradients_2/sub_grad/Sum
+gradients_2/sub_grad/Reshape
+gradients_2/sub_grad/Sum_1
+gradients_2/sub_grad/Neg
+gradients_2/sub_grad/Reshape_1
+gradients_2/sub_grad/tuple/group_deps
+gradients_2/sub_grad/tuple/control_dependency
+gradients_2/sub_grad/tuple/control_dependency_1
+gradients_2/Mean_4_grad/Shape
+gradients_2/Mean_4_grad/Size
+gradients_2/Mean_4_grad/add
+gradients_2/Mean_4_grad/mod
+gradients_2/Mean_4_grad/Shape_1
+gradients_2/Mean_4_grad/range/start
+gradients_2/Mean_4_grad/range/delta
+gradients_2/Mean_4_grad/range
+gradients_2/Mean_4_grad/Fill/value
+gradients_2/Mean_4_grad/Fill
+gradients_2/Mean_4_grad/DynamicStitch
+gradients_2/Mean_4_grad/Maximum/y
+gradients_2/Mean_4_grad/Maximum
+gradients_2/Mean_4_grad/floordiv
+gradients_2/Mean_4_grad/Reshape
+gradients_2/Mean_4_grad/Tile
+gradients_2/Mean_4_grad/Shape_2
+gradients_2/Mean_4_grad/Shape_3
+gradients_2/Mean_4_grad/Const
+gradients_2/Mean_4_grad/Prod
+gradients_2/Mean_4_grad/Const_1
+gradients_2/Mean_4_grad/Prod_1
+gradients_2/Mean_4_grad/Maximum_1/y
+gradients_2/Mean_4_grad/Maximum_1
+gradients_2/Mean_4_grad/floordiv_1
+gradients_2/Mean_4_grad/Cast
+gradients_2/Mean_4_grad/truediv
+gradients_2/truediv_grad/Shape
+gradients_2/truediv_grad/Shape_1
+gradients_2/truediv_grad/BroadcastGradientArgs
+gradients_2/truediv_grad/RealDiv/strided_slice/stack
+gradients_2/truediv_grad/RealDiv/strided_slice/stack_1
+gradients_2/truediv_grad/RealDiv/strided_slice/stack_2
+gradients_2/truediv_grad/RealDiv/strided_slice
+gradients_2/truediv_grad/RealDiv/x
+gradients_2/truediv_grad/RealDiv
+gradients_2/truediv_grad/Sum
+gradients_2/truediv_grad/Reshape
+gradients_2/truediv_grad/Neg
+gradients_2/truediv_grad/RealDiv_1
+gradients_2/truediv_grad/RealDiv_2
+gradients_2/truediv_grad/mul/strided_slice/stack
+gradients_2/truediv_grad/mul/strided_slice/stack_1
+gradients_2/truediv_grad/mul/strided_slice/stack_2
+gradients_2/truediv_grad/mul/strided_slice
+gradients_2/truediv_grad/mul/x
+gradients_2/truediv_grad/mul
+gradients_2/truediv_grad/Sum_1
+gradients_2/truediv_grad/Reshape_1
+gradients_2/truediv_grad/tuple/group_deps
+gradients_2/truediv_grad/tuple/control_dependency
+gradients_2/truediv_grad/tuple/control_dependency_1
+gradients_2/AddN_3
+gradients_2/embedding_lookup_6_grad/Shape
+gradients_2/embedding_lookup_6_grad/Size
+gradients_2/embedding_lookup_6_grad/ExpandDims/dim
+gradients_2/embedding_lookup_6_grad/ExpandDims
+gradients_2/embedding_lookup_6_grad/strided_slice/stack
+gradients_2/embedding_lookup_6_grad/strided_slice/stack_1
+gradients_2/embedding_lookup_6_grad/strided_slice/stack_2
+gradients_2/embedding_lookup_6_grad/strided_slice
+gradients_2/embedding_lookup_6_grad/concat/axis
+gradients_2/embedding_lookup_6_grad/concat
+gradients_2/embedding_lookup_6_grad/Reshape
+gradients_2/embedding_lookup_6_grad/Reshape_1
+gradients_2/nce_loss_2/Slice_grad/Rank
+gradients_2/nce_loss_2/Slice_grad/Shape
+gradients_2/nce_loss_2/Slice_grad/stack/1
+gradients_2/nce_loss_2/Slice_grad/stack
+gradients_2/nce_loss_2/Slice_grad/Reshape
+gradients_2/nce_loss_2/Slice_grad/Shape_1
+gradients_2/nce_loss_2/Slice_grad/sub
+gradients_2/nce_loss_2/Slice_grad/sub_1
+gradients_2/nce_loss_2/Slice_grad/Reshape_1
+gradients_2/nce_loss_2/Slice_grad/concat/axis
+gradients_2/nce_loss_2/Slice_grad/concat
+gradients_2/nce_loss_2/Slice_grad/Pad
+gradients_2/Sqrt_grad/SqrtGrad
+gradients_2/truediv_1_grad/Shape
+gradients_2/truediv_1_grad/Shape_1
+gradients_2/truediv_1_grad/BroadcastGradientArgs
+gradients_2/truediv_1_grad/RealDiv/strided_slice/stack
+gradients_2/truediv_1_grad/RealDiv/strided_slice/stack_1
+gradients_2/truediv_1_grad/RealDiv/strided_slice/stack_2
+gradients_2/truediv_1_grad/RealDiv/strided_slice
+gradients_2/truediv_1_grad/RealDiv/x
+gradients_2/truediv_1_grad/RealDiv
+gradients_2/truediv_1_grad/Sum
+gradients_2/truediv_1_grad/Reshape
+gradients_2/truediv_1_grad/Neg
+gradients_2/truediv_1_grad/RealDiv_1
+gradients_2/truediv_1_grad/RealDiv_2
+gradients_2/truediv_1_grad/mul/strided_slice/stack
+gradients_2/truediv_1_grad/mul/strided_slice/stack_1
+gradients_2/truediv_1_grad/mul/strided_slice/stack_2
+gradients_2/truediv_1_grad/mul/strided_slice
+gradients_2/truediv_1_grad/mul/x
+gradients_2/truediv_1_grad/mul
+gradients_2/truediv_1_grad/Sum_1
+gradients_2/truediv_1_grad/Reshape_1
+gradients_2/truediv_1_grad/tuple/group_deps
+gradients_2/truediv_1_grad/tuple/control_dependency
+gradients_2/truediv_1_grad/tuple/control_dependency_1
+gradients_2/AddN_4
+gradients_2/nce_loss_2/embedding_lookup_grad/Shape
+gradients_2/nce_loss_2/embedding_lookup_grad/Size
+gradients_2/nce_loss_2/embedding_lookup_grad/ExpandDims/dim
+gradients_2/nce_loss_2/embedding_lookup_grad/ExpandDims
+gradients_2/nce_loss_2/embedding_lookup_grad/strided_slice/stack
+gradients_2/nce_loss_2/embedding_lookup_grad/strided_slice/stack_1
+gradients_2/nce_loss_2/embedding_lookup_grad/strided_slice/stack_2
+gradients_2/nce_loss_2/embedding_lookup_grad/strided_slice
+gradients_2/nce_loss_2/embedding_lookup_grad/concat/axis
+gradients_2/nce_loss_2/embedding_lookup_grad/concat
+gradients_2/nce_loss_2/embedding_lookup_grad/Reshape
+gradients_2/nce_loss_2/embedding_lookup_grad/Reshape_1
+gradients_2/Sum_grad/Shape
+gradients_2/Sum_grad/Size
+gradients_2/Sum_grad/add
+gradients_2/Sum_grad/mod
+gradients_2/Sum_grad/Shape_1
+gradients_2/Sum_grad/range/start
+gradients_2/Sum_grad/range/delta
+gradients_2/Sum_grad/range
+gradients_2/Sum_grad/Fill/value
+gradients_2/Sum_grad/Fill
+gradients_2/Sum_grad/DynamicStitch
+gradients_2/Sum_grad/Maximum/y
+gradients_2/Sum_grad/Maximum
+gradients_2/Sum_grad/floordiv
+gradients_2/Sum_grad/Reshape
+gradients_2/Sum_grad/Tile
+gradients_2/Sqrt_1_grad/SqrtGrad
+gradients_2/Square_grad/mul/x
+gradients_2/Square_grad/mul
+gradients_2/Square_grad/mul_1
+gradients_2/Sum_1_grad/Shape
+gradients_2/Sum_1_grad/Size
+gradients_2/Sum_1_grad/add
+gradients_2/Sum_1_grad/mod
+gradients_2/Sum_1_grad/Shape_1
+gradients_2/Sum_1_grad/range/start
+gradients_2/Sum_1_grad/range/delta
+gradients_2/Sum_1_grad/range
+gradients_2/Sum_1_grad/Fill/value
+gradients_2/Sum_1_grad/Fill
+gradients_2/Sum_1_grad/DynamicStitch
+gradients_2/Sum_1_grad/Maximum/y
+gradients_2/Sum_1_grad/Maximum
+gradients_2/Sum_1_grad/floordiv
+gradients_2/Sum_1_grad/Reshape
+gradients_2/Sum_1_grad/Tile
+gradients_2/AddN_5
+gradients_2/Square_1_grad/mul/x
+gradients_2/Square_1_grad/mul
+gradients_2/Square_1_grad/mul_1
+gradients_2/AddN_6
+beta1_power_1/initial_value
+beta1_power_1
+beta1_power_1/Assign
+beta1_power_1/read
+beta2_power_1/initial_value
+beta2_power_1
+beta2_power_1/Assign
+beta2_power_1/read
+Variable/Adam/Initializer/Const
+Variable/Adam
+Variable/Adam/Assign
+Variable/Adam/read
+Variable/Adam_1/Initializer/Const
+Variable/Adam_1
+Variable/Adam_1/Assign
+Variable/Adam_1/read
+Variable_1/Adam_2/Initializer/Const
+Variable_1/Adam_2
+Variable_1/Adam_2/Assign
+Variable_1/Adam_2/read
+Variable_1/Adam_3/Initializer/Const
+Variable_1/Adam_3
+Variable_1/Adam_3/Assign
+Variable_1/Adam_3/read
+Variable_2/Adam/Initializer/Const
+Variable_2/Adam
+Variable_2/Adam/Assign
+Variable_2/Adam/read
+Variable_2/Adam_1/Initializer/Const
+Variable_2/Adam_1
+Variable_2/Adam_1/Assign
+Variable_2/Adam_1/read
+Variable_7/Adam/Initializer/Const
+Variable_7/Adam
+Variable_7/Adam/Assign
+Variable_7/Adam/read
+Variable_7/Adam_1/Initializer/Const
+Variable_7/Adam_1
+Variable_7/Adam_1/Assign
+Variable_7/Adam_1/read
+Variable_8/Adam/Initializer/Const
+Variable_8/Adam
+Variable_8/Adam/Assign
+Variable_8/Adam/read
+Variable_8/Adam_1/Initializer/Const
+Variable_8/Adam_1
+Variable_8/Adam_1/Assign
+Variable_8/Adam_1/read
+Adam_1/learning_rate
+Adam_1/beta1
+Adam_1/beta2
+Adam_1/epsilon
+Adam_1/update_Variable/ApplyAdam
+Adam_1/update_Variable_1/ApplyAdam
+Adam_1/update_Variable_2/ApplyAdam
+Adam_1/update_Variable_7/Unique
+Adam_1/update_Variable_7/Shape
+Adam_1/update_Variable_7/strided_slice/stack
+Adam_1/update_Variable_7/strided_slice/stack_1
+Adam_1/update_Variable_7/strided_slice/stack_2
+Adam_1/update_Variable_7/strided_slice
+Adam_1/update_Variable_7/UnsortedSegmentSum
+Adam_1/update_Variable_7/sub/x
+Adam_1/update_Variable_7/sub
+Adam_1/update_Variable_7/Sqrt
+Adam_1/update_Variable_7/mul
+Adam_1/update_Variable_7/sub_1/x
+Adam_1/update_Variable_7/sub_1
+Adam_1/update_Variable_7/truediv
+Adam_1/update_Variable_7/sub_2/x
+Adam_1/update_Variable_7/sub_2
+Adam_1/update_Variable_7/mul_1
+Adam_1/update_Variable_7/mul_2
+Adam_1/update_Variable_7/Assign
+Adam_1/update_Variable_7/ScatterAdd
+Adam_1/update_Variable_7/mul_3
+Adam_1/update_Variable_7/sub_3/x
+Adam_1/update_Variable_7/sub_3
+Adam_1/update_Variable_7/mul_4
+Adam_1/update_Variable_7/mul_5
+Adam_1/update_Variable_7/Assign_1
+Adam_1/update_Variable_7/ScatterAdd_1
+Adam_1/update_Variable_7/Sqrt_1
+Adam_1/update_Variable_7/mul_6
+Adam_1/update_Variable_7/add
+Adam_1/update_Variable_7/truediv_1
+Adam_1/update_Variable_7/AssignSub
+Adam_1/update_Variable_7/group_deps
+Adam_1/update_Variable_8/Unique
+Adam_1/update_Variable_8/Shape
+Adam_1/update_Variable_8/strided_slice/stack
+Adam_1/update_Variable_8/strided_slice/stack_1
+Adam_1/update_Variable_8/strided_slice/stack_2
+Adam_1/update_Variable_8/strided_slice
+Adam_1/update_Variable_8/UnsortedSegmentSum
+Adam_1/update_Variable_8/sub/x
+Adam_1/update_Variable_8/sub
+Adam_1/update_Variable_8/Sqrt
+Adam_1/update_Variable_8/mul
+Adam_1/update_Variable_8/sub_1/x
+Adam_1/update_Variable_8/sub_1
+Adam_1/update_Variable_8/truediv
+Adam_1/update_Variable_8/sub_2/x
+Adam_1/update_Variable_8/sub_2
+Adam_1/update_Variable_8/mul_1
+Adam_1/update_Variable_8/mul_2
+Adam_1/update_Variable_8/Assign
+Adam_1/update_Variable_8/ScatterAdd
+Adam_1/update_Variable_8/mul_3
+Adam_1/update_Variable_8/sub_3/x
+Adam_1/update_Variable_8/sub_3
+Adam_1/update_Variable_8/mul_4
+Adam_1/update_Variable_8/mul_5
+Adam_1/update_Variable_8/Assign_1
+Adam_1/update_Variable_8/ScatterAdd_1
+Adam_1/update_Variable_8/Sqrt_1
+Adam_1/update_Variable_8/mul_6
+Adam_1/update_Variable_8/add
+Adam_1/update_Variable_8/truediv_1
+Adam_1/update_Variable_8/AssignSub
+Adam_1/update_Variable_8/group_deps
+Adam_1/mul
+Adam_1/Assign
+Adam_1/mul_1
+Adam_1/Assign_1
+Adam_1
+embedding_lookup_8
+embedding_lookup_9
+Mean_6/reduction_indices
+Mean_6
+mul_2/x
+mul_2
+mul_3/x
+mul_3
+add_1
+Mean_7/reduction_indices
+Mean_7
+embedding_lookup_10
+Mean_8/reduction_indices
+Mean_8
+Reshape_7/shape
+Reshape_7
+embedding_lookup_11
+Mean_9/reduction_indices
+Mean_9
+Reshape_8/shape
+Reshape_8
+MatMul_7
+Reshape_9/shape
+Reshape_9
+MatMul_8
+Reshape_10/shape
+Reshape_10
+embedding_lookup_12
+Mean_10/reduction_indices
+Mean_10
+embedding_lookup_13
+mul_4/x
+mul_4
+mul_5/x
+mul_5
+add_2
+Mean_11/reduction_indices
+Mean_11
+Reshape_11/shape
+Reshape_11
+MatMul_9
+Reshape_12/shape
+Reshape_12
+init
+save/Const
+save/SaveV2/tensor_names
+save/SaveV2/shape_and_slices
+save/SaveV2
+save/control_dependency
+save/RestoreV2/tensor_names
+save/RestoreV2/shape_and_slices
+save/RestoreV2
+save/Assign
+save/RestoreV2_1/tensor_names
+save/RestoreV2_1/shape_and_slices
+save/RestoreV2_1
+save/Assign_1
+save/RestoreV2_2/tensor_names
+save/RestoreV2_2/shape_and_slices
+save/RestoreV2_2
+save/Assign_2
+save/RestoreV2_3/tensor_names
+save/RestoreV2_3/shape_and_slices
+save/RestoreV2_3
+save/Assign_3
+save/RestoreV2_4/tensor_names
+save/RestoreV2_4/shape_and_slices
+save/RestoreV2_4
+save/Assign_4
+save/RestoreV2_5/tensor_names
+save/RestoreV2_5/shape_and_slices
+save/RestoreV2_5
+save/Assign_5
+save/RestoreV2_6/tensor_names
+save/RestoreV2_6/shape_and_slices
+save/RestoreV2_6
+save/Assign_6
+save/RestoreV2_7/tensor_names
+save/RestoreV2_7/shape_and_slices
+save/RestoreV2_7
+save/Assign_7
+save/RestoreV2_8/tensor_names
+save/RestoreV2_8/shape_and_slices
+save/RestoreV2_8
+save/Assign_8
+save/RestoreV2_9/tensor_names
+save/RestoreV2_9/shape_and_slices
+save/RestoreV2_9
+save/Assign_9
+save/RestoreV2_10/tensor_names
+save/RestoreV2_10/shape_and_slices
+save/RestoreV2_10
+save/Assign_10
+save/RestoreV2_11/tensor_names
+save/RestoreV2_11/shape_and_slices
+save/RestoreV2_11
+save/Assign_11
+save/RestoreV2_12/tensor_names
+save/RestoreV2_12/shape_and_slices
+save/RestoreV2_12
+save/Assign_12
+save/RestoreV2_13/tensor_names
+save/RestoreV2_13/shape_and_slices
+save/RestoreV2_13
+save/Assign_13
+save/RestoreV2_14/tensor_names
+save/RestoreV2_14/shape_and_slices
+save/RestoreV2_14
+save/Assign_14
+save/RestoreV2_15/tensor_names
+save/RestoreV2_15/shape_and_slices
+save/RestoreV2_15
+save/Assign_15
+save/RestoreV2_16/tensor_names
+save/RestoreV2_16/shape_and_slices
+save/RestoreV2_16
+save/Assign_16
+save/RestoreV2_17/tensor_names
+save/RestoreV2_17/shape_and_slices
+save/RestoreV2_17
+save/Assign_17
+save/RestoreV2_18/tensor_names
+save/RestoreV2_18/shape_and_slices
+save/RestoreV2_18
+save/Assign_18
+save/RestoreV2_19/tensor_names
+save/RestoreV2_19/shape_and_slices
+save/RestoreV2_19
+save/Assign_19
+save/RestoreV2_20/tensor_names
+save/RestoreV2_20/shape_and_slices
+save/RestoreV2_20
+save/Assign_20
+save/RestoreV2_21/tensor_names
+save/RestoreV2_21/shape_and_slices
+save/RestoreV2_21
+save/Assign_21
+save/RestoreV2_22/tensor_names
+save/RestoreV2_22/shape_and_slices
+save/RestoreV2_22
+save/Assign_22
+save/RestoreV2_23/tensor_names
+save/RestoreV2_23/shape_and_slices
+save/RestoreV2_23
+save/Assign_23
+save/RestoreV2_24/tensor_names
+save/RestoreV2_24/shape_and_slices
+save/RestoreV2_24
+save/Assign_24
+save/RestoreV2_25/tensor_names
+save/RestoreV2_25/shape_and_slices
+save/RestoreV2_25
+save/Assign_25
+save/RestoreV2_26/tensor_names
+save/RestoreV2_26/shape_and_slices
+save/RestoreV2_26
+save/Assign_26
+save/RestoreV2_27/tensor_names
+save/RestoreV2_27/shape_and_slices
+save/RestoreV2_27
+save/Assign_27
+save/RestoreV2_28/tensor_names
+save/RestoreV2_28/shape_and_slices
+save/RestoreV2_28
+save/Assign_28
+save/restore_all
+[[array([   2, 8788,    3,    1,   19,   16,  164,  788,  536,   55,  438,
+        277,  967,    9,    0,    0,    0,    0,    0,    0,    0,    0,
+          0,    0,    0,    0,    0,    0,    0,    0], dtype=int32), array([[13, 25,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [19, 13,  3, 29, 14, 16, 29, 15, 24, 27,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [26, 15, 28,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [15, 12, 30, 32, 20, 27, 31, 12, 21,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [16, 15, 12,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [32, 25, 24,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [13, 30, 25, 29, 29,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [ 6,  3,  3,  3,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [29, 20, 25, 30, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [18, 25, 25, 16,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [23, 15, 16, 19, 13, 19, 26,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [29, 20, 15, 24, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [37, 15, 15,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [26, 15, 33,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]], dtype=int32)], [array([ 1134,   143, 11526,    31,     6,     2, 23398,     0,     0,
+           0,     0,     0,     0,     0,     0,     0,     0,     0,
+           0,     0,     0,     0,     0,     0,     0,     0,     0,
+           0,     0,     0], dtype=int32), array([[32, 20, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [20, 25, 29, 28, 19, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [32, 20, 30, 25, 26, 17, 19, 26, 17,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [27, 31, 12, 21,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [34, 19, 13, 32, 19, 23,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [13, 25,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [23, 24,  5, 22, 21, 37, 33, 18, 18, 24,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]], dtype=int32)], [array([   1,  188,  143,  543,   61, 1503,  340,    3, 3279,  143,    0,
+          2,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+          0,    0,    0,    0,    0,    0,    0,    0], dtype=int32), array([[15, 12, 30, 32, 20, 27, 31, 12, 21,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [16, 15, 29, 32, 30, 25, 35,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [20, 25, 29, 28, 19, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [30, 25, 12, 16,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [14, 31, 19, 24, 16,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [21, 12, 34, 30,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [16, 19, 29, 32, 30, 19, 13, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [26, 15, 28,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [16, 20, 31, 24, 19, 21, 20, 15, 24,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [20, 25, 29, 28, 19, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [29, 13, 20, 15, 15, 30, 23, 15, 25, 30, 19, 12, 24,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [13, 25,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [15, 34, 13, 26, 24, 13, 33, 28, 15, 14,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]], dtype=int32)], [array([    4,  1609,   114,   230,   371,     5,     1,     5,    11,
+           3,     2, 14827, 15286,     0,     0,     0,     0,     0,
+           0,     0,     0,     0,     0,     0,     0,     0,     0,
+           0,     0,     0], dtype=int32), array([[30, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [35, 25, 17, 30, 19, 29, 20, 19, 30, 12, 23, 16, 15, 34,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [12, 28,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [15, 34, 15, 30, 35,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [14, 24, 25, 25, 16,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [19, 26, 16,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [15, 12, 30, 32, 20, 27, 31, 12, 21,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [19, 26, 16,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [12, 23, 28,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [26, 15, 28,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [13, 25,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [35, 19, 23, 28, 30,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [10,  2,  4, 26, 24,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]], dtype=int32)], [array([  330,    34,   694,  6039,   791,  1224, 13961,   438,   143,
+        8770,   758,     1,     0,     0,     0,     0,     0,     0,
+           0,     0,     0,     0,     0,     0,     0,     0,     0,
+           0,     0,     0], dtype=int32), array([[16, 25, 13, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [29, 12, 35,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [15, 26, 25, 31, 17, 20,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [23, 12, 26, 28, 25, 33,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [24, 15, 29, 29,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [14, 15, 16,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [25, 28, 16,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [23, 15, 16, 19, 13, 19, 26,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [20, 25, 29, 28, 19, 32,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [32, 30, 12, 31, 23, 12, 13,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [21, 32, 23,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [15, 12, 30, 32, 20, 27, 31, 12, 21,  1,  1,  1,  1,  1,  1,  1,  1,
+         1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+       [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]], dtype=int32)]]
+0
+3200
+6400
+9600
+12800
+16000
