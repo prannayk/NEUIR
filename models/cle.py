@@ -27,7 +27,7 @@ from argument_loader import *
 # load arguements
 dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag,lr_, matchname = import_arguments(sys.argv)
 # load data
-word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
+char_batch_dict, word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
 
 # test the data
 data_index, batch, labels = generate_batch(data, data_index, batch_size=8, num_skips=2, skip_window=1,)
@@ -41,13 +41,14 @@ for i in range(8):
 
 # load batch values
 lambda_1, tweet_batch_size, expand_start_count, query_name, query_tokens, query_tokens_alternate, char_batch_size, num_sampled, valid_examples, valid_window, valid_size, skip_window, num_skips, embedding_size, char_vocabulary_size, batch_size, num_char_skips, skip_char_window = setup(char_dictionary, dictionary, query_type)
-
-graph = tf.Graph()
 learning_rate = lr_
+graph = tf.Graph()
 
 with graph.as_default():
 
   # Input data.
+  need_constant = tf.constant(query_tokens,dtype=tf.int32)
+  avail_constant = tf.constant(query_tokens_alternate, dtype=tf.int32)
   train_inputs = tf.placeholder(tf.int32, shape=[batch_size])
   train_input_chars = tf.placeholder(tf.int32, shape=[char_batch_size])
   train_labels = tf.placeholder(tf.int32, shape=[batch_size, 1])
@@ -132,8 +133,26 @@ with graph.as_default():
   
   tweet_query_char = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_query_char_holder),axis=1)
   tweet_query_word = tf.nn.embedding_lookup(normalized_embeddings, tweet_query_word_holders)
-  tweet_embedding = tf.reduce_mean(lambda_1*tweet_query_word + lambda_1*tweet_query_char,axis=0)
-  tweet_query_similarity = tf.reshape(tf.matmul(tweet_embedding, tweet_embedding, transpose_b=True), shape=[tweet_batch_size],name="tweet_similarity")
+  tquery_embedding = tf.reshape(tf.reduce_mean(lambda_1*tweet_query_word + lambda_1*tweet_query_char,axis=0),shape=[1,embedding_size])
+  
+  norm_query = tf.sqrt(tf.reduce_sum(tf.square(tquery_embedding), 1, keep_dims=True))
+  tquery_embedding_norm = tquery_embedding / norm_query
+  cosine = tf.matmul(tweet_embedding, tquery_embedding_norm, transpose_b=True)
+  tweet_query_similarity = tf.reshape(cosine, shape=[tweet_batch_size], name="tweet_query_similarity")
+ 
+  tquery_embedding_norm_dim = tf.reshape(tquery_embedding_norm, shape=[1,embedding_size])
+  query_need_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings, need_constant),axis=0),shape=[1,embedding_size])
+  cosine_need = tf.matmul(tquery_embedding_norm_dim, query_need_embedding, transpose_b=True)
+  tquery_embedding_reqd = tf.reshape(tquery_embedding_norm_dim - (cosine_need*tquery_embedding_norm_dim),shape=[1,embedding_size])
+  # we have the need vector without the need vector
+  query_avail_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,avail_constant),axis=0),shape=[1,embedding_size])
+  query_norm = tf.sqrt(tf.reduce_sum(tf.square(query_avail_embedding),1,keep_dims=True))
+  query_avail_embedding_norm = query_embedding / query_norm
+  cosine_avail = tf.matmul(tweet_embedding, query_avail_embedding_norm, transpose_b=True)
+  reduced_tweet_embedding = tweet_embedding - (tweet_embedding*cosine_avail)
+  match_similarity = tf.reshape(tf.matmul(reduced_tweet_embedding, tquery_embedding_reqd, transpose_b=True),shape=[tweet_batch_size],name="match_similarity")
+
+
   # Add variable initializer.
   init = tf.global_variables_initializer()
 # loading tweet list in integer marking form

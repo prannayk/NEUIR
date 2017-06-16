@@ -30,7 +30,6 @@ dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expan
 
 char_batch_dict, word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data = build_everything(dataset)
 
-
 data_index, batch, labels = generate_batch(data, data_index, batch_size=8, num_skips=2, skip_window=1,)
 for i in range(8):
   print(batch[i], reverse_dictionary[batch[i]],
