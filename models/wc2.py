@@ -166,10 +166,26 @@ with graph.as_default():
   tquery_intermediate = tf.nn.embedding_lookup(normalized_char_embeddings, tweet_query_char_holder)
   tquery_attention = tf.nn.softmax(tf.matmul(w2, tf.nn.tanh(tf.matmul(tweet_query_intermediate,w1)),transpose_a=True))
   tquery_char_embed = tf.reshape(tf.matmul(tquery_attention,tquery_intermediate),shape=[word_max_len,embedding_size])
-  tquery_embedding = tf.reduce_mean(lambda_1* tquery_word_embed + (1-lambda_1)*tquery_char_embed, axis=0)
+  tquery_embedding = tf.reshape(tf.reduce_mean(lambda_1* tquery_word_embed + (1-lambda_1)*tquery_char_embed, axis=0),shape=[1,embedding_size])
+  norm_query = tf.sqrt(tf.reduce_sum(tf.square(tquery_embedding), 1, keep_dims=True))
+  tquery_embedding_norm = tquery_embedding / norm_query
+  cosine = tf.matmul(tweet_embedding, tquery_embedding_norm, transpose_b=True)
+  tquery_similarity = tf.reshape(cosine, shape=[tweet_batch_size], name="tweet_query_similarity")
 
-  tquery_similarity = tf.reshape(tf.matmul(tweet_embedding, tquery_embedding, transpose_b=True),shape=[tweet_batch_size],name="tweet_query_similarity")
+  tquery_embedding_norm_dim = tf.reshape(tquery_embedding_norm, shape=[1,embedding_size])
+  query_need_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings, need_constant),axis=0),shape=[1,embedding_size])
+  cosine_need = tf.matmul(tquery_embedding_norm_dim, query_need_embedding, transpose_b=True)
+  tquery_embedding_reqd = tf.reshape(tquery_embedding_norm_dim - (cosine_need*tquery_embedding_norm_dim),shape=[1,embedding_size])
+  # we have the need vector without the need vector
+  query_avail_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,avail_constant),axis=0),shape=[1,embedding_size])
+  query_norm = tf.sqrt(tf.reduce_sum(tf.square(query_avail_embedding),1,keep_dims=True))
+  query_avail_embedding_norm = query_embedding / query_norm
+  cosine_avail = tf.matmul(tweet_embedding, query_avail_embedding_norm, transpose_b=True)
+  reduced_tweet_embedding = tweet_embedding - (tweet_embedding*cosine_avail)
+  match_similarity = tf.reshape(tf.matmul(reduced_tweet_embedding, tquery_embedding_reqd, transpose_b=True),shape=[tweet_batch_size],name="match_similarity")
+
   # Add variable initializer.
+
   init = tf.global_variables_initializer()
   saver = tf.train.Saver()
 
