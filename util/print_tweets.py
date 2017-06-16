@@ -4,7 +4,7 @@ import numpy as np
 sorted_tweets = []
 tweet_count = 0
 tweet_list = []
-def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename, flag=False):
+def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename, flag=False, break_counter=25):
   global sorted_tweets, tweet_count
   if tweet_list == []:
     load_tweet(dataset)
@@ -32,9 +32,11 @@ def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, qu
         query_token_holder[1] : np.array(query_tokens[1])
       }
     l = session.run(query_similarity, feed_dict = feed_dict)
-    if len(tweet_embedding_val) % 25 == 0 :
+    if len(tweet_embedding_val) % break_counter == 0 :
       if not flag : 
         print(len(tweet_embedding_val))
+      else:
+        print("Running")
     tweet_embedding_val += list(l) 
   tweet_embedding_dict = dict(zip(tweet_list, tweet_embedding_val))
   sorted_tweets = [i for i in sorted(tweet_embedding_dict.items(), key=lambda x: -x[1])]
