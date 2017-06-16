@@ -42,10 +42,9 @@ for i in range(8):
         '->', labels[i, 0], reverse_char_dictionary[labels[i, 0]])
 
 lambda_1, tweet_batch_size, expand_start_count, query_name, query_tokens, char_batch_size, num_sampled, valid_examples, valid_window, valid_size, skip_window, num_skips, embedding_size, char_vocabulary_size, batch_size, num_char_skips, skip_char_window = setup(char_dictionary, dictionary, query_type)
-
-graph = tf.Graph()
 learning_rate = lr_
 
+graph = tf.Graph()
 with graph.as_default():
 
   # Input data.

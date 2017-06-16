@@ -33,12 +33,14 @@ def setup(char_dictionary, dictionary, query_type):
     char_batch_size = 128
     if query_type == 0 :
         query_tokens = map(lambda x: dictionary[x],['nee','requir'])
+        query_tokens_alternate = map(lambda x: dictionary[x],['avail','send','distribut'])
         query_name = "Need"
         expand_start_count = 2
     else :
         query_tokens = map(lambda x: dictionary[x],['send','distribut','avail'])
+        query_tokens_alternate = map(lambda x: dictionary[x],['nee','requir'])
         query_name = "Avail"
         expand_start_count = 3
     tweet_batch_size = 128
     lambda_1 = 0.7
-    return lambda_1, tweet_batch_size, expand_start_count, query_name, query_tokens, char_batch_size, num_sampled, valid_examples, valid_window, valid_size, skip_window, num_skips, embedding_size, char_vocabulary_size, batch_size, num_char_skips, skip_char_window
+    return lambda_1, tweet_batch_size, expand_start_count, query_name, query_tokens, query_tokens_alternate, char_batch_size, num_sampled, valid_examples, valid_window, valid_size, skip_window, num_skips, embedding_size, char_vocabulary_size, batch_size, num_char_skips, skip_char_window
