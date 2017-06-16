@@ -58,8 +58,8 @@ with graph.as_default():
   valid_char_dataset = tf.constant(valid_examples[1], dtype=tf.int32)
   query_ints = tf.placeholder(tf.int32, shape=len(query_tokens))
   expanded_query_ints = tf.placeholder(tf.int32, shape=(len(query_tokens)+3))
-  tweet_query_word_holder = tf.placeholder(tf.int32, shape=[word_max_len],name="tweet_query_word_holder")
-  tweet_query_char_holder = tf.placeholder(tf.int32, shape=[word_max_len, char_max_len],name="tweet_query_char_holder")
+  tquery_word_holder = tf.placeholder(tf.int32, shape=[word_max_len],name="tweet_query_word_holder")
+  tquery_char_holder = tf.placeholder(tf.int32, shape=[word_max_len, char_max_len],name="tweet_query_char_holder")
   # Ops and variables pinned to the CPU because of missing GPU implementation
   tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len],name="tweet_char_holder")
   tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len],name="tweet_word_holder")
@@ -136,9 +136,9 @@ with graph.as_default():
   similarity_char = tf.matmul(
       valid_embeddings_char, normalized_char_embeddings, transpose_b=True)
   
-  bilstm = biLSTM_setup()
+  bilstm = biLSTM_setup(embedding_size)
   character_word_embeddings = tf.nn.embedding_lookup(normalized_char_embeddings, word_char_embeddings)
-  intermediate = biLSTM_implementation(character_word_embeddings, bilstm)
+  intermediate = biLSTM_implementation(character_word_embeddings, bilstm, False)
   output = attention(w1, w2, intermediate)
 
   word_embeddings = tf.nn.embedding_lookup(normalized_embeddings, train_inputs)
@@ -158,7 +158,7 @@ with graph.as_default():
   tweet_word_embed = tf.nn.embedding_lookup(normalized_embeddings, tweet_word_holder)
   tweet_char_embeddings = tf.reshape(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_char_holder),shape=[tweet_batch_size*word_max_len, char_max_len, embedding_size//2])
   intermediate = biLSTM_implementation(tweet_char_embeddings, bilstm)
-  tweet_char_embed = attention(w1,w2,intermediate)
+  tweet_char_embed = tf.reshape(attention(w1,w2,intermediate),shape=[tweet_batch_size, word_max_len, embedding_size])
   tweet_embedding = tf.reduce_mean(lambda_1*tweet_word_embed + (1-lambda_1)*tweet_char_embed,axis=1)
   # query embeddings
   query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_ints),axis=0),shape=[1,embedding_size])
@@ -169,7 +169,7 @@ with graph.as_default():
   tquery_word_embed = tf.nn.embedding_lookup(normalized_embeddings, tquery_word_holder)
   tquery_char_embeddings = tf.reshape(tf.nn.embedding_lookup(normalized_char_embeddings, tquery_char_holder),shape=[word_max_len, char_max_len, embedding_size//2])
   intermediate = biLSTM_implementation(tquery_char_embeddings, bilstm)
-  tquery_char_embed = attention(w1, w1, intermediate)
+  tquery_char_embed = attention(w1, w2, intermediate)
   tquery_embedding = tf.reshape(tf.reduce_mean(lambda_1*tquery_word_embed + (1-lambda_1)*tquery_char_embed,axis=0),shape=[1,embedding_size])
 
   norm_query = tf.sqrt(tf.reduce_sum(tf.square(tquery_embedding), 1, keep_dims=True))
@@ -177,7 +177,7 @@ with graph.as_default():
   cosine = tf.matmul(tweet_embedding, tquery_embedding_norm, transpose_b=True)
   tweet_query_similarity = tf.reshape(cosine, shape=[tweet_batch_size], name="tweet_query_similarity")
  
-  tquery_embedding_norm_dim = tf.reshape(tquery_embedding_norm, shape=[embedding_size])
+  tquery_embedding_norm_dim = tf.reshape(tquery_embedding_norm, shape=[1,embedding_size])
   query_need_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings, need_constant),axis=0),shape=[1,embedding_size])
   cosine_need = tf.matmul(tquery_embedding_norm_dim, query_need_embedding, transpose_b=True)
   tquery_embedding_reqd = tf.reshape(tquery_embedding_norm_dim - (cosine_need*tquery_embedding_norm_dim),shape=[1,embedding_size])
@@ -185,7 +185,7 @@ with graph.as_default():
   query_avail_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,avail_constant),axis=0),shape=[1,embedding_size])
   query_norm = tf.sqrt(tf.reduce_sum(tf.square(query_avail_embedding),1,keep_dims=True))
   query_avail_embedding_norm = query_embedding / query_norm
-  cosine_avail = tf.matmul(tweet_embedding, query_embedding_norm, transpose_b=True)
+  cosine_avail = tf.matmul(tweet_embedding, query_avail_embedding_norm, transpose_b=True)
   reduced_tweet_embedding = tweet_embedding - (tweet_embedding*cosine_avail)
   match_similarity = tf.reshape(tf.matmul(reduced_tweet_embedding, tquery_embedding_reqd, transpose_b=True),shape=[tweet_batch_size],name="match_similarity")
   # Add variable initializer.
@@ -224,9 +224,11 @@ with tf.Session(graph=graph) as session:
   optimizers += [optimizer_train]
   datas += [[word_batch_list, char_batch_list]]
   train_model(session, dataset,query_similarity, query_tokens ,query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
-  expanded_query_tokens, expanded_query_holder, final_query_similarity = expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity)
-  expanded_query_tokens = expanded_query_tokens[2:2+expand_count] + query_tokens
+  
+  expanded_query_tokens, expanded_query_holder, final_query_similarity= expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity, expand_start_count, expand_count)
+  expanded_query_tokens = query_tokens + expanded_query_tokens
   print(expanded_query_tokens)
+  
   train_model(session, dataset, final_query_similarity, expanded_query_tokens, expanded_query_holder, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_train , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
