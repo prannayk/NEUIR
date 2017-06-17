@@ -64,7 +64,7 @@ with graph.as_default():
   tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len], name="tweet_char_holder")
   tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len], name="tweet_word_holder")
 
-  with tf.device('/cpu:0'):
+  with tf.device('/gpu:0'):
     # Look up embeddings for inputs.
     embeddings = tf.Variable(tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
     char_embeddings = tf.Variable(tf.random_uniform([char_vocabulary_size, embedding_size],-1.0,1.0))
@@ -88,7 +88,65 @@ with graph.as_default():
                             stddev=1.0 / math.sqrt(embedding_size)))
     nce_train_biases = tf.Variable(tf.zeros([vocabulary_size]))
     
-  loss = tf.reduce_mean(
+    # Construct the SGD optimizer using a learning rate of 1.0.
+    
+
+    # Compute the cosine similarity between minibatch examples and all embeddings.
+    norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keep_dims=True))
+    normalized_embeddings = embeddings / norm
+    valid_embeddings = tf.nn.embedding_lookup(
+        normalized_embeddings, valid_dataset)
+    similarity = tf.matmul(
+        valid_embeddings, normalized_embeddings, transpose_b=True)
+    query_embedding_token = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_ints),axis=0),shape=[1,embedding_size])
+    expanded_query_embedding_token = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,expanded_query_ints),axis=0),shape=[1,embedding_size])
+    similarity_query = tf.reshape(tf.matmul(
+        query_embedding_token, normalized_embeddings, transpose_b=True),shape=[int(normalized_embeddings.shape[0])])
+    similarity_expanded_query = tf.reshape(tf.matmul(
+        expanded_query_embedding_token, normalized_embeddings, transpose_b=True),shape=[int(normalized_embeddings.shape[0])])
+
+    norm_char = tf.sqrt(tf.reduce_sum(tf.square(char_embeddings), 1, keep_dims=True))
+    normalized_char_embeddings = char_embeddings / norm_char
+    valid_embeddings_char = tf.nn.embedding_lookup(
+        normalized_char_embeddings, valid_char_dataset)
+    similarity_char = tf.matmul(
+        valid_embeddings_char, normalized_char_embeddings, transpose_b=True)
+
+    character_word_embeddings = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, word_char_embeddings),axis=1)
+    word_embeddings = tf.nn.embedding_lookup(normalized_embeddings, train_inputs)
+    final_embedding = lambda_2*word_embeddings + (1-lambda_2)*character_word_embeddings
+
+    tweet_word_embed = tf.nn.embedding_lookup(normalized_embeddings, tweet_word_holder)
+    tweet_char_embed = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_char_holder),axis=2)
+    tweet_embedding = tf.reduce_mean(lambda_1*tweet_word_embed + (1-lambda_1)*tweet_char_embed,axis=1)
+    query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_ints),axis=0),shape=[1,embedding_size])
+    expanded_query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,expanded_query_ints),axis=0),shape=[1,embedding_size])
+    query_similarity = tf.reshape(tf.matmul(tweet_embedding, query_embedding, transpose_b=True),shape=[tweet_batch_size])
+    expanded_query_similarity = tf.reshape(tf.matmul(tweet_embedding, expanded_query_embedding, transpose_b=True),shape=[tweet_batch_size])
+    
+    tweet_query_char = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_query_char_holder),axis=1)
+    tweet_query_word = tf.nn.embedding_lookup(normalized_embeddings, tweet_query_word_holder)
+    tquery_embedding = tf.reshape(tf.reduce_mean(lambda_1*tweet_query_word + lambda_1*tweet_query_char,axis=0), shape=[1, embedding_size])
+
+    norm_query = tf.sqrt(tf.reduce_sum(tf.square(tquery_embedding), 1, keep_dims=True))
+    tquery_embedding_norm = tquery_embedding / norm_query
+    cosine = tf.matmul(tweet_embedding, tquery_embedding_norm, transpose_b=True)
+    tweet_query_similarity = tf.reshape(cosine, shape=[tweet_batch_size], name="tweet_query_similarity")
+    # rolling 
+    tquery_embedding_norm_dim = tf.reshape(tquery_embedding_norm, shape=[1,embedding_size])
+    query_need_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings, need_constant),axis=0),shape=[1,embedding_size])
+    cosine_need = tf.matmul(tquery_embedding_norm_dim, query_need_embedding, transpose_b=True)
+    tquery_embedding_reqd = tf.reshape(tquery_embedding_norm_dim - (cosine_need*tquery_embedding_norm_dim),shape=[1,embedding_size])
+    # we have the need vector without the need vector
+    query_avail_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,avail_constant),axis=0),shape=[1,embedding_size])
+    query_norm = tf.sqrt(tf.reduce_sum(tf.square(query_avail_embedding),1,keep_dims=True))
+    query_avail_embedding_norm = query_embedding / query_norm
+    cosine_avail = tf.matmul(tweet_embedding, query_avail_embedding_norm, transpose_b=True)
+    reduced_tweet_embedding = tweet_embedding - (tweet_embedding*cosine_avail)
+    match_similarity = tf.reshape(tf.matmul(reduced_tweet_embedding, tquery_embedding_reqd, transpose_b=True),shape=[tweet_batch_size],name="match_similarity")
+
+  with tf.device("/cpu:0"):
+    loss = tf.reduce_mean(
       tf.nn.nce_loss(weights=nce_weights,
                      biases=nce_biases,
                      labels=train_labels,
@@ -96,7 +154,7 @@ with graph.as_default():
                      num_sampled=num_sampled,
                      num_classes=vocabulary_size))
 
-  loss_char = tf.reduce_mean(
+    loss_char = tf.reduce_mean(
       tf.nn.nce_loss(weights=nce_char_weights,
                      biases=nce_char_biases,
                      labels=train_char_labels,
@@ -104,74 +162,17 @@ with graph.as_default():
                      num_sampled=10,
                      num_classes=char_vocabulary_size))
 
-  # Construct the SGD optimizer using a learning rate of 1.0.
-  optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss)
-  optimizer_char = tf.train.AdamOptimizer(learning_rate /5).minimize(loss_char)
-
-  # Compute the cosine similarity between minibatch examples and all embeddings.
-  norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keep_dims=True))
-  normalized_embeddings = embeddings / norm
-  valid_embeddings = tf.nn.embedding_lookup(
-      normalized_embeddings, valid_dataset)
-  similarity = tf.matmul(
-      valid_embeddings, normalized_embeddings, transpose_b=True)
-  query_embedding_token = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_ints),axis=0),shape=[1,embedding_size])
-  expanded_query_embedding_token = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,expanded_query_ints),axis=0),shape=[1,embedding_size])
-  similarity_query = tf.reshape(tf.matmul(
-      query_embedding_token, normalized_embeddings, transpose_b=True),shape=[int(normalized_embeddings.shape[0])])
-  similarity_expanded_query = tf.reshape(tf.matmul(
-      expanded_query_embedding_token, normalized_embeddings, transpose_b=True),shape=[int(normalized_embeddings.shape[0])])
-
-  norm_char = tf.sqrt(tf.reduce_sum(tf.square(char_embeddings), 1, keep_dims=True))
-  normalized_char_embeddings = char_embeddings / norm_char
-  valid_embeddings_char = tf.nn.embedding_lookup(
-      normalized_char_embeddings, valid_char_dataset)
-  similarity_char = tf.matmul(
-      valid_embeddings_char, normalized_char_embeddings, transpose_b=True)
-
-  character_word_embeddings = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, word_char_embeddings),axis=1)
-  word_embeddings = tf.nn.embedding_lookup(normalized_embeddings, train_inputs)
-  final_embedding = lambda_2*word_embeddings + (1-lambda_2)*character_word_embeddings
-
-  loss_char_train = tf.reduce_mean(
+    loss_char_train = tf.reduce_mean(
       tf.nn.nce_loss(weights=nce_train_weights,
                      biases=nce_train_biases,
                      labels=train_labels,
                      inputs=final_embedding,
                      num_sampled=64,
                      num_classes=vocabulary_size))
-
-  optimizer_train = tf.train.AdamOptimizer(learning_rate/5).minimize(loss_char_train)
-
-  tweet_word_embed = tf.nn.embedding_lookup(normalized_embeddings, tweet_word_holder)
-  tweet_char_embed = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_char_holder),axis=2)
-  tweet_embedding = tf.reduce_mean(lambda_1*tweet_word_embed + (1-lambda_1)*tweet_char_embed,axis=1)
-  query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_ints),axis=0),shape=[1,embedding_size])
-  expanded_query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,expanded_query_ints),axis=0),shape=[1,embedding_size])
-  query_similarity = tf.reshape(tf.matmul(tweet_embedding, query_embedding, transpose_b=True),shape=[tweet_batch_size])
-  expanded_query_similarity = tf.reshape(tf.matmul(tweet_embedding, expanded_query_embedding, transpose_b=True),shape=[tweet_batch_size])
-  
-  tweet_query_char = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tquery_char_holder),axis=1)
-  tweet_query_word = tf.nn.embedding_lookup(normalized_embeddings, tquery_word_holder)
-  tquery_embedding = tf.reshape(tf.reduce_mean(lambda_1*tweet_query_word + lambda_1*tweet_query_char,axis=0), shape=[1, embedding_size])
-
-  norm_query = tf.sqrt(tf.reduce_sum(tf.square(tquery_embedding), 1, keep_dims=True))
-  tquery_embedding_norm = tquery_embedding / norm_query
-  cosine = tf.matmul(tweet_embedding, tquery_embedding_norm, transpose_b=True)
-  tweet_query_similarity = tf.reshape(cosine, shape=[tweet_batch_size], name="tweet_query_similarity")
-  # rolling 
-  tquery_embedding_norm_dim = tf.reshape(tquery_embedding_norm, shape=[1,embedding_size])
-  query_need_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings, need_constant),axis=0),shape=[1,embedding_size])
-  cosine_need = tf.matmul(tquery_embedding_norm_dim, query_need_embedding, transpose_b=True)
-  tquery_embedding_reqd = tf.reshape(tquery_embedding_norm_dim - (cosine_need*tquery_embedding_norm_dim),shape=[1,embedding_size])
-  # we have the need vector without the need vector
-  query_avail_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,avail_constant),axis=0),shape=[1,embedding_size])
-  query_norm = tf.sqrt(tf.reduce_sum(tf.square(query_avail_embedding),1,keep_dims=True))
-  query_avail_embedding_norm = query_embedding / query_norm
-  cosine_avail = tf.matmul(tweet_embedding, query_avail_embedding_norm, transpose_b=True)
-  reduced_tweet_embedding = tweet_embedding - (tweet_embedding*cosine_avail)
-  match_similarity = tf.reshape(tf.matmul(reduced_tweet_embedding, tquery_embedding_reqd, transpose_b=True),shape=[tweet_batch_size],name="match_similarity")
-  # Add variable initializer.
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss)
+    optimizer_char = tf.train.AdamOptimizer(learning_rate /5).minimize(loss_char)
+    optimizer_train = tf.train.AdamOptimizer(learning_rate/5).minimize(loss_char_train)
+    # Add variable initializer.
   init = tf.global_variables_initializer()
   saver = tf.train.Saver()
 
