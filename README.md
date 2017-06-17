@@ -31,7 +31,17 @@ The data is available / was available under ``` FIRE2016 ```
 
 Mostly all utility methods are present in different files which perfectly define the use of the function. The transfer of variables was benchmarked to observe the slowdown did not exist. 
 
-#### The code was written solely by Prannay Khosla during Workshop conducted by Microsoft Research India on Artificial Social Intelligence
+## Information for model creation
+* The models must have 4 specific placeholders, apart / including those made for training
+* They are namely ``` tweet_query_char_holder ``` , ``` tweet_query_word_holder ``` , ``` tweet_word_holder ``` , ``` tweet_char_holder ``` 
+* Tweet holders take batch input for tweets which are to be evaluated
+* Tweet query holder take input the tweet which is to be used as query
+* There must be atleast a single ``` tweet_similarity ``` tensor along the model which computes the the required metric for tweet retrieval acording to which sorting shall happen
+* Library does not support multiple testing metrics, but will be implemented shortly
+
+#### The code was written solely by Prannay Khosla during Workshop conducted by Microsoft Research India on Artificial Social Intelligence. The work was done under Prof. Saptarshi Ghosh, Assistant Professor IIT Kanpur. 
+
+#### The workshop was conducted by Microsoft Research India, Bangalore, #9 Lavelle Road
 
 NOTE : For access to datasets please contact ``` prannay[dot]khosla[at]gmail[dot]com ```
 

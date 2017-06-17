@@ -29,7 +29,10 @@ def build_dataset(words, vocabulary_size,dataset):
   reverse_dictionary = dict(zip(dictionary.values(), dictionary.keys()))
   return data, count, dictionary, reverse_dictionary
 
+word_batch_dict = dict()
+char_batch_dict = dict()
 def build_everything(dataset):
+  global word_batch_dict, char_batch_dict
   vocabulary_size = 50000
   with open("../data/%s/data.npy"%(dataset)) as fil:
     t = fil.readlines()
@@ -61,6 +64,24 @@ def build_everything(dataset):
   with open("../data/%s/tweet_ids.txt"%(dataset)) as fil:
     tweet_list = map(lambda y: filter(lambda x: x != '\n',y), fil.readlines())
   word_batch_dict = dict(zip(tweet_list, word_batch_list))
+  char_batch_dict = dict(zip(tweet_list, char_batch_list))
   batch_list = dict()
   buffer_index = 1
-  return word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data
+  return char_batch_dict, word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data
+
+def na_loader(dataset, query):
+  global word_batch_dict, char_batch_dict
+  with open('../data/%s/avail.txt'%(dataset)) as f:
+    tweet_list = f.readlines()
+    avail_list = list()
+    for tweet in tweet_list:
+      tweet_name = filter(lambda x: x != '\n', tweet)
+      avail_list.append([word_batch_dict[tweet_name], char_batch_dict[tweet_name]])
+  with open('../data/%s/need.txt'%(dataset)) as f:
+    tweet_list = f.readlines()
+    need_list = list()
+    for tweet in tweet_list:
+      tweet_name = filter(lambda x: x != '\n', tweet)
+      need_list.append([word_batch_dict[tweet_name], char_batch_dict[tweet_name]])
+  return need_list, avail_list
+
