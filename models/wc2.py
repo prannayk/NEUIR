@@ -46,6 +46,8 @@ graph = tf.Graph()
 with graph.as_default():
 
   # Input data.
+  need_constant = tf.constant(query_tokens,dtype=tf.int32)
+  avail_constant = tf.constant(query_tokens_alternate, dtype=tf.int32)
   train_inputs = tf.placeholder(tf.int32, shape=[batch_size])
   train_input_chars = tf.placeholder(tf.int32, shape=[char_batch_size])
   train_labels = tf.placeholder(tf.int32, shape=[batch_size, 1])
@@ -136,9 +138,7 @@ with graph.as_default():
   character_word_embeddings = tf.nn.embedding_lookup(normalized_char_embeddings, word_char_embeddings)
   
   intermediate = tf.nn.embedding_lookup(normalized_char_embeddings, word_char_embeddings)
-  attention = tf.nn.softmax(tf.matmul(vvector, tf.nn.tanh(tf.matmul(intermediate,weights)),transpose_a=True))
-  output = tf.reshape(tf.matmul(attention,intermediate),shape=[batch_size,embedding_size])
-
+  output = attention(w1, w2, intermediate)
   word_embeddings = tf.nn.embedding_lookup(normalized_embeddings, train_inputs)
   final_embedding = lambda_2*word_embeddings + (1-lambda_2)*output
 
@@ -154,7 +154,7 @@ with graph.as_default():
 
   tweet_word_embed = tf.nn.embedding_lookup(normalized_embeddings, tweet_word_holder)
   intermediate = tf.reshape(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_char_holder),shape=[tweet_batch_size*word_max_len, char_max_len, embedding_size])
-  tweet_char_embed = attention(w1, w2, intermediate)
+  tweet_char_embed = tf.reshape(attention(w1, w2, intermediate), shape=[tweet_batch_size, word_max_len, embedding_size])
   tweet_embedding = tf.reduce_mean(lambda_1*tweet_word_embed + (1-lambda_1)*tweet_char_embed,axis=1)
 
   query_embedding = tf.reshape(tf.reduce_mean(tf.nn.embedding_lookup(normalized_embeddings,query_ints),axis=0),shape=[1,embedding_size])
@@ -164,8 +164,7 @@ with graph.as_default():
   
   tquery_word_embed = tf.nn.embedding_lookup(normalized_embeddings, tweet_query_word_holder)
   tquery_intermediate = tf.nn.embedding_lookup(normalized_char_embeddings, tweet_query_char_holder)
-  tquery_attention = tf.nn.softmax(tf.matmul(w2, tf.nn.tanh(tf.matmul(tweet_query_intermediate,w1)),transpose_a=True))
-  tquery_char_embed = tf.reshape(tf.matmul(tquery_attention,tquery_intermediate),shape=[word_max_len,embedding_size])
+  tquery_char_embed = tf.reshape(attention(w1,w2,tquery_intermediate),shape=[word_max_len,embedding_size])
   tquery_embedding = tf.reshape(tf.reduce_mean(lambda_1* tquery_word_embed + (1-lambda_1)*tquery_char_embed, axis=0),shape=[1,embedding_size])
   norm_query = tf.sqrt(tf.reduce_sum(tf.square(tquery_embedding), 1, keep_dims=True))
   tquery_embedding_norm = tquery_embedding / norm_query
@@ -221,7 +220,7 @@ with tf.Session(graph=graph) as session:
   
   train_model(session, dataset,query_similarity, query_tokens ,query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
   
-  expanded_query_tokens, expanded_query_holder, final_query_similarity= expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity, expand_start, expand_count)
+  expanded_query_tokens, expanded_query_holder, final_query_similarity= expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity, expand_start_count, expand_count)
   expanded_query_tokens = query_tokens + expanded_query_tokens
   print(expanded_query_tokens)
 

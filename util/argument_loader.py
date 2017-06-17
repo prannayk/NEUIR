@@ -15,4 +15,6 @@ def import_arguments(args):
         return dataset, query_flag, savename, steps_1, steps_2, steps_3, expand_flag
     lr_ = float(args[8])
     matchname = args[9]
-    return dataset, query_flag, savename, steps_1, steps_2, steps_3, expand_flag, lr_, matchname
+    if len(args) == 10 :
+        return dataset, query_flag, savename, steps_1, steps_2, steps_3, expand_flag, lr_, matchname
+    return dataset, query_flag, savename, steps_1, steps_2, steps_3, expand_flag , lr_, matchname, int(args[10])
