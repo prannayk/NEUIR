@@ -23,6 +23,8 @@ from training import *
 from similar_tokens import *
 from expand_query import *
 from argument_loader import *
+from setup import *
+from LSTM import *
 
 # load arguements
 dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag,lr_, matchname = import_arguments(sys.argv)
@@ -58,8 +60,8 @@ with graph.as_default():
   valid_char_dataset = tf.constant(valid_examples[1], dtype=tf.int32)
   expanded_query_ints = tf.placeholder(tf.int32, shape=(len(query_tokens)+3))
   query_ints = tf.placeholder(tf.int32, shape=len(query_tokens))
-  tweet_query_word_holder = tf.placeholder(tf.int32, shape=[word_max_len],name="tweet_query_word_holder")
-  tweet_query_char_holder = tf.placeholder(tf.int32, shape=[word_max_len, char_max_len],name="tweet_query_char_holder")
+  tquery_word_holder = tf.placeholder(tf.int32, shape=[word_max_len],name="tweet_query_word_holder")
+  tquery_char_holder = tf.placeholder(tf.int32, shape=[word_max_len, char_max_len],name="tweet_query_char_holder")
   # Ops and variables pinned to the CPU because of missing GPU implementation
   tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len],name="tweet_char_holder")
   tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len],name="tweet_word_holder")
@@ -131,8 +133,8 @@ with graph.as_default():
   query_similarity = tf.reshape(tf.matmul(tweet_embedding, query_embedding, transpose_b=True),shape=[tweet_batch_size])
   expanded_query_similarity = tf.reshape(tf.matmul(tweet_embedding, expanded_query_embedding, transpose_b=True),shape=[tweet_batch_size])
   
-  tweet_query_char = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tweet_query_char_holder),axis=1)
-  tweet_query_word = tf.nn.embedding_lookup(normalized_embeddings, tweet_query_word_holders)
+  tweet_query_char = tf.reduce_mean(tf.nn.embedding_lookup(normalized_char_embeddings, tquery_char_holder),axis=1)
+  tweet_query_word = tf.nn.embedding_lookup(normalized_embeddings, tquery_word_holder)
   tquery_embedding = tf.reshape(tf.reduce_mean(lambda_1*tweet_query_word + lambda_1*tweet_query_char,axis=0),shape=[1,embedding_size])
   
   norm_query = tf.sqrt(tf.reduce_sum(tf.square(tquery_embedding), 1, keep_dims=True))

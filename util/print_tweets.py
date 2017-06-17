@@ -36,7 +36,7 @@ def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, qu
       if not flag : 
         print(len(tweet_embedding_val))
       else:
-        print("Running")
+        prin("Running")
     tweet_embedding_val += list(l) 
   tweet_embedding_dict = dict(zip(tweet_list, tweet_embedding_val))
   sorted_tweets = [i for i in sorted(tweet_embedding_dict.items(), key=lambda x: -x[1])]
