@@ -65,7 +65,7 @@ with graph.as_default():
   # Ops and variables pinned to the CPU because of missing GPU implementation
   tweet_char_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size,word_max_len,char_max_len],name="tweet_char_holder")
   tweet_word_holder = tf.placeholder(tf.int32, shape=[tweet_batch_size, word_max_len],name="tweet_word_holder")
-  with tf.device('/cpu:0'):
+  with tf.device('/gpu:0'):
     # Look up embeddings for inputs.
     embeddings = tf.Variable(tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
     char_embeddings = tf.Variable(tf.random_uniform([char_vocabulary_size, embedding_size],-1.0,1.0))
@@ -171,8 +171,8 @@ with tf.Session(graph=graph) as session:
   placeholders = [[train_inputs,train_labels],[train_input_chars,train_char_labels]]
   losses = [loss, loss_char]
   optimizers = [optimizer, optimizer_char]
-  interval1 = 2000
-  interval2 = 10000
+  interval1 = 400
+  interval2 = 4000
   datas = [data,char_data]
   data_index = [data_index, char_data_index, buffer_index]
   reverse_dictionaries = [reverse_dictionary, reverse_char_dictionary]
@@ -181,15 +181,15 @@ with tf.Session(graph=graph) as session:
   else :
     query_name == 'Avail'
   print(query_tokens)
-  train_model(session, dataset,query_similarity, query_tokens, query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename , datas, data_index, tweet_batch_size)
+  count_ = train_model(session, dataset,query_similarity, query_tokens, query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename , datas, data_index, tweet_batch_size)
   placeholders += [[train_inputs, word_char_embeddings, train_labels]]
-  train_model(session, dataset,query_similarity, query_tokens ,query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size)
+  count_ = train_model(session, dataset,query_similarity, query_tokens ,query_ints, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_roll, placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename, datas, data_index, tweet_batch_size, count_)
   
-  expanded_query_tokens, expanded_query_holder, final_query_similarity= expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity, expand_start, expand_count)
+  expanded_query_tokens, expanded_query_holder, final_query_similarity= expand_query(expand_flag, session,query_ints, np.array(query_tokens),dataset ,similarity_query, word_batch_dict, 100, query_ints, expanded_query_ints, query_similarity, expanded_query_similarity, expand_start_count, expand_count)
   expanded_query_tokens = query_tokens + expanded_query_tokens
   print(expanded_query_tokens)
   
-  train_model(session, dataset,final_query_similarity, expanded_query_tokens, expanded_query_holder, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_train , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename , datas, data_index, tweet_batch_size)
+  count_ = train_model(session, dataset,final_query_similarity, expanded_query_tokens, expanded_query_holder, query_name, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, generators, similarities, num_steps_train , placeholders,losses, optimizers, interval1, interval2, valid_size, valid_examples, reverse_dictionaries, batch_size, num_skips, skip_window, filename , datas, data_index, tweet_batch_size, count_)
   folder_name = './%s/%s/'%(dataset, query_type)
   final_embeddings = normalized_embeddings.eval()
   final_char_embedding = normalized_char_embeddings.eval()

@@ -4,7 +4,7 @@ import numpy as np
 sorted_tweets = []
 tweet_count = 0
 tweet_list = []
-def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename, flag=False, break_counter=25):
+def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, query_name, session, word_batch_list, char_batch_list, tweet_word_holder, tweet_char_holder, count, tweet_batch_size, filename, flag=False, break_counter=25, both_flag=False):
   global sorted_tweets, tweet_count
   if tweet_list == []:
     load_tweet(dataset)
@@ -46,15 +46,22 @@ def print_tweets(dataset, query_similarity, query_tokens, query_token_holder, qu
     dataset_name = list(dataset)
     dataset_name[0] = dataset[0].upper()
     dataset_name[1:] = dataset[1:]
-    file_list.append('%s-%s 0 %s %d %f running'%(dataset, query_name,sorted_tweets[i][0],i+1,sorted_tweets[i][1]))
+    if both_flag : 
+      if int(sorted_tweets[i][0][0]) == 5:
+        something = "Nepal"
+      else:
+        something = "Italy"
+      file_list.append('%s-%s 0 %s %d %f running'%(something, query_name,sorted_tweets[i][0],i+1,sorted_tweets[i][1]))
+    else :
+      file_list.append('%s-%s 0 %s %d %f running'%(dataset, query_name,sorted_tweets[i][0],i+1,sorted_tweets[i][1]))
   cmd = "mkdir %s"%(folder_name)
   process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr = subprocess.PIPE)
   output, error = process.communicate()
 
   with open("%stweet_list_%d.txt"%(folder_name,count),mode="w") as fw:
     fw.write('\n'.join(map(lambda x: str(x),file_list)))
+  print("%stweet_list_%d.txt"%(folder_name,count))
   return count
-
 def standard_print_fn(filename, step, average_loss, start, density, count):
   print("Running %s at %d where the average_loss is : %f"%(filename, step, average_loss/density))
   print("Time taken for said iteration was: %f.2"%(time.time()-start))

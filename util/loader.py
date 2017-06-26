@@ -10,7 +10,7 @@ def read_data(filename):
 # Step 2: Build the dictionary and replace rare words with UNK token.
 
 
-def build_dataset(words, vocabulary_size,dataset):
+def build_dataset(words, smaller_words, vocabulary_size,dataset):
   count = [['UNK', -1]]
   count.extend(collections.Counter(words).most_common(vocabulary_size - 1))
   dictionary = dict()
@@ -18,7 +18,7 @@ def build_dataset(words, vocabulary_size,dataset):
     dictionary[word] = len(dictionary)
   data = list()
   unk_count = 0
-  for word in words:
+  for word in smaller_words:
     if word in dictionary:
       index = dictionary[word]
     else:
@@ -31,17 +31,18 @@ def build_dataset(words, vocabulary_size,dataset):
 
 word_batch_dict = dict()
 char_batch_dict = dict()
-def build_everything(dataset):
+def build_everything(dataset, consider=False, consider_set=None):
   global word_batch_dict, char_batch_dict
-  vocabulary_size = 50000
+  vocabulary_size = 100000
   with open("../data/%s/data.npy"%(dataset)) as fil:
     t = fil.readlines()
   word_max_len, char_max_len = map(lambda x: int(x),t)
 
-  filename = '../data/%s/corpus.txt'%(dataset)
+  filename = '../data/corpus.txt'
   words,chars,character_data = read_data(filename)
   print('Data size', len(words))
-
+  filename_rel = '../data/%s/corpus.txt'%(dataset)
+  smaller_words, chars, character_data = read_data(filename_rel)
   char_dictionary = dict()
   for char in chars:
     char_dictionary[char] = len(char_dictionary)
@@ -51,7 +52,7 @@ def build_everything(dataset):
   for char in character_data:
     char_data.append(char_dictionary[char])
 
-  data, count, dictionary, reverse_dictionary = build_dataset(words, vocabulary_size, dataset)
+  data, count, dictionary, reverse_dictionary = build_dataset(words, smaller_words, vocabulary_size, dataset)
   del words  # Hint to reduce memory.
   print('Most common words (+UNK)', count[:5])
   print('Sample data', data[:10], [reverse_dictionary[i] for i in data[:10]])
@@ -61,10 +62,21 @@ def build_everything(dataset):
 
   word_batch_list = np.load("../data/%s/word_embedding.npy"%(dataset))
   char_batch_list = np.load("../data/%s/char_embedding.npy"%(dataset))
+  print(len(word_batch_list))
   with open("../data/%s/tweet_ids.txt"%(dataset)) as fil:
-    tweet_list = map(lambda y: filter(lambda x: x != '\n',y), fil.readlines())
+    tweet_list = map(lambda x: filter(lambda y: y != '\n', x), fil.readlines())
   word_batch_dict = dict(zip(tweet_list, word_batch_list))
   char_batch_dict = dict(zip(tweet_list, char_batch_list))
+  if consider :
+    if consider_set == "nepal" : 
+      string = int("5")
+    else:
+      string = int("7")
+    for t in word_batch_dict.keys():
+      if int(t[0]) == string:
+        del word_batch_dict[t]
+        del char_batch_dict[t]
+
   batch_list = dict()
   buffer_index = 1
   return char_batch_dict, word_batch_dict,data, count, dictionary, reverse_dictionary, word_max_len, char_max_len, vocabulary_size, char_dictionary, reverse_char_dictionary, data_index, char_data_index, buffer_index, batch_list, char_batch_list, word_batch_list, char_data

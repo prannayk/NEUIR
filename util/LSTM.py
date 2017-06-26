@@ -41,6 +41,6 @@ def attention(w1, w2, attention_input):
     embedding_size = int(attention_input.shape[-1])
     weights = tf.stack([w1]*batch_size)
     vvector = tf.stack([w2]*batch_size)
-    attention = tf.nn.softmax(tf.matmul(vvector, tf.nn.tanh(tf.matmul(attention_input,weights)),transpose_a=True))
+    attention = tf.nn.softmax(tf.matmul(vvector, tf.nn.tanh(tf.matmul(attention_input,weights)),transpose_a=True,transpose_b=True))
     output = tf.reshape(tf.matmul(attention,attention_input),shape=[batch_size,embedding_size])
     return output

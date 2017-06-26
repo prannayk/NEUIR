@@ -25,7 +25,7 @@ from expand_query import *
 from argument_loader import *
 from setup import *
 
-dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag,lr_, matchname, counter = import_arguments(sys.argv)
+dataset, query_type, filename, num_steps, num_steps_roll, num_steps_train, expand_flag,lr_, matchname = import_arguments(sys.argv)
 
 # Read the data into a list of strings.
 # import data

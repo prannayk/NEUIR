@@ -10,7 +10,11 @@ from nltk.stem.lancaster import LancasterStemmer
 from nltk.corpus import stopwords
 
 args = sys.argv
-dataset = args[1]
+if len(args) == 1:
+	dataset = 'nepal'
+	dataset2 = 'italy'
+else: 
+	dataset = args[1]
 
 tknzr = TweetTokenizer(strip_handles=True, reduce_len=True, preserve_case=False)
 st = LancasterStemmer()
@@ -38,6 +42,9 @@ def filter_fn(x):
 print("Loading tweets")
 f = open('../dataset/%s.jsonl'%(dataset))
 text = f.readlines()
+if len(args) == 1:
+	f = open('../dataset/%s.jsonl'%(dataset2))
+	text += f.readlines()
 corpus = dict()
 corpus_file = list()
 count = 0
@@ -52,17 +59,26 @@ for line in text:
 		word_max_len = len(corpus[tweet['id']])
 	corpus_file += corpus[tweet['id']]
 file = ' '.join(corpus_file)
+if len(args) == 1:
+    dataset = ""
 with open('../data/%s/corpus.txt'%(dataset),mode="w") as fil:
 	fil.write(file)
 print("Written corpus to file")
-
-words = file.split()
+if len(args) > 1:
+    print("Using everything")
+    with open("../data/corpus.txt",mode="r") as fil:
+        text = '\n'.join(fil.readlines())
+else:
+    text = file
+print(len(file))
+print(len(text))
+words = text.split()
 chars = list(set(file))
 character_data = file
 print('Data size', len(words))
 
 # Step 2: Build the dictionary and replace rare words with UNK token.
-vocabulary_size = 50000
+vocabulary_size = 100000
 
 
 def build_dataset(words, vocabulary_size):
